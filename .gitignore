@@ -1,2 +1,5 @@
 PPO_helper/agent_internals
-*/.ipynb_checkpoints
+*.ipynb_checkpoints*
+*__pycache__*
+*.swp
+text_pretraining_data

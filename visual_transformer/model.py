@@ -311,21 +311,45 @@ class DefaultAgentBrain(nn.Module):
     def get_device(self):
         return self.img_enc.get_device()
 
-    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True):
-        text_encoding = self.text_enc(text_batch)
-        if img_batch is None:
-            text_output = self.text_dec(text_encoding)
+#    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True):
+#        text_encoding = self.text_enc(text_batch)
+#        if img_batch is None:
+#            text_output = self.text_dec(text_encoding, return_full=return_full)
+#        else:
+#            img_encoding = self.img_enc(img_batch)
+#            text_output = self.text_dec(text_encoding, img_encoding, return_full)
+#        if not ret_imgs:
+#            return text_output
+#        else:
+#            if img_batch is None:
+#                batches = text_batch.size()[0]
+#                img_encoding = torch.zeros((batches, 768), device = self.get_device())
+#            img_output = self.img_dec(img_encoding, text_encoding)
+#            return text_output, img_output
+
+    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
+        if use_masks:
+            src_attention_mask = generate_src_mask(text_batch.size(1), text_batch.device)
+            src_key_padding_mask = generate_src_padding_mask(text_batch)
         else:
-            img_encoding = self.img_enc(img_batch)
-            text_output = self.text_dec(text_encoding, img_encoding, return_full)
+            src_attention_mask = None
+            src_key_padding_mask = None
+        text_encoding = self.text_enc(text_batch, src_attention_mask=src_attention_mask, src_key_padding_mask=src_key_padding_mask)
+        if img_batch is None:
+            img_context = text_encoding # just feed the text features back to itself.
+        else:
+            img_context = self.img_enc(img_batch)
+        text_probs = self.text_dec(text_encoding, img_context, return_full, tgt_mask=src_attention_mask, tgt_key_padding_mask=src_key_padding_mask)
         if not ret_imgs:
-            return text_output
+            return text_probs
         else:
             if img_batch is None:
                 batches = text_batch.size()[0]
-                img_encoding = torch.zeros((batches, 768), device = self.get_device())
-            img_output = self.img_dec(img_encoding, text_encoding)
-            return text_output, img_output
+                img_encoding = torch.zeros((batches, 768), device=self.get_device())
+            else:
+                img_encoding = img_context
+            img_reconstruction = self.img_dec(img_encoding, text_encoding)
+            return text_probs, img_reconstruction
 
     def img_autoencoder(self, img_batch, context = None):
         img_encoding = self.img_enc(img_batch)

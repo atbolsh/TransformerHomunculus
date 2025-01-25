@@ -24,4 +24,37 @@ For a demonstration of the code (in case I forget and haven't made .ipynb's for 
 Next task: pretraining, especially on images. I need to see the capacity of the image transformer autoencoder I have chosen. This can be done on the smaller
 penguins.farm server.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jan 25, 2025
+
+
+Using Florence notebooks as precedent, I wrote 3 python notebooks to feed game snapshots, text, or both to the brain.
+
+** Note: For text, I'm using the totoeba small English dataset, and the tokenizer created in Florence.
+** I will save the tokenizer but not the lang data in git
+** The English data can be found here: https://tatoeba.org/en/downloads 
+
+I will delete the text and game alone notebooks, but BrainMultimodal remains as the template for further work.
+
+Some changes to the model itself were necessary; the Florence code turned out to be imperfect (masks unused; weird defaults)
+
+~~~~
+
+Tmr: modify the multimodal notebook into pretraining, and launch it before your trip back.
+
+create 40 images at a time, but only load them onto the device in sets of 10.
+
+batchsize 10 for the text.
+
+I will probably be done with visual autoencoder training by the time I'm half done with the sentence pretraining.
+
+Copy epoch number, lr's, etc, from lang_experiments.
+
+If those turn out to be a problem, experiment.
+
+~~~~
+
+This is secondary to hardware debugging. I really need my main server back.
 
