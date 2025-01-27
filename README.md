@@ -58,3 +58,32 @@ If those turn out to be a problem, experiment.
 
 This is secondary to hardware debugging. I really need my main server back.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jan 27, 2025
+
+No hardware debugging
+
+Started text pretraining on the small server. Will take several days.
+
+Some more code modifications for ease of use.
+
+Will do image pretraining next (besides hardware debugging).
+
+Using randn for image input, unfortunately; will also use randn for text input when training images.
+
+Teaching them to talk together will be finetuning, if it's needed.
+
+I had an idea how to make the two talk to each other during training (see Brain Multimodal), but it ended up being too slow.
+
+I will really need the large server.
+
+~~~~
+
+Next steps: definitely hardware debugging.
+
+
+
+
+

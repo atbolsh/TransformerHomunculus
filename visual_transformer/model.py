@@ -327,19 +327,29 @@ class DefaultAgentBrain(nn.Module):
 #            img_output = self.img_dec(img_encoding, text_encoding)
 #            return text_output, img_output
 
-    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
+    def get_masks(self, text_batch, use_masks=True):
         if use_masks:
             src_attention_mask = generate_src_mask(text_batch.size(1), text_batch.device)
             src_key_padding_mask = generate_src_padding_mask(text_batch)
         else:
             src_attention_mask = None
             src_key_padding_mask = None
-        text_encoding = self.text_enc(text_batch, src_attention_mask=src_attention_mask, src_key_padding_mask=src_key_padding_mask)
+        return src_attention_mask, src_key_padding_mask
+
+    def get_text_encoding(self, text_batch, src_attention_mask, src_key_padding_mask):
+        return self.text_enc(text_batch, src_attention_mask=src_attention_mask, src_key_padding_mask=src_key_padding_mask)
+
+    def get_text_decoding(self, text_encoding, src_attention_mask, src_key_padding_mask, context=None, return_full=True):
+        return self.text_dec(text_encoding, context, return_full=return_full, tgt_mask=src_attention_mask, tgt_key_padding_mask=src_key_padding_mask)
+
+    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
+        src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
+        text_encoding = self.get_text_encoding(text_batch, src_attention_mask, src_key_padding_mask)
         if img_batch is None:
             img_context = text_encoding # just feed the text features back to itself.
         else:
             img_context = self.img_enc(img_batch)
-        text_probs = self.text_dec(text_encoding, img_context, return_full, tgt_mask=src_attention_mask, tgt_key_padding_mask=src_key_padding_mask)
+        text_probs = self.get_text_decoding(text_encoding, src_attention_mask, src_key_padding_mask, img_context, return_full)
         if not ret_imgs:
             return text_probs
         else:
@@ -355,23 +365,16 @@ class DefaultAgentBrain(nn.Module):
         img_encoding = self.img_enc(img_batch)
         if context is None:
             context = img_encoding
-        return self.img_dec(img_encoding)
+        return self.img_dec(img_encoding, context)
 
-    def sentence_autoencoder(self, text_input, context = None, return_full=True, use_masks=False):
-        if use_masks:
-            src_attention_mask = generate_src_mask(text_input.size(1), text_input.device)
-            src_key_padding_mask = generate_src_padding_mask(text_input)
-        else:
-            src_attention_mask = None
-            src_key_padding_mask = None
-#        print(src_attention_mask)
-#        print(src_key_padding_mask)
-        text_encoding = self.text_enc(text_input, src_attention_mask=src_attention_mask, src_key_padding_mask=src_key_padding_mask)
+    def sentence_autoencoder(self, text_batch, context = None, return_full=True, use_masks=False):
+        src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
+        text_encoding = self.get_text_encoding(text_batch, src_attention_mask, src_key_padding_mask)
 #        print(text_encoding)
         # These lines not needed; this chance is covered more smoothly by the conditions within text_dec
 #        if context is None:
 #            context = text_encoding
-        return self.text_dec(text_encoding, context, return_full, tgt_mask=src_attention_mask, tgt_key_padding_mask=src_key_padding_mask)
+        return self.get_text_decoding(text_encoding, src_attention_mask, src_key_padding_mask, context, return_full)
 
     # I will keep this as the default dopamine signal; may spin some other 'raw default' types later.
     def evaluate_text(self, text_batch, img_batch=None):

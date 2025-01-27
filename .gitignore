@@ -3,3 +3,4 @@ PPO_helper/agent_internals
 *__pycache__*
 *.swp
 text_pretraining_data
+brain_checkpoints
