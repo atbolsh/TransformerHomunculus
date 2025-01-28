@@ -83,6 +83,40 @@ I will really need the large server.
 
 Next steps: definitely hardware debugging.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jan 28, 2025
+
+Checked on training: it was slow. At 5.6ish, instead of 3.0ish for the smaller model back when it was at the same epoch.
+
+Relaunching training using a scaled lr and no Adam betas. Will see if it's better.
+
+~~~~
+
+Lots of hardware debugging.
+
+I got the damn thing to see both GPUs, but this is going to be a pain. Each GPU is going to keep falling off
+
+In addition, I have to log in without seeing the password getting typed out.
+ -- display is a mess, with two Xorg sessions.
+ -- I should be able to fix this with xorg.conf, but I tried once and it bored me. Will maybe retry only later.
+
+Frequent saving is in order.
+
+Will launch a train sequence for the image portion, on penguins.army.
+
+In addition, will ask dad to make penguins.arm visible on the web.
+
+I think most work on that monstrosity will come from the laptop.
+
+~~~~
+
+Tmr:
+ -- check on this training sequence. End it? Restart?
+ -- launch an image training sequence, this time on the server.
+ -- think about external backups for the brain weights. Consider a dedicated external drive. Check your HW supplies, dig one out and test.
+
 
 
 
