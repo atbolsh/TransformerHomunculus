@@ -130,6 +130,20 @@ Simple, clean day. Continued text pretraining on penguins.farm; launched image p
 
 Quick brainstorm about infrastructure and how to make my life easier; file infrastructure_ideas. Will implement those on some weekend.
 
+General plan for next several weeks:
+ -- pretraining
+ -- pretraining with both together
+ -- question-answer pairs of various sorts, mixed in with 'repeat' epochs to prevent catastrophic forgetting
+ -- don't focus on making it make sense, yet; give it the raw skills (like left / right, straight path, corner id, playing game, simple logic, etc.)
+ -- step back from skill teaching; find a way to connect all of these things together.
+
+
+
+~~~~
+
+UPDATE:
+nothing works. Some auto-update broke my ubuntu drivers, which is a damn shame.
+Tomorrow will involve fixing the driver before I can do anything intelligent.
 
 
 
