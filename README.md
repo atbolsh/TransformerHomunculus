@@ -113,8 +113,9 @@ I think most work on that monstrosity will come from the laptop.
 ~~~~
 
 Tmr:
- -- check on this training sequence. End it? Restart?
- -- launch an image training sequence, this time on the server.
+X -- check on this training sequence. End it? Restart?
+     -- I'll let it finish. Why not? I may let the big server run one more time with it. Will see.
+ -- launch an image training sequence, this time on the big server.
  -- think about external backups for the brain weights. Consider a dedicated external drive. Check your HW supplies, dig one out and test.
 
 
