@@ -115,8 +115,21 @@ I think most work on that monstrosity will come from the laptop.
 Tmr:
 X -- check on this training sequence. End it? Restart?
      -- I'll let it finish. Why not? I may let the big server run one more time with it. Will see.
- -- launch an image training sequence, this time on the big server.
+X -- launch an image training sequence, this time on the big server.
+     -- neatly fits on the big GPU, all alone. Will use that one a lot, I think.
+     -- as expected, the GPU memory is well-used, but the temperature isn't that high.
+     -- bottleneck is probably numpy-based image generation (CPU); that will need to change. I may rewrite my game in JAX at some point.
  -- think about external backups for the brain weights. Consider a dedicated external drive. Check your HW supplies, dig one out and test.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jan 29, 2025
+
+Simple, clean day. Continued text pretraining on penguins.farm; launched image pretraining on the workhorse.
+
+Quick brainstorm about infrastructure and how to make my life easier; file infrastructure_ideas. Will implement those on some weekend.
+
 
 
 
