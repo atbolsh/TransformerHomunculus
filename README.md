@@ -137,15 +137,26 @@ General plan for next several weeks:
  -- don't focus on making it make sense, yet; give it the raw skills (like left / right, straight path, corner id, playing game, simple logic, etc.)
  -- step back from skill teaching; find a way to connect all of these things together.
 
-
-
 ~~~~
 
 UPDATE:
 nothing works. Some auto-update broke my ubuntu drivers, which is a damn shame.
-Tomorrow will involve fixing the driver before I can do anything intelligent.
+X Tomorrow will involve fixing the driver before I can do anything intelligent.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jan 30, 2025
+
+Driver fixed. Using 560 now. After some apt games (autoremove, fix-broken, etc), the damn thing actually worked. I didn't even have to reinstall torch.
+
+Relaunched image pretraining. Seems to be twice as slow as before. No explanation I can find. Will run more tests later.
+
+Tmr:
+
+ -- temporary interruption, look at the output quality.
+ -- possibly interrupt the penguins.farm pretraining.
+ -- No other big tasks. Extra time? Read the Deepseek paper and play with it. Try to understand their approach.
 
 
 
