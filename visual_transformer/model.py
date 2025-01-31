@@ -18,12 +18,13 @@ from torch.utils.data import Dataset
 class PositionalEmbedding(nn.Module):
     def __init__(self, sequence_length, embed_dim):
         super().__init__()
-        self.sqrt_embed_dim = math.sqrt(embed_dim)
+#        self.sqrt_embed_dim = math.sqrt(embed_dim)
         self.pos_embed = nn.Parameter(torch.empty((1, sequence_length, embed_dim)))
-        nn.init.uniform_(self.pos_embed, -1.0, 1.0)
+        nn.init.uniform_(self.pos_embed, -0.25, 0.25) # -1.0, 1.0)
     
     def forward(self, x):
-        return x * self.sqrt_embed_dim + self.pos_embed[:,:x.size(1)]
+#        return x * self.sqrt_embed_dim + self.pos_embed[:,:x.size(1)]
+        return x + self.pos_embed[:,:x.size(1)]
 
 
 # Stolen from here: https://medium.com/correll-lab/building-a-vision-transformer-model-from-scratch-a3054f707cc6

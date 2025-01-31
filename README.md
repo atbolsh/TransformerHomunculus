@@ -154,9 +154,25 @@ Relaunched image pretraining. Seems to be twice as slow as before. No explanatio
 
 Tmr:
 
- -- temporary interruption, look at the output quality.
- -- possibly interrupt the penguins.farm pretraining.
+X -- temporary interruption, look at the output quality.
+X -- possibly interrupt the penguins.farm pretraining.
+   -- interrupted, no need for the marginal returns. Will test it and use this pretraining for the next task.
  -- No other big tasks. Extra time? Read the Deepseek paper and play with it. Try to understand their approach.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jan 31, 2025
+
+The autoencoder did not learn at all (beyond smearing the average color on the entire output image).
+
+I changed positional embedding to have more of a punch (so each patch knows where it is in the sequence).
+I then restarted training with a higher lr.
+
+It will train the entire weekend.
+
+If no luck, next week will basically just be debugging the image autoencoder portion.
+There are many ways to do this, starting with fake datasets that include only one image (black square in corner), looking up autoencoders for 224x224 images in general, etc.
 
 
+Also: synced the two folders on the two machines using git.
