@@ -113,11 +113,50 @@ I think most work on that monstrosity will come from the laptop.
 ~~~~
 
 Tmr:
- -- check on this training sequence. End it? Restart?
- -- launch an image training sequence, this time on the server.
+X -- check on this training sequence. End it? Restart?
+     -- I'll let it finish. Why not? I may let the big server run one more time with it. Will see.
+X -- launch an image training sequence, this time on the big server.
+     -- neatly fits on the big GPU, all alone. Will use that one a lot, I think.
+     -- as expected, the GPU memory is well-used, but the temperature isn't that high.
+     -- bottleneck is probably numpy-based image generation (CPU); that will need to change. I may rewrite my game in JAX at some point.
  -- think about external backups for the brain weights. Consider a dedicated external drive. Check your HW supplies, dig one out and test.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jan 29, 2025
+
+Simple, clean day. Continued text pretraining on penguins.farm; launched image pretraining on the workhorse.
+
+Quick brainstorm about infrastructure and how to make my life easier; file infrastructure_ideas. Will implement those on some weekend.
+
+General plan for next several weeks:
+ -- pretraining
+ -- pretraining with both together
+ -- question-answer pairs of various sorts, mixed in with 'repeat' epochs to prevent catastrophic forgetting
+ -- don't focus on making it make sense, yet; give it the raw skills (like left / right, straight path, corner id, playing game, simple logic, etc.)
+ -- step back from skill teaching; find a way to connect all of these things together.
+
+~~~~
+
+UPDATE:
+nothing works. Some auto-update broke my ubuntu drivers, which is a damn shame.
+X Tomorrow will involve fixing the driver before I can do anything intelligent.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jan 30, 2025
+
+Driver fixed. Using 560 now. After some apt games (autoremove, fix-broken, etc), the damn thing actually worked. I didn't even have to reinstall torch.
+
+Relaunched image pretraining. Seems to be twice as slow as before. No explanation I can find. Will run more tests later.
+
+Tmr:
+
+ -- temporary interruption, look at the output quality.
+ -- possibly interrupt the penguins.farm pretraining.
+ -- No other big tasks. Extra time? Read the Deepseek paper and play with it. Try to understand their approach.
 
 
 
