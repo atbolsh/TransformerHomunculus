@@ -176,3 +176,7 @@ There are many ways to do this, starting with fake datasets that include only on
 
 
 Also: synced the two folders on the two machines using git.
+
+Added a 'global_plans' doc for the next several months (while working on the game).
+
+
