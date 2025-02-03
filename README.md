@@ -179,4 +179,18 @@ Also: synced the two folders on the two machines using git.
 
 Added a 'global_plans' doc for the next several months (while working on the game).
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 3, 2025
+
+Damn thing did fail. Debugging this week.
+
+Plan:
+X learn to ssh into this at all (even from your own network)
+  -- 192.168.5.116; will do something more with this IP address later
+X use the wifi mesh
+ backup all the stuff
+ start debugging? Or do tmr?
+
 
