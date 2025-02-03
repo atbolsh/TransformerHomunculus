@@ -205,4 +205,17 @@ start debugging? Or do tmr?
 
 ~~~~~
 
+Continuing on penguins.farm
+
+In the interests of min noise, running debugging here.
+Will return to the behemoth when it is appropriate.
+
+~~~~~
+
+Debugging began, in ImageAutoDebugging.
+
+Results are as expected so far.
+
+Next steps involve going through step-by-step, then trying to copy someone else's approach.
+
 
