@@ -188,9 +188,21 @@ Damn thing did fail. Debugging this week.
 
 Plan:
 X learn to ssh into this at all (even from your own network)
-  -- 192.168.5.116; will do something more with this IP address later
+  -- will do something more with this IP address later
 X use the wifi mesh
- backup all the stuff
- start debugging? Or do tmr?
+X backup all the stuff
+  -- for some reason, the device does not appear automatically in /media/atbolsh on penguins.army
+  -- In that case, run dmesg
+  -- should see line like
+            [2952.552623]  sdc: sdc1
+  -- from there, run 
+            sudo mount sdc1 KINGSTON_mountpoint
+  -- note that KINGSTON_mountpoint is a folder in ~
+  -- when done, run
+            sudo umount KINGSTON_mountpoint
+  -- a bit tedious; I may make a script for this. FOr now, a funny quirk.
+start debugging? Or do tmr?
+
+~~~~~
 
 
