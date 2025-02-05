@@ -260,4 +260,23 @@ Added pass through path
 Launched training
 
 
+PS I'm going to have issues using the transformer to modify the correct patch input point.
+It will have great difficulty knowing where exactly it is.
+
+Maybe I should try training the thing to recreate the image, but with a dead square, or a flipped color agent, or something.
+
+~~~~~~
+
+Priorities:
+1) Check that it can train at all
+2) Look up the 'missing patches' visual autoencoders one more time. Add some version of those structures
+3) Try adding some conditional dead pixels or something.
+4) Once that works, think about image embedding one more time. Maybe add the 'multiple scales' things after all (16x16, 4x4, and 2x2 all queued up).
+
+Damn shame, but it looks like this business will still need some more architectural input before I move on to the main task.
+I familiarized myself with the standard transformer, but not a visual transformer, and for sure not a visuarl autoencoder.
+
+This shouldn't take long, though. I think I'll have at least one of the 'fun tasks' (eg draw a path) starting training before Argentina
+
+
 
