@@ -201,7 +201,7 @@ X backup all the stuff
   -- when done, run
             sudo umount KINGSTON_mountpoint
   -- a bit tedious; I may make a script for this. FOr now, a funny quirk.
-start debugging? Or do tmr?
+X start debugging? Or do tmr?
 
 ~~~~~
 
@@ -216,6 +216,46 @@ Debugging began, in ImageAutoDebugging.
 
 Results are as expected so far.
 
-Next steps involve going through step-by-step, then trying to copy someone else's approach.
+Next steps involve going through step-by-step, then trying to copy someone else's approach (if own approach fails).
+ -- after this works, I will play with other ways to indicate position
+ -- I may also try the 'different scale feature' embeddings, to make zooming later easier. I can have some fun with this.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 3, 2025
+
+Debugging continues.
+
+It appears that most uses of the transformerDecoder assume input masks - that is, they assume autoregressive behavior.
+
+No version of the decoder appears to be able to differentiate the position, no matter what happens.
+
+THis is even true of the original decoder input as described in the first paper (Attention is All You Need).
+
+~~~~~~~~
+
+Next steps, over days:
+
+X 1) Check if transformerEncoder has the same issue or not (my money's on 'not')
+     -- it does!
+X 2) Look carefully at the math and the code. Understand exactly why (I think I know why, but get the exact value)
+     -- I think it *can* detect things only from itself, *but* it's not great at it.
+     -- It's best at combined influence of all other tokens.
+X 3) Make a custom decoder with a pass-through layer, like those old visual systems.
+     -- pass through added for the entire encoder and entire decoder
+     -- the cross terms will come in useful later.
+     -- I may play with the exact way this is encoded next
+~ 4) Redesign input / output, possibly with only one input / output and unique masks (though I'd rather have separate output decoders).
+     -- unnecessary; pass through used instead
+5) Run training.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 4, 2025
+
+
+
 
 

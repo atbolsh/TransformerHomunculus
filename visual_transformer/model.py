@@ -109,6 +109,7 @@ class ImageTransformerEncoder(nn.Module):
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
         self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        self.post_norm = nn.LayerNorm(embed_dim)
         # Convenient tensor:
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
 
@@ -117,8 +118,8 @@ class ImageTransformerEncoder(nn.Module):
     
     def forward(self, x):
         x = self.embed(x)
-        x = self.encoder(x)
-        return x
+        x = x + self.encoder(x)
+        return self.post_norm(x)
 
 # At the end, we have an emedding for every patch.
 
@@ -150,7 +151,7 @@ class ImageTransformerDecoder(nn.Module):
     def forward(self, x, context = None):
         if context is None:
             context = x
-        x = self.decoder(x, context)
+        x = x + self.decoder(x, context)
         return self.linear_layer(x)
 
 #### Lang model
