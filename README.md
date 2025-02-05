@@ -248,14 +248,16 @@ X 3) Make a custom decoder with a pass-through layer, like those old visual syst
      -- I may play with the exact way this is encoded next
 ~ 4) Redesign input / output, possibly with only one input / output and unique masks (though I'd rather have separate output decoders).
      -- unnecessary; pass through used instead
-5) Run training.
+X 5) Run training.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Feb 4, 2025
 
-
+See above for notes
+Added pass through path
+Launched training
 
 
 
