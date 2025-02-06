@@ -304,4 +304,17 @@ WIll rewrite the image autoencoder code followign this guide:
 https://medium.com/thedeephub/building-vision-transformer-from-scratch-using-pytorch-an-image-worth-16x16-words-24db5f159e27
 https://medium.com/thedeephub/building-mae-vision-transformer-from-scratch-using-pytorch-masked-autoencoders-are-scalable-2c2e78e0be02
 
+~~~~~~~~
+
+***I FINALLY HAVE A VERSION THAT WORKS***
+
+Sort of . . . I killed the decoder and had to reimplement the encoder from scratch.
+
+Tomorrow:
+1) Try with the built-in encoder and same training parameters, just in case
+2) Rewrite the decoder from scratch; use it.
+
+
+Weekend:
+Save everything, merge all branches, rerun all the pretraining. Plan the first task.
 

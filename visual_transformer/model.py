@@ -13,8 +13,9 @@ from tokenizers import ByteLevelBPETokenizer
 from tokenizers.processors import BertProcessing
 from torch.utils.data import Dataset
 
+from .custom_transformer import *
 
-
+"""
 class PositionalEmbedding(nn.Module):
     def __init__(self, sequence_length, embed_dim):
         super().__init__()
@@ -85,7 +86,7 @@ class PatchEmbeddingTranspose(nn.Module):
         x = self.linear_project(x) # (B, d_model, P_col, P_row) -> (B, C, H, W)
        
         return x
-
+"""
 
 # Main workhorse, image to embedding
 # Default are the ViT parameters: https://arxiv.org/pdf/2010.11929 page 5
@@ -100,31 +101,37 @@ class ImageTransformerEncoder(nn.Module):
         self.sqrt_embed_dim = math.sqrt(embed_dim)
         self.embed = nn.Sequential(
             PatchEmbedding(embed_dim, self.img_size, self.patch_size, num_channels),
-            PositionalEmbedding(self.sequence_length, embed_dim),
+            PositionalEncoding_2D(embed_dim, num_patches),
             nn.LayerNorm(embed_dim),
             nn.Dropout(p=0.1),
         )
+
+        self.pe = self.embed[1]
         # I may be doing this wrong; I may need 1024 * 3 instead of 768 here, but I think this will do for now.
-        encoder_layer = nn.TransformerEncoderLayer(
-            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
-        )
-        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+#        encoder_layer = nn.TransformerEncoderLayer(
+#            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
+#        )
+#        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+#        self.encoder = TransformerEncoderWrapper(nn.TransformerEncoder(encoder_layer, num_layers=num_layers), self.embed_dim)
+        self.encoder = nn.Sequential(*[EncBlock(self.embed_dim, num_heads) for _ in range(num_layers)])
         self.post_norm = nn.LayerNorm(embed_dim)
         # Convenient tensor:
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
 
     def get_device(self):
-        return self._modules['encoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
+#        return self._modules['encoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
+        return self.pe.pe.device
     
     def forward(self, x):
         x = self.embed(x)
-        x = x + self.encoder(x)
+        x = self.encoder(x) # x + self.encoder(x)
+#        return self.post_norm(self.pe(x)) # add position information at the end, too
         return self.post_norm(x)
 
 # At the end, we have an emedding for every patch.
 
 class ImageTransformerDecoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=12, output_dim=768, dropout=0.1, norm_first=False):
+    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=1, output_dim=768, dropout=0.01, norm_first=False):
         super().__init__()
         self.patch_num = num_patches
         self.sequence_length = num_patches * num_patches
@@ -137,6 +144,7 @@ class ImageTransformerDecoder(nn.Module):
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
         self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
+#        self.decoder = TransformerDecoderWrapper(nn.TransformerDecoder(decoder_layer, num_layers=num_layers), self.embed_dim)
         self.linear_layer = nn.Sequential(
             nn.Dropout(p=0.1),
             nn.LayerNorm(embed_dim),
@@ -151,7 +159,7 @@ class ImageTransformerDecoder(nn.Module):
     def forward(self, x, context = None):
         if context is None:
             context = x
-        x = x + self.decoder(x, context)
+#        x = x + self.decoder(x, context)
         return self.linear_layer(x)
 
 #### Lang model
