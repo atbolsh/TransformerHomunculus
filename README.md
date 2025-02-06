@@ -296,4 +296,12 @@ Possible changes:
 2) More skip connections
 3) Location codes that reflect 2D space.
 
+~~~~~~~~
+
+On small machine:
+clearly it's still failing at it.
+WIll rewrite the image autoencoder code followign this guide: 
+https://medium.com/thedeephub/building-vision-transformer-from-scratch-using-pytorch-an-image-worth-16x16-words-24db5f159e27
+https://medium.com/thedeephub/building-mae-vision-transformer-from-scratch-using-pytorch-masked-autoencoders-are-scalable-2c2e78e0be02
+
 
