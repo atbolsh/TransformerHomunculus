@@ -268,7 +268,7 @@ Maybe I should try training the thing to recreate the image, but with a dead squ
 ~~~~~~
 
 Priorities:
-1) Check that it can train at all
+X 1) Check that it can train at all
 2) Look up the 'missing patches' visual autoencoders one more time. Add some version of those structures
 3) Try adding some conditional dead pixels or something.
 4) Once that works, think about image embedding one more time. Maybe add the 'multiple scales' things after all (16x16, 4x4, and 2x2 all queued up).
@@ -278,5 +278,22 @@ I familiarized myself with the standard transformer, but not a visual transforme
 
 This shouldn't take long, though. I think I'll have at least one of the 'fun tasks' (eg draw a path) starting training before Argentina
 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 5, 2025
+
+It trained!
+
+*v3* is the correct (minimal) functional version for the image autoencoder
+
+Saving on the behemoth, and doing some more work on the small machine to make sure that it can learn information from neighboring image blocks.
+From there, I may need to retrain, or may need to finetune, depending on the architecture changes.
+
+Possible changes:
+1) Better 'location' codes
+2) More skip connections
+3) Location codes that reflect 2D space.
 
 
