@@ -353,7 +353,8 @@ It seems I really should understand exactly how the decoders work, and figure ou
 
 *Tomorrow:*
 1) Custom Decoder; Custom decoder testing (at least once)
-2) Experiment until something works with the decoder. Keep it super shallow if you must.
+X 2) Experiment until something works with the decoder. Keep it super shallow if you must.
+ -- solution found: 6 layers enc, 3 layers dec. v8 from the braing debug saga.
 3) Think about how exactly you want to do this. 
  -- how to pretrain? Pretrain each feature, then only train the encoder / decoder stuff for the interactions
  -- train end-to-end in standard style?
@@ -373,4 +374,22 @@ Another submodule / approach may involve teaching it to play the game, with RL.
 
 These can be done in parallel or together.
 
+~~~~~~~~
+
+HELL YES! I remembered that the decoder has 2 MHA layers for every decoder layer. So, I aimed for 12 total MHA layers. I left the number of heads alone.
+
+That fixed things: 6 emcoder layers, 3 decoder layers, trains like the old encoder-alone layers.
+This is *v7*.
+
+X Next: testing with text context as randn's; we will see what that does, whether it can still learn the right thing.
+     -- complete victory.
+
+~~~~~~~~
+
+Final thoughts:
+1) Do try the custom decoder block. Good exercise to understand exactly what is going on.
+2) Make this neat. Merge the branches, clean up code.
+3) THink about training procedure (end-to-end vs stages). Launch pretraining(s)
+
+I have a great system, moving forward.
 
