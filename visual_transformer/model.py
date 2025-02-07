@@ -15,79 +15,6 @@ from torch.utils.data import Dataset
 
 from .custom_transformer import *
 
-"""
-class PositionalEmbedding(nn.Module):
-    def __init__(self, sequence_length, embed_dim):
-        super().__init__()
-#        self.sqrt_embed_dim = math.sqrt(embed_dim)
-        self.pos_embed = nn.Parameter(torch.empty((1, sequence_length, embed_dim)))
-        nn.init.uniform_(self.pos_embed, -0.25, 0.25) # -1.0, 1.0)
-    
-    def forward(self, x):
-#        return x * self.sqrt_embed_dim + self.pos_embed[:,:x.size(1)]
-        return x + self.pos_embed[:,:x.size(1)]
-
-
-# Stolen from here: https://medium.com/correll-lab/building-a-vision-transformer-model-from-scratch-a3054f707cc6
-class PatchEmbedding(nn.Module):
-    def __init__(self, d_model, img_size, patch_size, n_channels):
-        super().__init__()
-    
-        self.d_model = d_model # Dimensionality of Model
-        self.img_size = img_size # Image Size
-        self.patch_size = patch_size # Patch Size
-        self.n_channels = n_channels # Number of Channels
-    
-        self.linear_project = nn.Conv2d(self.n_channels, self.d_model, kernel_size=self.patch_size, stride=self.patch_size)
-    
-      # B: Batch Size
-      # C: Image Channels
-      # H: Image Height
-      # W: Image Width
-      # P_col: Patch Column
-      # P_row: Patch Row
-    def forward(self, x):
-        x = self.linear_project(x) # (B, C, H, W) -> (B, d_model, P_col, P_row)
-    
-        x = x.flatten(2) # (B, d_model, P_col, P_row) -> (B, d_model, P)
-    
-        x = x.transpose(1, 2) # (B, d_model, P) -> (B, P, d_model)
-        
-        return x
-
-
-# Begin personal improvization
-class PatchEmbeddingTranspose(nn.Module):
-    def __init__(self, d_model, img_size, patch_size, n_channels):
-        super().__init__()
-    
-        self.d_model = d_model # Dimensionality of Model
-        self.img_size = img_size # Image Size
-        self.patch_size = patch_size # Patch Size
-        self.n_channels = n_channels # Number of Channels
-    
-        self.linear_project = nn.ConvTranspose2d(self.d_model, self.n_channels, self.patch_size, stride=self.patch_size, output_padding=0)
-    
-      # B: Batch Size
-      # C: Image Channels
-      # H: Image Height
-      # W: Image Width
-      # P_col: Patch Column
-      # P_row: Patch Row
-    def forward(self, x):
-        x = x.transpose(1, 2) #  (B, P, d_model) -> (B, d_model, P)
-     
-        B, d, P = x.size()
-        P_col = int(math.sqrt(P)) # Assume square image always (change later?)
-        P_row = int(P / P_col)
-    
-        x = x.resize(B, d, P_col, P_row) # (B, d_model, P) -> (B, d_model, P_col, P_row)
-    
-        x = self.linear_project(x) # (B, d_model, P_col, P_row) -> (B, C, H, W)
-       
-        return x
-"""
-
 # Main workhorse, image to embedding
 # Default are the ViT parameters: https://arxiv.org/pdf/2010.11929 page 5
 class ImageTransformerEncoder(nn.Module):
@@ -108,12 +35,12 @@ class ImageTransformerEncoder(nn.Module):
 
         self.pe = self.embed[1]
         # I may be doing this wrong; I may need 1024 * 3 instead of 768 here, but I think this will do for now.
-#        encoder_layer = nn.TransformerEncoderLayer(
-#            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
-#        )
-#        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
+        )
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
 #        self.encoder = TransformerEncoderWrapper(nn.TransformerEncoder(encoder_layer, num_layers=num_layers), self.embed_dim)
-        self.encoder = nn.Sequential(*[EncBlock(self.embed_dim, num_heads) for _ in range(num_layers)])
+#        self.encoder = nn.Sequential(*[EncBlock(self.embed_dim, num_heads) for _ in range(num_layers)])
         self.post_norm = nn.LayerNorm(embed_dim)
         # Convenient tensor:
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
@@ -131,7 +58,7 @@ class ImageTransformerEncoder(nn.Module):
 # At the end, we have an emedding for every patch.
 
 class ImageTransformerDecoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=12, output_dim=768, dropout=0.01, norm_first=False):
+    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=1, output_dim=768, dropout=0.01, norm_first=False):
         super().__init__()
         self.patch_num = num_patches
         self.sequence_length = num_patches * num_patches
@@ -159,7 +86,7 @@ class ImageTransformerDecoder(nn.Module):
     def forward(self, x, context = None):
         if context is None:
             context = x
-#        x = x + self.decoder(x, context)
+        x = self.decoder(x, context)
         return self.linear_layer(x)
 
 #### Lang model
@@ -320,22 +247,6 @@ class DefaultAgentBrain(nn.Module):
 
     def get_device(self):
         return self.img_enc.get_device()
-
-#    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True):
-#        text_encoding = self.text_enc(text_batch)
-#        if img_batch is None:
-#            text_output = self.text_dec(text_encoding, return_full=return_full)
-#        else:
-#            img_encoding = self.img_enc(img_batch)
-#            text_output = self.text_dec(text_encoding, img_encoding, return_full)
-#        if not ret_imgs:
-#            return text_output
-#        else:
-#            if img_batch is None:
-#                batches = text_batch.size()[0]
-#                img_encoding = torch.zeros((batches, 768), device = self.get_device())
-#            img_output = self.img_dec(img_encoding, text_encoding)
-#            return text_output, img_output
 
     def get_masks(self, text_batch, use_masks=True):
         if use_masks:

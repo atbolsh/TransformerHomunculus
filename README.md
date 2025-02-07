@@ -329,3 +329,13 @@ DEBUG_MOVING2000 works, and works with this version of the repo.
 
 Will now try to keep modifying / experimenting
 
+~~~~~~~~
+
+Transformer encoder works!
+
+On to adding a minimal functioning decoder. May God have mercy.
+
+~~~~~~~~
+
+
+
