@@ -131,7 +131,7 @@ class ImageTransformerEncoder(nn.Module):
 # At the end, we have an emedding for every patch.
 
 class ImageTransformerDecoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=1, output_dim=768, dropout=0.01, norm_first=False):
+    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=12, output_dim=768, dropout=0.01, norm_first=False):
         super().__init__()
         self.patch_num = num_patches
         self.sequence_length = num_patches * num_patches

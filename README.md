@@ -282,7 +282,7 @@ This shouldn't take long, though. I think I'll have at least one of the 'fun tas
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Feb 5, 2025
+Feb 6, 2025
 
 It trained!
 
@@ -317,4 +317,15 @@ Tomorrow:
 
 Weekend:
 Save everything, merge all branches, rerun all the pretraining. Plan the first task.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 7, 2025
+
+It worked
+
+DEBUG_MOVING2000 works, and works with this version of the repo.
+
+Will now try to keep modifying / experimenting
 
