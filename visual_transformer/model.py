@@ -18,7 +18,7 @@ from .custom_transformer import *
 # Main workhorse, image to embedding
 # Default are the ViT parameters: https://arxiv.org/pdf/2010.11929 page 5
 class ImageTransformerEncoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=12, output_dim=768, dropout=0.1, norm_first=False):
+    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=6, output_dim=768, dropout=0.1, norm_first=False):
         super().__init__()
         self.patch_num = num_patches
         self.sequence_length = num_patches * num_patches
@@ -58,7 +58,7 @@ class ImageTransformerEncoder(nn.Module):
 # At the end, we have an emedding for every patch.
 
 class ImageTransformerDecoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=1, output_dim=768, dropout=0.01, norm_first=False):
+    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=6, output_dim=768, dropout=0.01, norm_first=False):
         super().__init__()
         self.patch_num = num_patches
         self.sequence_length = num_patches * num_patches
@@ -67,6 +67,7 @@ class ImageTransformerDecoder(nn.Module):
         self.embed_dim = embed_dim
         self.sqrt_embed_dim = math.sqrt(embed_dim)
         # I may be doing this wrong; I may need 1024 * 3 instead of 768 here, but I think this will do for now.
+        self.pe = PositionalEncoding_2D(embed_dim, num_patches)
         decoder_layer = nn.TransformerDecoderLayer(
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
@@ -81,9 +82,11 @@ class ImageTransformerDecoder(nn.Module):
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
 
     def get_device(self):
-        return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
+#        return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
+        return self.pe.pe.device
     
     def forward(self, x, context = None):
+#        x = x + 0.01 * self.pe.pe
         if context is None:
             context = x
         x = self.decoder(x, context)

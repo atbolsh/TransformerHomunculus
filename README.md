@@ -337,5 +337,40 @@ On to adding a minimal functioning decoder. May God have mercy.
 
 ~~~~~~~~
 
+1 decoder layer works, but that's really only one additional encoder layer (with how it's written).
+
+Trying now:
+X 1) 8 encoder layers, 8 decoder layers, bigger heads (6 heads instead of 12; 2 times bigger).
+X 2) 12 encoder layers, positional encoding v2, 12 decoder layers.
+
+~~~~~~~~
+
+I tried that. Neither worked.
+
+It seems I really should understand exactly how the decoders work, and figure out the training program.
+ -- only ones that worked: 12enc 0dec; 12enc 1dec (worse).
+ -- all others got to at least 3000 batches with no results at all.
+
+*Tomorrow:*
+1) Custom Decoder; Custom decoder testing (at least once)
+2) Experiment until something works with the decoder. Keep it super shallow if you must.
+3) Think about how exactly you want to do this. 
+ -- how to pretrain? Pretrain each feature, then only train the encoder / decoder stuff for the interactions
+ -- train end-to-end in standard style?
+4) Pick, then train.
+
+~~~~~~~~
+
+Some general notes:
+
+I do think, piecemeal, I will be able to get each trick to work, training either end-to-end or on a curriculum
+I may have trouble later gluing everything together. THis is not the order in which kids learn these things: they learn tasks before terms.
+
+Another submodule / approach may involve teaching it to play the game, with RL.
+ -- best approach here is to start with straight-line games only at first. Do it with just 1 gold and no walls first, and keep it near the agent.
+ -- then, build up the curriculum, teaching it the 'turn and chase' task.
+ -- may teach task first, then description, or reversed. Either approach is fine.
+
+These can be done in parallel or together.
 
 
