@@ -387,9 +387,54 @@ X Next: testing with text context as randn's; we will see what that does, whethe
 ~~~~~~~~
 
 Final thoughts:
-1) Do try the custom decoder block. Good exercise to understand exactly what is going on.
+~ 1) Do try the custom decoder block. Good exercise to understand exactly what is going on.
+    -- Kinda. Look at CustomTransformer_Experiment if you ever get confused again
+    -- Just remember: the key and value dimensions must be the same (gets cancelled). The Q must be the same as output.
 2) Make this neat. Merge the branches, clean up code.
-3) THink about training procedure (end-to-end vs stages). Launch pretraining(s)
+X 3) THink about training procedure (end-to-end vs stages).
+    -- Look at the ending of ImageAuto_MovingSquare and the v9 img_enc and img_dec
+    -- Final approach takes longer. Not worth it. May freeze layers later, but not yet.
+4) Launch pretraining(s)
 
 I have a great system, moving forward.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 8, 2025
+
+Kind of a lazy day, but enough to close the chapter on the 'debugging' phase.
+
+I understand the decoder know. I understand why cross-attention is so weird: all the 'values' in the final version come from the second vector (eg text values); 
+the main input only produces the queries (the keys are also from the text).
+
+However, the decoder has both a self-attention and a cross-attention stage, and also skip connections. Therefore, this will do.
+
+This 'weirdness' is probably another good reason to keep the image decoder shallower than the image encoder.
+
+~~~~~
+
+I have determined that pretraining the patch encoder / decoder layers and then freezing them does not necessarily make things faster / easier / better.
+
+I will stick to end-to-end for now, with possible layer-freezing tricks in the future to avoid catastrophic forgetting.
+
+~~~~~
+
+Tmr:
+
+1) Actually make this neat. Merge branches, merge all weight recordings.
+2) Launch both pretrainings alone (possibly all on behemoth). Autoencoder only for valid position.
+3) Start thinking about which next to set up and how to set it up. If pretraining is done, start that.
+
+Monday: 
+Check performance; start setting up next task.
+
+Tuesday: launch next training.
+
+
+
+
+
+
+
 

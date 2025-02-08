@@ -143,8 +143,8 @@ class MultiHead(nn.Module):
     self.att_dr = nn.Dropout(0.1)
   def forward(self, x):
     k = rearrange(self.key(x), 'b n (h e) -> b h n e', h=self.num_head)
-    q = rearrange(self.key(x), 'b n (h e) -> b h n e', h=self.num_head)
-    v = rearrange(self.key(x), 'b n (h e) -> b h n e', h=self.num_head)
+    q = rearrange(self.query(x), 'b n (h e) -> b h n e', h=self.num_head)
+    v = rearrange(self.value(x), 'b n (h e) -> b h n e', h=self.num_head)
 
 
     wei = q@k.transpose(3,2)/self.num_head ** 0.5    
@@ -179,4 +179,6 @@ class EncBlock(nn.Module):
     x = x + self.dropout(self.att(self.ll(x)))  # self.att(x): x -> (b , n, emb_size) 
     x = x + self.dropout(self.ff(self.ll(x)))
     return x
+
+
 
