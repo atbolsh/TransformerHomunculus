@@ -422,11 +422,11 @@ I will stick to end-to-end for now, with possible layer-freezing tricks in the f
 
 Tmr:
 
-1) Actually make this neat.
-    -- Merge branches, 
+X 1) Actually make this neat.
+X    -- Merge branches, 
 X    -- merge all weight recordings.
-2) Launch both pretrainings alone (possibly all on behemoth). Autoencoder only for valid position.
-3) Start thinking about which next to set up and how to set it up. If pretraining is done, start that.
+X 2) Launch both pretrainings alone (possibly all on behemoth). Autoencoder only for valid position.
+X 3) Start thinking about which next to set up and how to set it up. If pretraining is done, start that.
 
 Monday: 
 Check performance; start setting up next task.
@@ -437,6 +437,31 @@ Tuesday: launch next training.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Feb 9, 2025
+
+Launched both pretrainings, both on behemoth (though I'll have to keep the other one on. Too bad).
+
+Modified the text decoder to be a bit more shallow, perhaps also transferring the lessons from the image transformer saga.
+
+Manually walking and mounting the KINGSTON disk is annoying. I think I may write some scp tasks
+
+Next big task: any of the tricks (detect corners, move left, move right, looking direction, path to gold in empty game, anything).
+ -- I will do the naive approach first: no additional pretraining, only throw the task at it, maybe with some 'reinforce the old stuff' batches mixed in.
+ -- Fails / takes too long? Will think of smarter things (teach the shapes themselves as part of autoencoder first, etc).
+ -- Task will reproduce the image in most cases, but make it modified in some cases.
+
+~~~~~~~~
+
+This week:
+1) Tests for the corner task on penguins.farm
+2) Look at pretraining results; draw conclusions.
+3) Make a position-sensitive 'moving box equivalent' test for the text encodre? Run it on penguins.farm?
+4) Starlink, etc.
+
+~~~~~~~~
+
+Tmr: 
+Pretraining will still be running. Check on it, but don't sweat it.
+Maybe focus on the boat thing and chess instead, then actually work? Break from hobby? Food for thought.
 
 
 

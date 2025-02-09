@@ -171,7 +171,7 @@ class IntermediateTransformerScorer(nn.Module):
         return x
 
 class SentenceTransformerDecoder(nn.Module):
-    def __init__(self, sequence_length=32, num_embed=10000, embed_dim=768, pad_idx=0, num_heads=6, num_layers=8, dropout=0.1, norm_first=False):
+    def __init__(self, sequence_length=32, num_embed=10000, embed_dim=768, pad_idx=0, num_heads=6, num_layers=4, dropout=0.1, norm_first=False):
         super().__init__()
         self.vocab_size = num_embed
         self.sequence_length = sequence_length
