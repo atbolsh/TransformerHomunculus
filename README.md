@@ -422,7 +422,9 @@ I will stick to end-to-end for now, with possible layer-freezing tricks in the f
 
 Tmr:
 
-1) Actually make this neat. Merge branches, merge all weight recordings.
+1) Actually make this neat.
+    -- Merge branches, 
+X    -- merge all weight recordings.
 2) Launch both pretrainings alone (possibly all on behemoth). Autoencoder only for valid position.
 3) Start thinking about which next to set up and how to set it up. If pretraining is done, start that.
 
@@ -430,6 +432,11 @@ Monday:
 Check performance; start setting up next task.
 
 Tuesday: launch next training.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 9, 2025
 
 
 
