@@ -39,14 +39,11 @@ class ImageTransformerEncoder(nn.Module):
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
         self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
-#        self.encoder = TransformerEncoderWrapper(nn.TransformerEncoder(encoder_layer, num_layers=num_layers), self.embed_dim)
-#        self.encoder = nn.Sequential(*[EncBlock(self.embed_dim, num_heads) for _ in range(num_layers)])
         self.post_norm = nn.LayerNorm(embed_dim)
         # Convenient tensor:
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
 
     def get_device(self):
-#        return self._modules['encoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
         return self.pe.pe.device
     
     def forward(self, x):
@@ -72,7 +69,6 @@ class ImageTransformerDecoder(nn.Module):
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
         self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
-#        self.decoder = TransformerDecoderWrapper(nn.TransformerDecoder(decoder_layer, num_layers=num_layers), self.embed_dim)
         self.linear_layer = nn.Sequential(
             nn.Dropout(p=0.1),
             nn.LayerNorm(embed_dim),
@@ -82,11 +78,9 @@ class ImageTransformerDecoder(nn.Module):
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
 
     def get_device(self):
-#        return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
         return self.pe.pe.device
     
     def forward(self, x, context = None):
-#        x = x + 0.01 * self.pe.pe
         if context is None:
             context = x
         x = self.decoder(x, context)
@@ -122,7 +116,7 @@ class SentenceTransformerEncoder(nn.Module):
         self.sqrt_embed_dim = math.sqrt(embed_dim)
         self.embed = nn.Sequential(
             nn.Embedding(num_embed, embed_dim, pad_idx),
-            PositionalEmbedding(sequence_length, embed_dim),
+            PositionalEncoding(embed_dim, sequence_length),
             nn.LayerNorm(embed_dim),
             nn.Dropout(p=0.1),
         )
