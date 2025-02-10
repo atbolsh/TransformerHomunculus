@@ -463,7 +463,15 @@ Tmr:
 Pretraining will still be running. Check on it, but don't sweat it.
 Maybe focus on the boat thing and chess instead, then actually work? Break from hobby? Food for thought.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 10, 2025
+
+Text pretraining going as expected. Will kill it at the end of the day, or maybe tomorrow mornign.
+
+Image pretraining again failed to learn positions.
+I'll give it another 24 hours. If it still fails, I will retry, training the conv layers first, and using the full encoder second.
 
 
 

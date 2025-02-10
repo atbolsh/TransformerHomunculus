@@ -1,0 +1,7 @@
+Feb 10, 2025
+
+I should rewrite my game in JAX at some point, but not until I've taught it multiple tricks and training time is a real issue.
+
+I may need to redo the text input at some point. Or, I can make it very disciplined about lists / about computing "modifiers" in two stages. Don't focus on this for now
+
+For now: tricks, Starlink, new network on penguins.farm, RL mixed with MSE for image, gold chasing "instincts", etc. JAX and complete structure later.
