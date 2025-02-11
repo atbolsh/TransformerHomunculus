@@ -488,15 +488,18 @@ The 2080 isn't reachable right now. I think penguins.army needs another hardware
 
 ~~~~
 
-Running quick test on the text module, on penguins.farm
+X Running quick test on the text module, on penguins.farm
+  -- test successful; the brain easily learns to use positional encoding
 
-Will probably rerun text pretraining on penguins.farm (the 2080 death had killed that).
+X Will probably rerun text pretraining on penguins.farm (the 2080 death had killed that).
+  -- running now
 
 ~~~~
 
 Tomorrow:
  -- check on all pretraining
+ -- done pretraining? Sync all network weights and git versions.
  -- set up corner task
 
-
-
+Once image pretraining is done, I will look at the results and decid if it's good enough to continue.
+I may spend all day Monday (day off!!) to set up that task properly (maybe in several versions) and start running it
