@@ -454,14 +454,14 @@ Next big task: any of the tricks (detect corners, move left, move right, looking
 This week:
 1) Tests for the corner task on penguins.farm
 2) Look at pretraining results; draw conclusions.
-3) Make a position-sensitive 'moving box equivalent' test for the text encodre? Run it on penguins.farm?
+3) Make a position-sensitive 'moving box equivalent' test for the text encoder? Run it on penguins.farm?
 4) Starlink, etc.
 
 ~~~~~~~~
 
 Tmr: 
-Pretraining will still be running. Check on it, but don't sweat it.
-Maybe focus on the boat thing and chess instead, then actually work? Break from hobby? Food for thought.
+X Pretraining will still be running. Check on it, but don't sweat it.
+X Maybe focus on the boat thing and chess instead, then actually work? Break from hobby? Food for thought.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -472,9 +472,31 @@ Text pretraining going as expected. Will kill it at the end of the day, or maybe
 
 Image pretraining again failed to learn positions.
 I'll give it another 24 hours. If it still fails, I will retry, training the conv layers first, and using the full encoder second.
+ -- restarted it with lr 0.0001, training v5.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 11, 2025
 
+Image Pretraining had actually produced good results, but it suffered some lapse in judgement and fell back to high losses.
+Retraing, saving batch numbers as well in case this happens again.
+
+~~~~
+
+The 2080 isn't reachable right now. I think penguins.army needs another hardware debug, or at least a power cycle. Will do after the image pretraining is complete.
+
+~~~~
+
+Running quick test on the text module, on penguins.farm
+
+Will probably rerun text pretraining on penguins.farm (the 2080 death had killed that).
+
+~~~~
+
+Tomorrow:
+ -- check on all pretraining
+ -- set up corner task
 
 
 
