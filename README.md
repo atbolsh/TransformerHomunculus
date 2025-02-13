@@ -497,9 +497,61 @@ X Will probably rerun text pretraining on penguins.farm (the 2080 death had kill
 ~~~~
 
 Tomorrow:
- -- check on all pretraining
+X -- check on all pretraining
  -- done pretraining? Sync all network weights and git versions.
  -- set up corner task
 
 Once image pretraining is done, I will look at the results and decid if it's good enough to continue.
 I may spend all day Monday (day off!!) to set up that task properly (maybe in several versions) and start running it
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 12, 2025
+
+The pretrainings are going decently, but I want to see if I can get more out of it.
+I restarted the img pretraining, starting with a decently-performing batch and continuing with a lower lr
+I interrupted the text pretraining, but let it continue with a new moniker. I'll have both an overfit and just-right version after today.
+
+That is all for now. Syncing representations and code can wait until these stages are done.
+Same with the necessary power cycle of penguins.army.
+
+~~~~~~~~
+
+Evening:
+
+pretrainings still moving decently.
+Will let everything go till morning. May relaunch the text pretraining stuff with a lower lr.
+
+THere is a lot of room for improvement, especially for the text encoder.
+The '32 symbol' thing is really going to be limiting in the future, but for now, it is freeing: can pretrain with absurd batch sizes.
+
+Alternatives involve different text databases, or padding out to some minimal size like 512 or 1024.
+But the pretraining already done can be useful.
+
+In the future: I may try to transfer the learning of this network to one with a seqlength of 256 by just chaning how the positional encoding works, 
+and teaching it to imitate the output of the current network.
+
+THAT IS LATER, THOUGH.
+
+Initial work will be the 'tricks'. Especially navigating / drawing lines / describing scenes with no walls, or drawing corners.
+
+Other later work: retrain by adding the RL element as a separate stream (actions). I like that a lot.
+Add some way of gathering state (embedding timestep and adding into some shared pool LSTM style, perhaps? Or just copy whatever Foerster did?)
+Then plans, then following plans, etc.
+
+But tricks come first. I have a good curriculum for 'detecting reward and navigating towards it'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
