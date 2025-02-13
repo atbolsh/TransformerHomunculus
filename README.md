@@ -542,6 +542,29 @@ Then plans, then following plans, etc.
 
 But tricks come first. I have a good curriculum for 'detecting reward and navigating towards it'.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 13, 2025
+
+Pretraining continues, slowly. Image loss is not going down past 0.004, but that may be enough. Or I may need to switch to a larger resolution.
+
+Same for text pretraining.
+
+I'll let it got for another day.
+
+i also wrote random_bare_settings in discreteEngine, for the first 'trick'. Will debug and test that tmr / next week.
+
+~~~~~~~
+
+Tmr:
+1) Kill all pretraining no matter what
+2) Sync representations (code and weights)
+3) Power cycle penguins.army. 
+   -- if the 2080 does not come back, do another hardware debug.
+4) If time: Make another jupyter notebook. Debug the new game code; write the new task, or most of it.
+   -- this can wait till Monday / next week.
+
 
 
 

@@ -607,25 +607,39 @@ class discreteGame:
                 walls.append([wall_x2, wall_y2, wall_w, wall_h, wall_theta])
         return walls
 
-    def random_walls(self, restrict_angles=False):
+    def random_walls(self, restrict_angles=False, num_extra_walls=-1):
+        if num_extra_walls < 0:
+            num_extra_walls = self.typical_max_wall_num
         walls = self.random_side_walls()
-        for i in range(random.randint(1, self.typical_max_wall_num)):
-            walls.append(self.random_wall(restrict_angles))
+        if num_extra_walls > 0:
+            for i in range(random.randint(1, num_extra_walls)):
+                walls.append(self.random_wall(restrict_angles))
         return walls
 
-    def random_valid_coords(self, walls, radius):
+    def random_valid_coords(self, walls, radius, minX = 0.0, maxX = 1.0, minY = 0.0, maxY = 1.0):
         valid = False
+        minX = max(minX, self.side_wall_width)
+        maxX = min(maxX, 1.0 - self.side_wall_width)
+        minY = max(minY, self.side_wall_width)
+        maxY = min(maxY, 1.0 - self.side_wall_width)
         while not valid:
             test_x = random.uniform(self.side_wall_width, 1.0 - self.side_wall_width)
             test_y = random.uniform(self.side_wall_width, 1.0 - self.side_wall_width)
             valid = self.full_wall_check(test_x, test_y, walls, radius)
         return (test_x, test_y)
 
-    def random_gold(self, walls):
+    def random_gold(self, walls, max_num_gold = -1, max_agent_offset = 2.0, agent_x = 0.5, agent_y = 0.5):
+        if max_num_gold < 0:
+            max_num_gold = self.typical_max_gold_num
         gold = []
-        num_gold = random.randint(1, self.typical_max_gold_num)
-        for i in range(num_gold):
-            gold.append(self.random_valid_coords(walls, self.typical_gold_r))
+        if max_num_gold > 0:
+            minX = agent_x - max_agent_offset # usually so permissive that the gold can be anywhere
+            maxX = agent_x + max_agent_offset
+            minY = agent_y - max_agent_offset
+            maxY = agent_y + max_agent_offset
+            num_gold = random.randint(1, max_num_gold)
+            for i in range(num_gold):
+                gold.append(self.random_valid_coords(walls, self.typical_gold_r, minX, maxX, minY, maxY))
         return gold
 
     def random_settings(self, gameSize=64, restrict_angles=False):
@@ -643,4 +657,34 @@ class discreteGame:
                        agent_y = agent_y,
                        direction = direction)
         return res
+
+    # bare game. Only valid side walls, agent, and 1 gold piece, near the agent
+    # basically a tutorial level; will train the agent, initially, on this setup.
+    def random_bare_settings(self, gameSize=64, max_agent_offset = -1):
+        if max_agent_offset < self.typical_agent_r:
+            max_agent_offset = 2.0 * self.typical_agent_r
+        walls = self.random_walls(num_extra_walls=0)
+        agent_x, agent_y = self.random_valid_coords(walls, self.typical_agent_r)
+        gold = self.random_gold(walls, max_num_gold=1, max_agent_offset=max_agent_offset, agent_x=agent_x, agent_y=agent_y)
+        direction = random.uniform(0, 2*math.pi)
+        res = Settings(gameSize=gameSize,
+#                       indicator_length = self.typical_indicator_length,
+                       agent_r = self.typical_agent_r,
+                       gold_r = self.typical_gold_r,
+                       walls = walls,
+                       gold = gold,
+                       agent_x = agent_x,
+                       agent_y = agent_y,
+                       direction = direction)
+        return res
+
+
+
+
+
+
+
+
+
+
 
