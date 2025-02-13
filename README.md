@@ -565,8 +565,10 @@ Tmr:
 4) If time: Make another jupyter notebook. Debug the new game code; write the new task, or most of it.
    -- this can wait till Monday / next week.
 
+~~~~~~~
 
-
+I killed the Text Pretraining.
+Image Pretraining keeps inching down, though much more slowly than I'd like. Against my better judgement I'm giving it another several hours to impress me; will kill it in the morning.
 
 
 
