@@ -558,7 +558,8 @@ i also wrote random_bare_settings in discreteEngine, for the first 'trick'. Will
 ~~~~~~~
 
 Tmr:
-1) Kill all pretraining no matter what
+~ 1) Kill all pretraining no matter what
+     -- I changed my mind. I'll let it go to the end of this weekend. See how low it can actually go.
 2) Sync representations (code and weights)
 3) Power cycle penguins.army. 
    -- if the 2080 does not come back, do another hardware debug.
@@ -570,7 +571,15 @@ Tmr:
 I killed the Text Pretraining.
 Image Pretraining keeps inching down, though much more slowly than I'd like. Against my better judgement I'm giving it another several hours to impress me; will kill it in the morning.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+V-Day, 2025
+
+Good day. I'm letting ImagePretraining continue over the weekend just in case.
+I debugged the random 'bare game' generation, and added a way to create a line from the agent to the gold.
+
+I will write the full 'trick' code right before I launch the training. That's first priority Monday. Everything else can wait.
 
 
 

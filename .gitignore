@@ -4,3 +4,4 @@ PPO_helper/agent_internals
 *.swp
 text_pretraining_data
 brain_checkpoints
+game_images_and_modifications

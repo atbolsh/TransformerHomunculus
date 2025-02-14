@@ -41,6 +41,9 @@ class discreteGame:
         
         self.GOLD = (255, 200, 0)
 
+        self.sprite_files = { 'arrow': "game_images_and_modifications/Arrow_example_for_import.png", \
+                              'line' : "game_images_and_modifications/LineSprite.png" }
+
         self.actions = [(lambda : 0), self.stepForward, self.stepBackward, self.swivel_clock, self.swivel_anticlock]
         self.settings = settings
 
@@ -106,23 +109,55 @@ class discreteGame:
     def true_coords(self, coords):
         return coords[0]*self.settings.gameSize, coords[1]*self.settings.gameSize
 
-    def draw_arrow(self, extension = 1.0, direction = None):
+    def direction_angle(self, xo, yo, xt, yt):
+        # Finds the angle from (xo, yo) to (xt, yt)
+        # Degenerate cases first, just in case
+        if xo == xt:
+            if yo < yt:
+                return math.pi / 2
+            else:
+                return 3 * math.pi / 2
+        if yo == yt:
+            if xo < xt:
+                return 0.0
+            else:
+                return math.pi
+        candidate = math.atan((yt - yo) / (xt - xo))
+        if (yt > yo):
+            # Quadrant 1
+            if (xt > xo):
+                return candidate
+            # Quadrant 2
+            else:
+                return math.pi + candidate # candidate is negative in this case
+        else:
+            # Quadrant 3
+            if (xt < xo):
+                return math.pi + candidate # candidate is positive in this case.
+            # Quadrant 4
+            else:
+                return (2 * math.pi) + candidate # candidate is negative
+
+    def draw_arrow(self, extension = 1.0, direction = None, sprite = None):
         """Drawing arrows is an important cognitive tool / middle step that I will teach the agent.
         The agent will also have the option to extend the arrow, for example to reach an object.
         Note that this will be taught to the agent as a skill based on verbal prompts; this image generation
         is purely for the sake of drawing 'target' images, which the agent will be trained on."""
         if direction is None:
             direction = self.settings.direction
+        if sprite is None:
+            sprite = 'line'
         # in the future, I may choose a different asset.
-        FPATH = "game_images_and_modifications/Arrow_example_for_import.png"
+        FPATH = self.sprite_files[sprite]
+        
         arrowImage = pygame.image.load(FPATH)
         im_length, im_width = arrowImage.get_size()
         default_length = self.settings.agent_r * self.settings.gameSize * 2
         ratio = default_length / im_length
         arrowImage = pygame.transform.scale(arrowImage, (ratio * im_length * extension, ratio * im_width))
         offset = arrowImage.get_size()[1] / 2 # offset from the middle of the top of the arrow
-        mid_x = (self.settings.agent_x + (1.2 * self.settings.agent_r * math.cos(direction))) * self.settings.gameSize
-        mid_y = (self.settings.agent_y + (1.2 * self.settings.agent_r * math.sin(direction))) * self.settings.gameSize
+        mid_x = (self.settings.agent_x + (1.0 * self.settings.agent_r * math.cos(direction))) * self.settings.gameSize
+        mid_y = (self.settings.agent_y + (1.0 * self.settings.agent_r * math.sin(direction))) * self.settings.gameSize
         # This is the position around which the arrow needs to be rotated to end up in the correct place
         orig_x = mid_x + offset*math.sin(direction)
         orig_y = mid_y - offset*math.cos(direction)
@@ -623,8 +658,8 @@ class discreteGame:
         minY = max(minY, self.side_wall_width)
         maxY = min(maxY, 1.0 - self.side_wall_width)
         while not valid:
-            test_x = random.uniform(self.side_wall_width, 1.0 - self.side_wall_width)
-            test_y = random.uniform(self.side_wall_width, 1.0 - self.side_wall_width)
+            test_x = random.uniform(minX, maxX)
+            test_y = random.uniform(minY, maxY)
             valid = self.full_wall_check(test_x, test_y, walls, radius)
         return (test_x, test_y)
 
@@ -678,8 +713,25 @@ class discreteGame:
                        direction = direction)
         return res
 
+    # only use this with only 1 gold on the scene, and for 'bare' games
+    def bare_draw_arrow_at_gold(self):
+        coin = self.settings.gold[0]
+        gx, gy = coin
+        ax = self.settings.agent_x
+        ay = self.settings.agent_y
+        # direction from agent to the gold piece
+        pointing = self.direction_angle(ax, ay, gx, gy)
+        # delta x, y
+        dx = gx - ax
+        dy = gy - ay
 
+        distance = math.sqrt(dx*dx + dy*dy)
+        length = distance - 1.00 * (self.settings.agent_r + self.settings.gold_r)
+        extension = length / (2 * self.settings.agent_r)
 
+        self.draw_arrow(extension, pointing)
+        # This will be very useful for the 'face' trick, but that comes later.
+        return pointing
 
 
 
