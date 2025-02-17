@@ -488,15 +488,104 @@ The 2080 isn't reachable right now. I think penguins.army needs another hardware
 
 ~~~~
 
-Running quick test on the text module, on penguins.farm
+X Running quick test on the text module, on penguins.farm
+  -- test successful; the brain easily learns to use positional encoding
 
-Will probably rerun text pretraining on penguins.farm (the 2080 death had killed that).
+X Will probably rerun text pretraining on penguins.farm (the 2080 death had killed that).
+  -- running now
 
 ~~~~
 
 Tomorrow:
- -- check on all pretraining
+X -- check on all pretraining
+ -- done pretraining? Sync all network weights and git versions.
  -- set up corner task
+
+Once image pretraining is done, I will look at the results and decid if it's good enough to continue.
+I may spend all day Monday (day off!!) to set up that task properly (maybe in several versions) and start running it
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 12, 2025
+
+The pretrainings are going decently, but I want to see if I can get more out of it.
+I restarted the img pretraining, starting with a decently-performing batch and continuing with a lower lr
+I interrupted the text pretraining, but let it continue with a new moniker. I'll have both an overfit and just-right version after today.
+
+That is all for now. Syncing representations and code can wait until these stages are done.
+Same with the necessary power cycle of penguins.army.
+
+~~~~~~~~
+
+Evening:
+
+pretrainings still moving decently.
+Will let everything go till morning. May relaunch the text pretraining stuff with a lower lr.
+
+THere is a lot of room for improvement, especially for the text encoder.
+The '32 symbol' thing is really going to be limiting in the future, but for now, it is freeing: can pretrain with absurd batch sizes.
+
+Alternatives involve different text databases, or padding out to some minimal size like 512 or 1024.
+But the pretraining already done can be useful.
+
+In the future: I may try to transfer the learning of this network to one with a seqlength of 256 by just chaning how the positional encoding works, 
+and teaching it to imitate the output of the current network.
+
+THAT IS LATER, THOUGH.
+
+Initial work will be the 'tricks'. Especially navigating / drawing lines / describing scenes with no walls, or drawing corners.
+
+Other later work: retrain by adding the RL element as a separate stream (actions). I like that a lot.
+Add some way of gathering state (embedding timestep and adding into some shared pool LSTM style, perhaps? Or just copy whatever Foerster did?)
+Then plans, then following plans, etc.
+
+But tricks come first. I have a good curriculum for 'detecting reward and navigating towards it'.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 13, 2025
+
+Pretraining continues, slowly. Image loss is not going down past 0.004, but that may be enough. Or I may need to switch to a larger resolution.
+
+Same for text pretraining.
+
+I'll let it got for another day.
+
+i also wrote random_bare_settings in discreteEngine, for the first 'trick'. Will debug and test that tmr / next week.
+
+~~~~~~~
+
+Tmr:
+~ 1) Kill all pretraining no matter what
+     -- I changed my mind. I'll let it go to the end of this weekend. See how low it can actually go.
+2) Sync representations (code and weights)
+3) Power cycle penguins.army. 
+   -- if the 2080 does not come back, do another hardware debug.
+4) If time: Make another jupyter notebook. Debug the new game code; write the new task, or most of it.
+   -- this can wait till Monday / next week.
+
+~~~~~~~
+
+I killed the Text Pretraining.
+Image Pretraining keeps inching down, though much more slowly than I'd like. Against my better judgement I'm giving it another several hours to impress me; will kill it in the morning.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+V-Day, 2025
+
+Good day. I'm letting ImagePretraining continue over the weekend just in case.
+I debugged the random 'bare game' generation, and added a way to create a line from the agent to the gold.
+
+I will write the full 'trick' code right before I launch the training. That's first priority Monday. Everything else can wait.
+
+
+
+
+
+
 
 
 
