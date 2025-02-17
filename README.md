@@ -594,7 +594,9 @@ Simple 'bare game' with text outputs and simple modifications (arrow, etc) are n
 
 Synced checkpoints and git accross machines.
 
+~~~~~~~~
 
+UPDATE: penguins.army rebooted correctly, with both GPUs. No need for HW debug tmr (probably)
 
 
 
