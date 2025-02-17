@@ -581,9 +581,18 @@ I debugged the random 'bare game' generation, and added a way to create a line f
 
 I will write the full 'trick' code right before I launch the training. That's first priority Monday. Everything else can wait.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 17th, 2025
 
+Finished image pretraining.
 
+Use either v6 or v10 for image autoencoder (v10 may be sensitive, v6 may be too fuzzy).
+
+Simple 'bare game' with text outputs and simple modifications (arrow, etc) are next.
+
+Synced checkpoints and git accross machines.
 
 
 
