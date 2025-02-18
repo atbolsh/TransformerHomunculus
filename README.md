@@ -611,5 +611,12 @@ Need to get the LR's done correctly for this to really work.
 
 Will get this to work, then duplicate for the other skills that I want. I think I will have a dozen solid tricks within a month.
 
+~~~~~~~~
+
+Next:
+check results
+change printout (show both errors separately, for calibrating the constants)
+success? write next trick (or several)
+failure? think of solutions (simple, like different pretrained version / loss ratio / learning rate, OR complex, like architecture change / identify blocks / additive outputs / more complex pretraining steps)
 
 
