@@ -701,6 +701,8 @@ class discreteGame:
         walls = self.random_walls(num_extra_walls=0)
         agent_x, agent_y = self.random_valid_coords(walls, self.typical_agent_r)
         gold = self.random_gold(walls, max_num_gold=1, max_agent_offset=max_agent_offset, agent_x=agent_x, agent_y=agent_y)
+        while self.spot_overlap_check(agent_x, agent_y, gold[0][0], gold[0][1], self.typical_gold_r, self.typical_agent_r):
+            gold = self.random_gold(walls, max_num_gold=1, max_agent_offset=max_agent_offset, agent_x=agent_x, agent_y=agent_y)
         direction = random.uniform(0, 2*math.pi)
         res = Settings(gameSize=gameSize,
 #                       indicator_length = self.typical_indicator_length,

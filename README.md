@@ -598,5 +598,18 @@ Synced checkpoints and git accross machines.
 
 UPDATE: penguins.army rebooted correctly, with both GPUs. No need for HW debug tmr (probably)
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 18th, 2025
+
+Took forever, but I launched the first 'trick' tutorial: drawing a line to the gold, when prompted.
+
+Only image outputs for now. Next is to train image and text outputs.
+
+Need to get the LR's done correctly for this to really work.
+
+Will get this to work, then duplicate for the other skills that I want. I think I will have a dozen solid tricks within a month.
+
 
 
