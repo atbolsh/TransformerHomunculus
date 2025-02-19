@@ -614,9 +614,33 @@ Will get this to work, then duplicate for the other skills that I want. I think 
 ~~~~~~~~
 
 Next:
-check results
-change printout (show both errors separately, for calibrating the constants)
-success? write next trick (or several)
-failure? think of solutions (simple, like different pretrained version / loss ratio / learning rate, OR complex, like architecture change / identify blocks / additive outputs / more complex pretraining steps)
+X check results
+X change printout (show both errors separately, for calibrating the constants)
+~ success? write next trick (or several)
+  -- mostly. Next trick waits, retraining hoping for better results
+X failure? think of solutions (simple, like different pretrained version / loss ratio / learning rate, OR complex, like architecture change / identify blocks / additive outputs / more complex pretraining steps)
+  -- thankfully this is avoided.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 19th, 2025
+
+The 'v2' version did great. It basically looks like a child's scribble.
+
+I moved on to v3, with more printouts and some losses to make sure that text prediction isn't destroyed either.
+
+I'll probably kill this tonight. I may relaunch this as a training script and monitor it during my trip.
+
+I'll write the next several tricks when I'm back. I now have a structure and a proven method; the rest *should* be straightforward.
+
+I think next week is going to have great results. A trick a day, or a trick every two days.
+
+I'll also look into training separate things on the different GPUs. I have 3 available, after all.
+
+
+
+
+
 
 
