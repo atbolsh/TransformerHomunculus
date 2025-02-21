@@ -638,7 +638,23 @@ I think next week is going to have great results. A trick a day, or a trick ever
 
 I'll also look into training separate things on the different GPUs. I have 3 available, after all.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 21st, 2025
+
+I accidentally deleted brain_v2 :(
+
+I can't do much while I'm far from my instruments. I can't look at the jupyter notebook.
+
+For now, I will only delete older versions of the v3 brain. I won't kill the process at all; worst case, I may have to rerun this all, but i'm not scared.
+
+When I get back:
+1) Turn the last jupyter notebook into a script to launch / monitor remotely.
+2) Launch the next thing, with 'is it right / is it left' and maybe 'zoom in please'
+   -- I will think exactly how to do this. May use additional input masks.
+
+Cool, plan is definite
 
 
 
