@@ -656,7 +656,12 @@ When I get back:
 
 Cool, plan is definite
 
+~~~~~~~~
 
+Sidenote: I'm letting this tutorial train for a very long time, but it's worth remembering that I had decent results within a day.
+Future tutorials will be more optimized; each one won't take this long.
+ -- use separate lr's for diff components; keep parts frozen
+ -- try to use bigger batch sizes for any text task. Maybe multiple text batches for the same image batch? Write thinking of the compilation.
 
 
 
