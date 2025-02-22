@@ -664,4 +664,18 @@ Future tutorials will be more optimized; each one won't take this long.
  -- try to use bigger batch sizes for any text task. Maybe multiple text batches for the same image batch? Write thinking of the compilation.
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 22nd, 2025
+
+Not much. Glanced at progress. Wrote 'business_plans'
+
+Tomorrow:
+ -- write the 'extra mask' code, no matter what it takes.
+ -- if time, start writing the 'train text output' code.
+
+
+
+
 
