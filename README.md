@@ -672,8 +672,32 @@ Feb 22nd, 2025
 Not much. Glanced at progress. Wrote 'business_plans'
 
 Tomorrow:
- -- write the 'extra mask' code, no matter what it takes.
+~ -- write the 'extra mask' code, no matter what it takes.
+     -- looked at it and found a better way.
  -- if time, start writing the 'train text output' code.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 23rd, 2025
+
+I looked at the brain 'forward' method, and looked at how masks work.
+
+I've decided on the technique for the Q-A tasks: I will modify the 'forward' method
+to allow for different text encodings to be used for image reconstruction (only the questions) vs 
+text reconstruction (full input including answer, but causal mask helps that).
+
+I *might* be able to do this instead with fancy masks (different src mask vs target mask) but I don't think it's needed.
+
+So: tomorrow, 
+I kill the current experiment, and 
+write some of the code for the Q-A tasks, ideally in a script, not ipynb.
+
+From there, I'll either launch the new task (once the code is done) or play with the results of the first tutorial, whichever fance strikes me.
+
+
+
 
 
 
