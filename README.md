@@ -705,8 +705,23 @@ Killed firstTutorial, backed up last checkpoint to shared disk.
 Results are pretty good. The blue line is still slightly wavy, but very nearly usable now.
 
 Tomorrow / this week: I will stress-test this checkpoint (text generation, text prompt versions, add a wall in just for fun, etc).
+ -- delayin this by at least a day
 
 Next step right now: write code for tutorial 2 (answering image questions)
+
+~~~~~~~~
+
+I wrote qa_forward for tutorial 2 (accepts text with and without 'answer').
+
+An alternative would be to train tutorial 2 using RL; I will get to that, too, after a simpler RL system.
+
+Tomorrow:
+Debug qa_forward
+Write, launch tutorial 2 (can be jupyter again, fine).
+
+Other days:
+1) Debug firstTutorial results; examine
+2) Write some RL thing; launch.
 
 
 

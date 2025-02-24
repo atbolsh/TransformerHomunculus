@@ -273,10 +273,35 @@ class DefaultAgentBrain(nn.Module):
         else:
             if img_batch is None:
                 batches = text_batch.size()[0]
-                img_encoding = torch.zeros((batches, 768), device=self.get_device())
+                img_encoding = torch.zeros((batches, 256, 768), device=self.get_device())
             else:
                 img_encoding = img_context
             img_reconstruction = self.img_dec(img_encoding, text_encoding)
+            return text_probs, img_reconstruction
+
+    # used for training question-answering; text_batch_in has SAME shape, but answers zero-ed out.
+    def qa_forward(self, text_batch_in, text_batch_out, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
+        src_attention_mask_in, src_key_padding_mask_in = self.get_masks(text_batch_in, use_masks)
+        src_attention_mask_out, src_key_padding_mask_out = self.get_masks(text_batch_out, use_masks)
+        text_encoding_in = self.get_text_encoding(text_batch_in, src_attention_mask_in, src_key_padding_mask_in)
+        text_encoding_out = self.get_text_encoding(text_batch_out, src_attention_mask_out, src_key_padding_mask_out)
+        if img_batch is None:
+            img_context = text_encoding_in # just feed the text features back to itself.
+        else:
+            img_context = self.img_enc(img_batch)
+        # when generating the answer string, each token still sees all the preceding tokens, and NO others
+        # this is valid; the answer token (eg 'left') will still have to be inferred
+        # I will reassess whether this is valid for longer answers
+        text_probs = self.get_text_decoding(text_encoding_out, src_attention_mask_out, src_key_padding_mask_out, img_context, return_full)
+        if not ret_imgs:
+            return text_probs
+        else:
+            if img_batch is None:
+                batches = text_batch.size()[0]
+                img_encoding = torch.zeros((batches, 256, 768), device=self.get_device())
+            else:
+                img_encoding = img_context
+            img_reconstruction = self.img_dec(img_encoding, text_encoding_in) # CRITICAL! Only the 'question', not the 'answer', is used when computing the image!
             return text_probs, img_reconstruction
 
     def img_autoencoder(self, img_batch, context = None):
