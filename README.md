@@ -696,9 +696,17 @@ write some of the code for the Q-A tasks, ideally in a script, not ipynb.
 
 From there, I'll either launch the new task (once the code is done) or play with the results of the first tutorial, whichever fance strikes me.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 24th, 2025
 
+Killed firstTutorial, backed up last checkpoint to shared disk.
+Results are pretty good. The blue line is still slightly wavy, but very nearly usable now.
 
+Tomorrow / this week: I will stress-test this checkpoint (text generation, text prompt versions, add a wall in just for fun, etc).
+
+Next step right now: write code for tutorial 2 (answering image questions)
 
 
 
