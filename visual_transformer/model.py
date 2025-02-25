@@ -280,6 +280,8 @@ class DefaultAgentBrain(nn.Module):
             return text_probs, img_reconstruction
 
     # used for training question-answering; text_batch_in has SAME shape, but answers zero-ed out.
+    # slower than straight-up text training. ONly use if you are ALSO training image reconstruction.
+    # otherwise, just use the old 'forward' and only compute the gradient with respect to the text transformers
     def qa_forward(self, text_batch_in, text_batch_out, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
         src_attention_mask_in, src_key_padding_mask_in = self.get_masks(text_batch_in, use_masks)
         src_attention_mask_out, src_key_padding_mask_out = self.get_masks(text_batch_out, use_masks)
