@@ -734,12 +734,17 @@ Use the 'simple' text generators that only create output, and only train the tex
  -- only use the qa_forward technique when you are also reconstructing images (and need only part of the input available to the reconstruction)
 
 Tmr:
-1) Learn how to load the state dict even if it was saved on the wrong device
+X 1) Learn how to load the state dict even if it was saved on the wrong device
+     -- map_location = device
 2) Write the training loop using the 'simple' method and without any image reconstructions. Choose which GPU to run it on, and start it.
 3) Done!
+4) If you want, write tutorial 3
+5) If you want, look up the ssh stuff and port opening; come to dad ready to talk on Thursday.
 
 Rest of week: think of how to launch an RL task on a different GPU.
 Maybe start a new git branch, with a separate 'action' buffer.
 
+~~~~~~~~
 
-
+Minor edits and code testing in the evening.
+Set up and run the
