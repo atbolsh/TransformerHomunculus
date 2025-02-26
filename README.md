@@ -747,4 +747,16 @@ Maybe start a new git branch, with a separate 'action' buffer.
 ~~~~~~~~
 
 Minor edits and code testing in the evening.
-Set up and run the
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 26th, 2025
+
+penguinsarmy, launched tutorialQA on the 2080.
+
+Will check / kill this evening.
+
+Saving, will write tutorial_RLnaive over on penguinsfarm.
+
+
