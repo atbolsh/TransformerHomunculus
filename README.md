@@ -759,4 +759,27 @@ Will check / kill this evening.
 
 Saving, will write tutorial_RLnaive over on penguinsfarm.
 
+~~~~~~~~
+
+Switched to new branch on penguinsfarm, RLmania.
+
+Unfortunately, this will really take a few days.
+
+I *could* probably write an RL system in an inspired morning, but I failed to have an inspired morning this morning, so I'm only going to split this into smaller tasks.
+
+Next several days:
+0) Modify tokenizer, tokens 1, 3, and 4 (make them left, right, and forward; avoid 'backward' for now) 
+1) make PPO helper work with the game (call it 'game wrapper' or something, in a new file):
+   -- 'seed' is just the Settings file; copy is stored at every interval (but not full image, that's obscene)
+   -- token is generated conditional on all that came before
+   -- all the normal calculations, just like PPO_helper
+2) Rewrite the RL notebook in the main place, which works with this setup (it won't train; just make the shell work).
+   -- have the book open in front of you as a reminder.
+3) Function to make fake traces (brain won't stumble towards the correct actions any other way)
+4) Start playing with the *simplest* setup, and see if it can learn to crack it.
+
+This will be the 'naive' RL. This ignores text replies and other sophisticated interactions. This will just be "see, turn towards, chase, eat", learned through RL (multi-stage, enforced by me).
+
+Thi
+   
 
