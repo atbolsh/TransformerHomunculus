@@ -759,4 +759,17 @@ Will check / kill this evening.
 
 Saving, will write tutorial_RLnaive over on penguinsfarm.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 27th, 2025
+
+Finished training.
+
+Will check results later. Full focus on RL for now.
+
+
+
+
+
 
