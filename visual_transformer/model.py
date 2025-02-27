@@ -376,9 +376,9 @@ class DefaultAgentBrain(nn.Module):
         output[:, -1] += preds * torch.logical_not(is_terminated)
         is_terminated = torch.logical_and(is_terminated, (preds==2))
         if not ret_all:
-            return output, is_terminated
+            return output, preds, is_terminated
         else:
-            return output, log_probs, entropy, is_terminated # maybe also multiply by is_terminated? Dunno.
+            return output, preds, log_probs, entropy, is_terminated # maybe also multiply by is_terminated? Dunno.
 
     def generate(self, x=None, context=None, maxlen = None, temp=1.0, ret_all=True, temp_eps = 1e-4, default_batches = 1):
         if maxlen is None:
@@ -396,7 +396,7 @@ class DefaultAgentBrain(nn.Module):
         firstGone = False
         while (x.size()[1] < maxlen) and (not torch.all(is_terminated)):
             if ret_all:
-                x, newlp, newent, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
+                x, _, newlp, newent, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
                 if firstGone: # so, in all cases except the first value
                     lp = F.pad(lp, (0, 1))
                     ent = F.pad(ent, (0, 1))
@@ -405,7 +405,7 @@ class DefaultAgentBrain(nn.Module):
                 lp[:, -1] += newlp
                 ent[:, -1] += newent
             else:
-                x, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
+                x, _, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
         if ret_all:
             return x, lp, ent
         else:

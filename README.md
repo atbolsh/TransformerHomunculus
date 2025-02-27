@@ -768,11 +768,11 @@ Unfortunately, this will really take a few days.
 I *could* probably write an RL system in an inspired morning, but I failed to have an inspired morning this morning, so I'm only going to split this into smaller tasks.
 
 Next several days:
-0) Modify tokenizer, tokens 1, 3, and 4 (make them left, right, and forward; avoid 'backward' for now) 
-1) make PPO helper work with the game (call it 'game wrapper' or something, in a new file):
-   -- 'seed' is just the Settings file; copy is stored at every interval (but not full image, that's obscene)
-   -- token is generated conditional on all that came before
-   -- all the normal calculations, just like PPO_helper
+X 0) Modify tokenizer, tokens 1, 3, and 4 (make them left, right, and forward; avoid 'backward' for now) 
+X 1) make PPO helper work with the game (call it 'game wrapper' or something, in a new file):
+X    -- 'seed' is just the Settings file; copy is stored at every interval (but not full image, that's obscene)
+X    -- token is generated conditional on all that came before
+X    -- all the normal calculations, just like PPO_helper
 2) Rewrite the RL notebook in the main place, which works with this setup (it won't train; just make the shell work).
    -- have the book open in front of you as a reminder.
 3) Function to make fake traces (brain won't stumble towards the correct actions any other way)
@@ -780,6 +780,20 @@ Next several days:
 
 This will be the 'naive' RL. This ignores text replies and other sophisticated interactions. This will just be "see, turn towards, chase, eat", learned through RL (multi-stage, enforced by me).
 
-Thi
-   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Feb 27th, 2025
+
+Slow day. Basically had to rewrite the bufffer code
+
+Wrote the RL_helper file, fully.
+
+Tmr:
+debug this file, using an untrained brain (random outputs).
+Then, find a way to write fake traces and see how that goes.
+From there, launch a real training funciton.
+
+Delete PPO_helper when done; a legacy copy exists in the Florence folder anyway.
+
+Should launch real training tomorrow.
