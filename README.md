@@ -817,13 +817,17 @@ Notes:
 2) Remember that generate_log_probabilities_and_entropies needs to be the new one, not the old one
 3) Otherwise, can mostly copy the PPO notebooks, and launch the loops
     -- may reduce gamma and tau.
+4) Launches and runs? Results? Delete PPO_helper folder
 Will launch for a day or two with pretrained brains, see how it goes
 
 ~~~~~~~~
 
 At least for the hobby, this was a very good day
 
+Next week, after this launches, I will largely sit back and run a bunch of tests on all the trained systems.
+I will run 3 tests on all systems (visual on the P40, linguistic on the 2080, and RL on the 1080, at least while it's still a toy).
 
+Then I may retrain / pick specific next tasks / etc. But coding will be slightly more relaxed again for a couple of weeks, probably including the Argentina trip
 
 
 
