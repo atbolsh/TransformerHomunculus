@@ -790,10 +790,40 @@ Slow day. Basically had to rewrite the bufffer code
 Wrote the RL_helper file, fully.
 
 Tmr:
-debug this file, using an untrained brain (random outputs).
-Then, find a way to write fake traces and see how that goes.
+X debug this file, using an untrained brain (random outputs).
+X Then, find a way to write fake traces and see how that goes.
 From there, launch a real training funciton.
 
 Delete PPO_helper when done; a legacy copy exists in the Florence folder anyway.
 
 Should launch real training tomorrow.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 28th, 2025
+
+Busy day
+
+Fully debugged the RL helper and solved the 'fake trace' issue quickly.
+
+Monday, I'll 
+double-check the trace generator in RL_fake_traces, then 
+choose some fake log_prob's and entropies (pick one from a 'dist'?), then 
+write and launch the RL code on top of a brain sample.
+
+Notes:
+1) May need custom value function to avoid propagating gradients through img_enc (wasteful; too many images)
+2) Remember that generate_log_probabilities_and_entropies needs to be the new one, not the old one
+3) Otherwise, can mostly copy the PPO notebooks, and launch the loops
+    -- may reduce gamma and tau.
+Will launch for a day or two with pretrained brains, see how it goes
+
+~~~~~~~~
+
+At least for the hobby, this was a very good day
+
+
+
+
+

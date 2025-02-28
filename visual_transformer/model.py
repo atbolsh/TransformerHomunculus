@@ -373,8 +373,10 @@ class DefaultAgentBrain(nn.Module):
             preds = self.select(logits, temp, ret_all, temp_eps)
         else:
             preds, log_probs, entropy = self.select(logits, temp, ret_all, temp_eps)
-        output[:, -1] += preds * torch.logical_not(is_terminated)
-        is_terminated = torch.logical_and(is_terminated, (preds==2))
+        preds = preds * torch.logical_not(is_terminated) # set all past-terminated actions / tokens to 0
+        output[:, -1] += preds
+        #print(preds==2)
+        is_terminated = torch.logical_or(is_terminated, (preds==2))
         if not ret_all:
             return output, preds, is_terminated
         else:
@@ -426,12 +428,19 @@ class DefaultAgentBrain(nn.Module):
 #            logpas[:, i] = dist.log_prob(x[:, cutoff])
 #        return logpas, entropies
 
-    def compute_probabilities(self, x, seed_offset, context=None, temp=1.0):
+    # SINGLE only returns probs for final val; multi returns all probs (assumes identical contexts)
+    def compute_probabilities(self, x, seed_offset=1, context=None, temp=1.0, single=False):
+        if single:
+            return self._compute_probabilities_SINGLE(x, context, temp)
+        else:
+            return self._compute_probabilities_MULTI(x, seed_offset, context, temp)
+
+    def _compute_probabilities_MULTI(self, x, seed_offset, context=None, temp=1.0):
         """Given sentences x, possibly computed by another model, compute the logpas and entropies for all the values chosen.
            (Notice that we are talking about the values ALREADY chosen, not the choices this model would make.)"""
         batches, total_len = x.size()
         gen_len = total_len - seed_offset
-        logits = self.sentence_autoencoder(x, use_masks=True, return_full=True)[:, :, seed_offset-1:-1] # should be batches x tokens x genlen
+        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=True)[:, :, seed_offset-1:-1] # should be batches x tokens x genlen
         logits = logits.transpose(1, 2) # bathes x genlen x tokens
         logits = logits.reshape((batches*gen_len, self.text_dec.vocab_size)) # (batches * genlen x tokens)
         dist = Categorical(logits = logits / temp)
@@ -440,6 +449,19 @@ class DefaultAgentBrain(nn.Module):
 
         logpas = dist.log_prob(y).reshape((batches, gen_len))
         entropies = dist.entropy().reshape((batches, gen_len))
+        return logpas, entropies
+
+    def _compute_probabilities_SINGLE(self, x, context=None, temp=1.0):
+        """Like the above, but only returns the value for the final token"""
+#        batches, total_len = x.size()
+#        gen_len = total_len - seed_offset
+        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=False) # should be batches x tokens
+        dist = Categorical(logits = logits / temp)
+
+        inds = x[:, -1]
+
+        logpas = dist.log_prob(inds)
+        entropies = dist.entropy()
         return logpas, entropies
 
     # Experimental use of self.generate for a particular type of input question
