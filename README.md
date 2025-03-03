@@ -830,4 +830,28 @@ I will run 3 tests on all systems (visual on the P40, linguistic on the 2080, an
 Then I may retrain / pick specific next tasks / etc. But coding will be slightly more relaxed again for a couple of weeks, probably including the Argentina trip
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 3rd, 2025
+
+Bad day
+
+Launched a 'fake traces' version for RL, that's it.
+
+Not really even using RL, unfortunately . . .
+
+Tmr:
+ -- kill it
+ -- launch 'actual RL' with no fake traces on the big machine
+ -- maybe launch a version of this one with no 'action memory', only pure image processing
+    (I'm afraid of an error mode where it will fail to start turning in the right way and fail to switch to the forward action, but will know to keep an action going)
+
+That's it.
+
+The rest of this week is looking at what I've produced so far and recalibrating.
+Maybe I'll write a small 'helper' script with all the most useful functions / the fake trace stuff / the code for the language training, to reduce code in notebooks.
+
+
+
 
