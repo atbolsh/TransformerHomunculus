@@ -853,5 +853,12 @@ The rest of this week is looking at what I've produced so far and recalibrating.
 Maybe I'll write a small 'helper' script with all the most useful functions / the fake trace stuff / the code for the language training, to reduce code in notebooks.
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Mar 4th, 2025
+
+Fake traces had an error. Launched a better version.
+
+Launching a 'real' version over on penguinsarmy now. 
 
