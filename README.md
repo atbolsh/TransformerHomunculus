@@ -862,3 +862,25 @@ Fake traces had an error. Launched a better version.
 
 Launching a 'real' version over on penguinsarmy now. 
 
+Tmr: kill, switch gears into debugging the several results so far.
+     -- for RL, a good first start will be just creating a single, universal prompt, not feeding a trace. On both machines. Maaaaybe.
+     -- UPDATE: the traditional approach has a memory leak. Fixing it comes first.
+
+Then, sync all these, merge branches, debug the other tutorials, etc.
+
+~~~~
+
+Once it's debugged and I have a single brain that does every silly trick I've tried so far, I'll make a short list of the next tricks.
+(no corners, but add things like 'facing toward', 'facing away', 'to the left', 'to the right', and a couple others).
+ALso, I will standardize the code from the notebooks and make several re-importable python files to use.
+ -- objective for March: convincing NB which shows the agent 'knows' how to find gold in an empty room, and can talk about it reasonably.
+
+THe goal after those is to have a system that usually chases the gold, and can explain a few things about it.
+From there the goal is to imagine different counter-factuals and maybe using them intellectually.
+I will also train up the ability to 'summarize' at this point. I will possibly modify the brain.
+
+The big reveal will be 'corners'. That comes next. ONce I have that task, I can introduce 'plan' and the code structure needed for it.
+From there, it can move to other rooms and discuss them.
+
+THat's a *very* advanced robot. ONce it's there, I can absolutely move on to 'teach yourself new images' by remembering images and running small training loops.
+
