@@ -258,7 +258,7 @@ class GameOutputBuffer:
                past_terminated[:, i] = terminated[:, i - 1]
         return terminated, past_terminated 
 
-    def _get_values(self):
+    def _get_values(self, img_gradient=False, text_gradient=True):
         batch_size, actions = self.logpas.size()
         values = torch.zeros(batch_size, actions + 1, device = self.logpas.device)
         for i in range(actions + 1): # include initial state, too
@@ -266,7 +266,8 @@ class GameOutputBuffer:
             settings_i = [settings_trace[i] for settings_trace in self.settings_buffer] # can't use proper tuples with lists, ugh
             imgs = get_images_settings(settings_i, device=self.get_device())
             # get value from value-func; zero-out past the end of the episode
-            values[:, i] = self.value_model(self.traces[:, :(self.seed_offset + i - 1)], imgs).squeeze() * torch.logical_not(self.past_terminated[:, i]) # that's really the value of the action take in state[i - 1]
+            # the val of the action take in state[i - 1]
+            values[:, i] = self.value_model(self.traces[:, :(self.seed_offset + i - 1)], imgs, img_gradient=img_gradient, text_gradient=text_gradient).squeeze() * torch.logical_not(self.past_terminated[:, i])
         return values
 
     def _get_returns(self):
@@ -291,12 +292,13 @@ class GameOutputBuffer:
             gaes[:, -1 - i - 1] = (deltas[:, -1 -i -1] + self.gamma*self.tau*gaes[:, -1 - i] ) * torch.logical_not(self.past_terminated[:, -1 -i -1])
         return gaes
 
-    def get_values(self, evaluation = True):
+    # by default the errors *do* get propagated to the text encoder, but that can be changed to only train the dopamine function
+    def get_values(self, evaluation = True, img_gradient = False, text_gradient = True):
         if evaluation:
             with torch.no_grad():
                 return self._get_values()
         else:
-            return self._get_values()
+            return self._get_values(img_gradient=img_gradient, text_gradient=text_gradient)
 
     def get_terminations(self, evaluation = True):
         if evaluation:
