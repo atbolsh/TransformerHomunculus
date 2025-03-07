@@ -220,8 +220,12 @@ class SolitaryValueFunc(nn.Module):
         self.dopamine = IntermediateTransformerScorer() # for RL; not yet tested, use later
 
     # I will keep this as the default dopamine signal; may spin some other 'raw default' types later.
-    def evaluate_text(self, text_batch, context=None):
-        text_encoding = self.text_enc(text_batch)
+    def evaluate_text(self, text_batch, context=None, text_gradient = True):
+        if text_gradient:
+            text_encoding = self.text_enc(text_batch)
+        else:
+            with torch.no_grad():
+                text_encoding = self.text_enc(text_batch)
         return self.dopamine(text_encoding, context)
 
     def forward(self, text, context=None):
@@ -322,12 +326,22 @@ class DefaultAgentBrain(nn.Module):
         return self.get_text_decoding(text_encoding, src_attention_mask, src_key_padding_mask, context, return_full)
 
     # I will keep this as the default dopamine signal; may spin some other 'raw default' types later.
-    def evaluate_text(self, text_batch, img_batch=None):
-        text_encoding = self.text_enc(text_batch)
+    # can sometimes train the dopamine layer alone, without any text or image gradients.
+    # Must then set the img_gradient and text_gradient settings to False, or you get a memory leak
+    def evaluate_text(self, text_batch, img_batch=None, img_gradient=True, text_gradient=True):
+        if text_gradient:
+            text_encoding = self.text_enc(text_batch)
+        else:
+            with torch.no_grad():
+                text_encoding = self.text_enc(text_batch)
         if img_batch is None:
             return self.dopamine(text_encoding)
         else:
-            context = self.img_enc(img_batch)
+            if img_gradient:
+                context = self.img_enc(img_batch)
+            else:
+                with torch.no_grad():
+                    context = self.img_enc(img_batch)
             return self.dopamine(text_encoding, context)
 
     # useful for comparing images

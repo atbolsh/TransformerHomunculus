@@ -862,3 +862,24 @@ Fake traces had an error. Launched a better version.
 
 Launching a 'real' version over on penguinsarmy now. 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 6th, 2025
+
+Finally fixed damn memory leaks (I think) for RL_traditional
+
+Launched *a* version today. If, by tmr it doesn't finish training, will launch a better version tmr (on the 1080),
+and launch a version with fake traces as a guide over on the 2080 or the P40.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 7th, 2025
+
+RL_traditional launched correctly, but later failed for some reason.
+
+Relaunching with higher batch size (16 instead of 6) and high hopes. We will see.
+
+I am also launching a version of it (still on penguins army) with one 'fake buffer' per buffer-buffer, and seeing what that does as a guide.
+
