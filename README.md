@@ -904,3 +904,60 @@ Relaunching with higher batch size (16 instead of 6) and high hopes. We will see
 
 I am also launching a version of it (still on penguins army) with one 'fake buffer' per buffer-buffer, and seeing what that does as a guide.
 
+~~~~
+
+Merged a version onto penguins farm
+Also launching a notebook on penguinsfarm, letting the radius grow over time
+
+~~~~
+
+I did the hard work of writing the RL scripts, but *really* I need to debug them as carefully as I debugged the vision system. I don't think any of my variants are actually training right now.
+
+I'll do it after I look at all the other results, in great detail, however. Next week is "examine the agents" week. I'm a bit sick of RL, especially RL learning alone.
+
+There is a lot of conceptual work to do in order to get the RL to behave, but it's good that right now, I have all the code down.
+
+The value function is particularly bad for some reason. I'll check later, but I bet I also have unusualy low entropy.
+
+I will need to check out how exactly I fixed the RL system back when I was only testing it out.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 10th, 2025
+
+I'm back from my trip!
+
+Against all hope, it looks like the 'curriculum' version did learn a little. I will let it run for 24 more hours.
+I suspect it's a matter of 'the transformer needed initial pre-training to get anywhere'.
+THe NLP and vision systems benefitted from pretraining in a way the dopamine module did not, after all.
+
+I'll have to learn how to use words like 'good' and 'bad' to automatically train the dopamine portion. But that's a long way off.
+That's in 'make your own training loops' territory, and that has to wait until I have a single, standard OOD loop.
+
+~~~~
+
+Who knows what's going on on the monster. Firefox chose to be awful and 'crashed my tabs'. That could mean anything.
+
+I'll maintain the status quo for 24 hours, then reboot. The P40 is still fire-breathing which suggests that the notebook is still training, though with what results, who can tell.
+
+~~~~
+
+Tmr: housekeeping.
+Kill all notebooks, maybe glance at traces on the 1080 but nowhere else.
+Reboot Frankenstein and see what the status is.
+Open / close firefox.
+Backup best versions to the the disk. Sync branch representations.
+***merge the RL branch into the main branch***
+ -- delete the 'PPO helper' folder, recreate with RL notebooks / files (use ln -s to make links)
+
+Week:
+1) Check all results from all notebooks.
+   -- language
+   -- ALL RL (supervised, curriculum, semi-supervised)
+2) Debug RL 
+   -- maybe make alternative system which uses the entire buffer-buffer for signals on how to behave. Use averages, deepseek-style, instead of learning a value function.
+
+~~~~
+
+I was slow today, but that's because the goals were vague and firefox / penguinsarmy were uncooperative. Tomorrow, the goals are specific: housekeeping.

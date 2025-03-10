@@ -87,9 +87,10 @@ def probs_and_entropies_all(settings_batch, traces, past_terminated, brain, temp
 # That's enough general things; let's get into the buffer class itself
 
 class GameOutputBuffer:
-    def __init__(self, policy_model, value_model, gamma, tau, reward_func=None, default_batch_size=16):
+    def __init__(self, policy_model, value_model, gamma, tau, reward_func=None, default_batch_size=16, max_agent_offset=0.5):
 
         self.seed_offset = 1 # used to be 0, but strings always start with <s> by design (token 0), even when generated from scratch
+        self.max_agent_offset = max_agent_offset
 
         self.tau = tau
         self.gamma = gamma
@@ -143,7 +144,7 @@ class GameOutputBuffer:
                 raise ValueError("Error: trace seeds provided do not match provided batch size")
         self.traces = traces
 
-        self.games = [discreteGame(parent_game.random_bare_settings(gameSize=224, max_agent_offset=0.5)) for i in range(batch_size)]
+        self.games = [discreteGame(parent_game.random_bare_settings(gameSize=224, max_agent_offset=self.max_agent_offset)) for i in range(batch_size)]
         self.settings_buffer = [[deepcopy(G.settings)] for G in self.games]
 
         self.logpas = torch.zeros((batch_size, 1), device=device) # default dtype
