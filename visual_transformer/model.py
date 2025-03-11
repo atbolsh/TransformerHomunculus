@@ -220,8 +220,12 @@ class SolitaryValueFunc(nn.Module):
         self.dopamine = IntermediateTransformerScorer() # for RL; not yet tested, use later
 
     # I will keep this as the default dopamine signal; may spin some other 'raw default' types later.
-    def evaluate_text(self, text_batch, context=None):
-        text_encoding = self.text_enc(text_batch)
+    def evaluate_text(self, text_batch, context=None, text_gradient = True):
+        if text_gradient:
+            text_encoding = self.text_enc(text_batch)
+        else:
+            with torch.no_grad():
+                text_encoding = self.text_enc(text_batch)
         return self.dopamine(text_encoding, context)
 
     def forward(self, text, context=None):
@@ -322,12 +326,22 @@ class DefaultAgentBrain(nn.Module):
         return self.get_text_decoding(text_encoding, src_attention_mask, src_key_padding_mask, context, return_full)
 
     # I will keep this as the default dopamine signal; may spin some other 'raw default' types later.
-    def evaluate_text(self, text_batch, img_batch=None):
-        text_encoding = self.text_enc(text_batch)
+    # can sometimes train the dopamine layer alone, without any text or image gradients.
+    # Must then set the img_gradient and text_gradient settings to False, or you get a memory leak
+    def evaluate_text(self, text_batch, img_batch=None, img_gradient=True, text_gradient=True):
+        if text_gradient:
+            text_encoding = self.text_enc(text_batch)
+        else:
+            with torch.no_grad():
+                text_encoding = self.text_enc(text_batch)
         if img_batch is None:
             return self.dopamine(text_encoding)
         else:
-            context = self.img_enc(img_batch)
+            if img_gradient:
+                context = self.img_enc(img_batch)
+            else:
+                with torch.no_grad():
+                    context = self.img_enc(img_batch)
             return self.dopamine(text_encoding, context)
 
     # useful for comparing images
@@ -373,12 +387,14 @@ class DefaultAgentBrain(nn.Module):
             preds = self.select(logits, temp, ret_all, temp_eps)
         else:
             preds, log_probs, entropy = self.select(logits, temp, ret_all, temp_eps)
-        output[:, -1] += preds * torch.logical_not(is_terminated)
-        is_terminated = torch.logical_and(is_terminated, (preds==2))
+        preds = preds * torch.logical_not(is_terminated) # set all past-terminated actions / tokens to 0
+        output[:, -1] += preds
+        #print(preds==2)
+        is_terminated = torch.logical_or(is_terminated, (preds==2))
         if not ret_all:
-            return output, is_terminated
+            return output, preds, is_terminated
         else:
-            return output, log_probs, entropy, is_terminated # maybe also multiply by is_terminated? Dunno.
+            return output, preds, log_probs, entropy, is_terminated # maybe also multiply by is_terminated? Dunno.
 
     def generate(self, x=None, context=None, maxlen = None, temp=1.0, ret_all=True, temp_eps = 1e-4, default_batches = 1):
         if maxlen is None:
@@ -396,7 +412,7 @@ class DefaultAgentBrain(nn.Module):
         firstGone = False
         while (x.size()[1] < maxlen) and (not torch.all(is_terminated)):
             if ret_all:
-                x, newlp, newent, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
+                x, _, newlp, newent, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
                 if firstGone: # so, in all cases except the first value
                     lp = F.pad(lp, (0, 1))
                     ent = F.pad(ent, (0, 1))
@@ -405,7 +421,7 @@ class DefaultAgentBrain(nn.Module):
                 lp[:, -1] += newlp
                 ent[:, -1] += newent
             else:
-                x, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
+                x, _, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
         if ret_all:
             return x, lp, ent
         else:
@@ -426,12 +442,19 @@ class DefaultAgentBrain(nn.Module):
 #            logpas[:, i] = dist.log_prob(x[:, cutoff])
 #        return logpas, entropies
 
-    def compute_probabilities(self, x, seed_offset, context=None, temp=1.0):
+    # SINGLE only returns probs for final val; multi returns all probs (assumes identical contexts)
+    def compute_probabilities(self, x, seed_offset=1, context=None, temp=1.0, single=False):
+        if single:
+            return self._compute_probabilities_SINGLE(x, context, temp)
+        else:
+            return self._compute_probabilities_MULTI(x, seed_offset, context, temp)
+
+    def _compute_probabilities_MULTI(self, x, seed_offset, context=None, temp=1.0):
         """Given sentences x, possibly computed by another model, compute the logpas and entropies for all the values chosen.
            (Notice that we are talking about the values ALREADY chosen, not the choices this model would make.)"""
         batches, total_len = x.size()
         gen_len = total_len - seed_offset
-        logits = self.sentence_autoencoder(x, use_masks=True, return_full=True)[:, :, seed_offset-1:-1] # should be batches x tokens x genlen
+        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=True)[:, :, seed_offset-1:-1] # should be batches x tokens x genlen
         logits = logits.transpose(1, 2) # bathes x genlen x tokens
         logits = logits.reshape((batches*gen_len, self.text_dec.vocab_size)) # (batches * genlen x tokens)
         dist = Categorical(logits = logits / temp)
@@ -440,6 +463,19 @@ class DefaultAgentBrain(nn.Module):
 
         logpas = dist.log_prob(y).reshape((batches, gen_len))
         entropies = dist.entropy().reshape((batches, gen_len))
+        return logpas, entropies
+
+    def _compute_probabilities_SINGLE(self, x, context=None, temp=1.0):
+        """Like the above, but only returns the value for the final token"""
+#        batches, total_len = x.size()
+#        gen_len = total_len - seed_offset
+        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=False) # should be batches x tokens
+        dist = Categorical(logits = logits / temp)
+
+        inds = x[:, -1]
+
+        logpas = dist.log_prob(inds)
+        entropies = dist.entropy()
         return logpas, entropies
 
     # Experimental use of self.generate for a particular type of input question

@@ -1,0 +1,42 @@
+Jan 14, 2025
+
+Why is the evaluation function so bad at matching reality? Is it bad at estimating position? Why?
+Can this be fixed in some way? Can I fix this by just by making the weight of the positional embedding stronger or something?
+ -- Test this on supervised learning.
+
+Can I use the brain's own val func for PPO? Is it ok to match text embeddings?
+
+~~~~
+
+Jan 15, 2025:
+just debug, round after round, on the weekend. Take a full day to get a full understanding of what exactly your
+code is doing.
+
+Note the effects of new gamma and tau. See if you can get away with more. 
+ -- short-term mostly? pick low vals, don't confuse it.
+ -- rare spikes you have to work for? Pick high vals
+ -- single reward at the end of the sentence? gamma=tau=1, only one score to rule them all. Use that for advantage estimation
+   -- mostly in sentence-creation, the RL finetuning will need to be like this.
+
+~~~~
+
+Jan 16, 2025:
+For the future, when evaluating performance using a separate NN, and it's differentiable with respect to input, you could always
+use a pass-through estimator and get the gradient to go through to the generating network. Alternatives to try with sparse rewards.
+
+~~~~
+
+Jan 20, 2025:
+
+Note that smaller gamma's work well when the reward is more immediate, and longer gamma's work well when you really need that long chain of causality.
+Note that baking in the val and policy func into a single transformer is perfectly normal
+NOte that RL will always be finicky and you should use shortcuts whenever possible.
+
+~~~~
+
+Mar 11, 2025
+
+From the old PPO helper folder, with the silly 'move sequence' game with no visual input.
+Preserving this file because I may look up something in it. Like the gamma-taue effect reminder, or to remember the 'use differentiable prob. distributions' idea.
+
+

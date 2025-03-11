@@ -759,6 +759,27 @@ Will check / kill this evening.
 
 Saving, will write tutorial_RLnaive over on penguinsfarm.
 
+~~~~~~~~
+
+Switched to new branch on penguinsfarm, RLmania.
+
+Unfortunately, this will really take a few days.
+
+I *could* probably write an RL system in an inspired morning, but I failed to have an inspired morning this morning, so I'm only going to split this into smaller tasks.
+
+Next several days:
+X 0) Modify tokenizer, tokens 1, 3, and 4 (make them left, right, and forward; avoid 'backward' for now) 
+X 1) make PPO helper work with the game (call it 'game wrapper' or something, in a new file):
+X    -- 'seed' is just the Settings file; copy is stored at every interval (but not full image, that's obscene)
+X    -- token is generated conditional on all that came before
+X    -- all the normal calculations, just like PPO_helper
+2) Rewrite the RL notebook in the main place, which works with this setup (it won't train; just make the shell work).
+   -- have the book open in front of you as a reminder.
+3) Function to make fake traces (brain won't stumble towards the correct actions any other way)
+4) Start playing with the *simplest* setup, and see if it can learn to crack it.
+
+This will be the 'naive' RL. This ignores text replies and other sophisticated interactions. This will just be "see, turn towards, chase, eat", learned through RL (multi-stage, enforced by me).
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -768,8 +789,191 @@ Finished training.
 
 Will check results later. Full focus on RL for now.
 
+~~~~~
+
+Slow day. Basically had to rewrite the bufffer code
+
+Wrote the RL_helper file, fully.
+
+Tmr:
+X debug this file, using an untrained brain (random outputs).
+X Then, find a way to write fake traces and see how that goes.
+From there, launch a real training funciton.
+
+Delete PPO_helper when done; a legacy copy exists in the Florence folder anyway.
+
+Should launch real training tomorrow.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feb 28th, 2025
+
+Busy day
+
+Fully debugged the RL helper and solved the 'fake trace' issue quickly.
+
+Monday, I'll 
+double-check the trace generator in RL_fake_traces, then 
+choose some fake log_prob's and entropies (pick one from a 'dist'?), then 
+write and launch the RL code on top of a brain sample.
+
+Notes:
+1) May need custom value function to avoid propagating gradients through img_enc (wasteful; too many images)
+2) Remember that generate_log_probabilities_and_entropies needs to be the new one, not the old one
+3) Otherwise, can mostly copy the PPO notebooks, and launch the loops
+    -- may reduce gamma and tau.
+4) Launches and runs? Results? Delete PPO_helper folder
+Will launch for a day or two with pretrained brains, see how it goes
+
+~~~~~~~~
+
+At least for the hobby, this was a very good day
+
+Next week, after this launches, I will largely sit back and run a bunch of tests on all the trained systems.
+I will run 3 tests on all systems (visual on the P40, linguistic on the 2080, and RL on the 1080, at least while it's still a toy).
+
+Then I may retrain / pick specific next tasks / etc. But coding will be slightly more relaxed again for a couple of weeks, probably including the Argentina trip
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Mar 3rd, 2025
+
+Bad day
+
+Launched a 'fake traces' version for RL, that's it.
+
+Not really even using RL, unfortunately . . .
+
+Tmr:
+ -- kill it
+ -- launch 'actual RL' with no fake traces on the big machine
+ -- maybe launch a version of this one with no 'action memory', only pure image processing
+    (I'm afraid of an error mode where it will fail to start turning in the right way and fail to switch to the forward action, but will know to keep an action going)
+
+That's it.
+
+The rest of this week is looking at what I've produced so far and recalibrating.
+Maybe I'll write a small 'helper' script with all the most useful functions / the fake trace stuff / the code for the language training, to reduce code in notebooks.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 4th, 2025
+
+Fake traces had an error. Launched a better version.
+
+Launching a 'real' version over on penguinsarmy now. 
+
+Tmr: kill, switch gears into debugging the several results so far.
+     -- for RL, a good first start will be just creating a single, universal prompt, not feeding a trace. On both machines. Maaaaybe.
+     -- UPDATE: the traditional approach has a memory leak. Fixing it comes first.
+
+Then, sync all these, merge branches, debug the other tutorials, etc.
+
+~~~~
+
+Once it's debugged and I have a single brain that does every silly trick I've tried so far, I'll make a short list of the next tricks.
+(no corners, but add things like 'facing toward', 'facing away', 'to the left', 'to the right', and a couple others).
+ALso, I will standardize the code from the notebooks and make several re-importable python files to use.
+ -- objective for March: convincing NB which shows the agent 'knows' how to find gold in an empty room, and can talk about it reasonably.
+
+THe goal after those is to have a system that usually chases the gold, and can explain a few things about it.
+From there the goal is to imagine different counter-factuals and maybe using them intellectually.
+I will also train up the ability to 'summarize' at this point. I will possibly modify the brain.
+
+The big reveal will be 'corners'. That comes next. ONce I have that task, I can introduce 'plan' and the code structure needed for it.
+From there, it can move to other rooms and discuss them.
+
+THat's a *very* advanced robot. ONce it's there, I can absolutely move on to 'teach yourself new images' by remembering images and running small training loops.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 6th, 2025
+
+Finally fixed damn memory leaks (I think) for RL_traditional
+
+Launched *a* version today. If, by tmr it doesn't finish training, will launch a better version tmr (on the 1080),
+and launch a version with fake traces as a guide over on the 2080 or the P40.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 7th, 2025
+
+RL_traditional launched correctly, but later failed for some reason.
+
+Relaunching with higher batch size (16 instead of 6) and high hopes. We will see.
+
+I am also launching a version of it (still on penguins army) with one 'fake buffer' per buffer-buffer, and seeing what that does as a guide.
+
+~~~~
+
+Merged a version onto penguins farm
+Also launching a notebook on penguinsfarm, letting the radius grow over time
+
+~~~~
+
+I did the hard work of writing the RL scripts, but *really* I need to debug them as carefully as I debugged the vision system. I don't think any of my variants are actually training right now.
+
+I'll do it after I look at all the other results, in great detail, however. Next week is "examine the agents" week. I'm a bit sick of RL, especially RL learning alone.
+
+There is a lot of conceptual work to do in order to get the RL to behave, but it's good that right now, I have all the code down.
+
+The value function is particularly bad for some reason. I'll check later, but I bet I also have unusualy low entropy.
+
+I will need to check out how exactly I fixed the RL system back when I was only testing it out.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 10th, 2025
+
+I'm back from my trip!
+
+Against all hope, it looks like the 'curriculum' version did learn a little. I will let it run for 24 more hours.
+I suspect it's a matter of 'the transformer needed initial pre-training to get anywhere'.
+THe NLP and vision systems benefitted from pretraining in a way the dopamine module did not, after all.
+
+I'll have to learn how to use words like 'good' and 'bad' to automatically train the dopamine portion. But that's a long way off.
+That's in 'make your own training loops' territory, and that has to wait until I have a single, standard OOD loop.
+
+~~~~
+
+Who knows what's going on on the monster. Firefox chose to be awful and 'crashed my tabs'. That could mean anything.
+
+I'll maintain the status quo for 24 hours, then reboot. The P40 is still fire-breathing which suggests that the notebook is still training, though with what results, who can tell.
+
+~~~~
+
+Tmr: housekeeping.
+X Kill all notebooks, maybe glance at traces on the 1080 but nowhere else.
+X Reboot Frankenstein and see what the status is.
+  -- it recovered fine. I just have to keep in mind that GPU 0 is unreliable
+  -- will reboot at least once more before the big trip.
+X Open / close firefox.
+~ Backup best versions to the the disk. Sync branch representations.
+  -- for that, I need to find the best versions. This waits
+***merge the RL branch into the main branch***
+X -- delete the 'PPO helper' folder, recreate with RL notebooks / files (use ln -s to make links)
+
+Week:
+1) Check all results from all notebooks.
+   -- language
+   -- ALL RL (supervised, curriculum, semi-supervised)
+2) Debug RL 
+   -- maybe make alternative system which uses the entire buffer-buffer for signals on how to behave. Use averages, deepseek-style, instead of learning a value function.
+
+~~~~
+
+I was slow today, but that's because the goals were vague and firefox / penguinsarmy were uncooperative. Tomorrow, the goals are specific: housekeeping.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 11th, 2025
 
 

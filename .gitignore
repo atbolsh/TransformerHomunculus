@@ -1,4 +1,6 @@
 PPO_helper/agent_internals
+PPO_agent/game
+PPO_agent/visual_transformer
 *.ipynb_checkpoints*
 *__pycache__*
 *.swp

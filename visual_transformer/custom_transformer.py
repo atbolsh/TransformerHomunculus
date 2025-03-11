@@ -1,5 +1,6 @@
 # THis file hosts the re-implementation of the transformer, especially for the vision data.
 # THis is because the standard torch implementation seems to lack skip connections, which ruins a lot of things
+# UPDATE -- torch does have skip connections. The issue was something else. However, I do implement a better version of positional encoding in this file, which helps me a lot
 
 # Based on these sources:
 # https://medium.com/thedeephub/building-vision-transformer-from-scratch-using-pytorch-an-image-worth-16x16-words-24db5f159e27
