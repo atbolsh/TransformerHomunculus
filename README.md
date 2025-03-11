@@ -952,7 +952,7 @@ X Open / close firefox.
 ~ Backup best versions to the the disk. Sync branch representations.
   -- for that, I need to find the best versions. This waits
 ***merge the RL branch into the main branch***
- -- delete the 'PPO helper' folder, recreate with RL notebooks / files (use ln -s to make links)
+X -- delete the 'PPO helper' folder, recreate with RL notebooks / files (use ln -s to make links)
 
 Week:
 1) Check all results from all notebooks.
