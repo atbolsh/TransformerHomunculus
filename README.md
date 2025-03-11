@@ -976,4 +976,10 @@ I was slow today, but that's because the goals were vague and firefox / penguins
 
 Mar 11th, 2025
 
+Housekeeping done.
+
+Tmr:
+Examine the 'language' notebook (Tutorial QA, on the behemoth), and draw conclusions.
+Maybe also examine one or two of the RL notebooks.
+
 
