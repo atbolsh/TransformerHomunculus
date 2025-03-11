@@ -944,10 +944,13 @@ I'll maintain the status quo for 24 hours, then reboot. The P40 is still fire-br
 ~~~~
 
 Tmr: housekeeping.
-Kill all notebooks, maybe glance at traces on the 1080 but nowhere else.
-Reboot Frankenstein and see what the status is.
-Open / close firefox.
-Backup best versions to the the disk. Sync branch representations.
+X Kill all notebooks, maybe glance at traces on the 1080 but nowhere else.
+X Reboot Frankenstein and see what the status is.
+  -- it recovered fine. I just have to keep in mind that GPU 0 is unreliable
+  -- will reboot at least once more before the big trip.
+X Open / close firefox.
+~ Backup best versions to the the disk. Sync branch representations.
+  -- for that, I need to find the best versions. This waits
 ***merge the RL branch into the main branch***
  -- delete the 'PPO helper' folder, recreate with RL notebooks / files (use ln -s to make links)
 
@@ -961,3 +964,10 @@ Week:
 ~~~~
 
 I was slow today, but that's because the goals were vague and firefox / penguinsarmy were uncooperative. Tomorrow, the goals are specific: housekeeping.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 11th, 2025
+
+

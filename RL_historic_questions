@@ -32,4 +32,11 @@ Note that smaller gamma's work well when the reward is more immediate, and longe
 Note that baking in the val and policy func into a single transformer is perfectly normal
 NOte that RL will always be finicky and you should use shortcuts whenever possible.
 
+~~~~
+
+Mar 11, 2025
+
+From the old PPO helper folder, with the silly 'move sequence' game with no visual input.
+Preserving this file because I may look up something in it. Like the gamma-taue effect reminder, or to remember the 'use differentiable prob. distributions' idea.
+
 
