@@ -957,7 +957,7 @@ X Reboot Frankenstein and see what the status is.
 X Open / close firefox.
 ~ Backup best versions to the the disk. Sync branch representations.
   -- for that, I need to find the best versions. This waits
-***merge the RL branch into the main branch***
+X ***merge the RL branch into the main branch***
 X -- delete the 'PPO helper' folder, recreate with RL notebooks / files (use ln -s to make links)
 
 Week:
