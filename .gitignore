@@ -1,6 +1,10 @@
 PPO_helper/agent_internals
 PPO_agent/game
 PPO_agent/visual_transformer
+PPO_agent/brain_checkpoints
+pseudoGRPO_agent/game
+pseudoGRPO_agent/visual_transformer
+pseudoGRPO_agent/brain_checkpoints
 *.ipynb_checkpoints*
 *__pycache__*
 *.swp

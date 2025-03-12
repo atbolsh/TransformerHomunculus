@@ -982,4 +982,34 @@ Tmr:
 Examine the 'language' notebook (Tutorial QA, on the behemoth), and draw conclusions.
 Maybe also examine one or two of the RL notebooks.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 12th, 2025
+
+TutorialQA did very well. Supervised learning does just fine with varieties of outputs, especially when the concept it needs to detect is so straightforward.
+
+I could have ended this after only 10k batches, by the way, or even 2500.
+
+I am keeping batch7600, however, as the best overall, and most trusted.
+
+Keeping 2500 and 7600, deleting all others as unnecessary
+ -- AAAAAND I accidentally deleted it. FML. Will rerun.
+
+~~~~~~~~
+
+Wrote pseudo-GRPO code instead of PPO, to avoid problems with value functions
+Will see whether or not it trains in the future. THis is how I'll learn RL / what I'll use as a default. Value funcs can come much later.
+
+~~~~~~~~
+
+TutorialsQA relaunched. GPU troubles again. It seems I can only use one GPU at a time.
+
+I lost the evaluation code in TutorialsQA, but it's easy to rewrite.
+
+It seems that using both GPUs at capacity on the behemoth will not work. I will only train on the P40 during my Argentina trip; will fix upon return.
+
+Tonight: rerung TutorialsQA
+Tmr: relaunch the new pseudoGRPO code; check on it during the trip. Maybe launch it as a script, not as an ipynb.
+
 
