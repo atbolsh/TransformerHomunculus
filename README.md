@@ -1009,7 +1009,20 @@ I lost the evaluation code in TutorialsQA, but it's easy to rewrite.
 
 It seems that using both GPUs at capacity on the behemoth will not work. I will only train on the P40 during my Argentina trip; will fix upon return.
 
-Tonight: rerung TutorialsQA
+Tonight: rerun TutorialsQA
 Tmr: relaunch the new pseudoGRPO code; check on it during the trip. Maybe launch it as a script, not as an ipynb.
 
+~~~~~~~~
+
+Made evaluation notebooks for Image (some capacity lost; will need to be restored, perhaps in stages) and for RL_fake_traces.
+Caught a bug in RL_semi_traditional
+
+Tmr, when launching RL_semi_traditional: be super careful. Perhaps launch from a python script instead of nb, but that's not strictly necessary.
+
+~~~~~~~~
+
+Tmr:
+ -- pick the TutuorialsQA result you want. Share onto both machines.
+ -- reboot both machines in preparation 
+ -- launch pseudoGRPO, v1, carefully. THis will be the last time you touch it before the trip.
 
