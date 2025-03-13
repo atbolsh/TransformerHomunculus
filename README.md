@@ -1039,3 +1039,13 @@ Lesson: this approach will work for other questions. Also, there's no need to 'b
 
 Launced the pseudo-GRPO with even more simplifications, on the big machine (P40).
 
+~~~~~~~~
+
+Looking more closely at fake_traces, it really should have worked.
+Debugging it may yield the highest return on investment. Make sure you're computing what you think you're computing.
+But this can wait for the other projects.
+
+I don't think that the 'semi-traditional pseudo-GRPO' thing will work. The off-policy instructions from the guide are too different from the on-policy distribution.
+THough maybe the probabilities for the correct actions will go up . . . will see. It has a couple of days.
+
+Fake_traces must be debugged first, however.
