@@ -1037,5 +1037,11 @@ Reran TUtorialQA. I kept batch 6100.
 
 Lesson: this approach will work for other questions. Also, there's no need to 'baby' the agent when it comes to exact answer format, etc.
 
-Launced the pseudo-GRPO with even more simplifications, on the big machine (P40).
+Launched the pseudo-GRPO with even more simplifications, on the big machine (P40). Will see how it goes.
+
+Tmr / Saturday:
+1) Check progress. Maybe debug if does not work (do step by step in new notebook, like what I did back for the vision tutorial)
+2) Sketchbook work (Mermaid editor?). Pick a structure / brain behavior system without too-long logs. Stuff where details can be trained, but a default 'interaction with env' mode is very clear.
+    -- this 'interaction with env' mode can get more bells and whistles later. I want, right now, a basic system with only neural (and maybe persisten visual canvas) memory. Text banks and files come later.
+    -- reread the Foerster RL paper. Try to use as a guide?
 
