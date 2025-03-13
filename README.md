@@ -1022,7 +1022,20 @@ Tmr, when launching RL_semi_traditional: be super careful. Perhaps launch from a
 ~~~~~~~~
 
 Tmr:
- -- pick the TutuorialsQA result you want. Share onto both machines.
- -- reboot both machines in preparation 
- -- launch pseudoGRPO, v1, carefully. THis will be the last time you touch it before the trip.
+X -- pick the TutuorialsQA result you want. Share onto both machines.
+~ -- reboot both machines in preparation
+     -- no need, I just shut down the TutorialQA train loop
+X -- launch pseudoGRPO, v1, carefully. THis will be the last time you touch it before the trip.
+     -- yep, in new file, copied exclusively from the python notebook
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 13th, 2025
+
+Reran TUtorialQA. I kept batch 6100.
+
+Lesson: this approach will work for other questions. Also, there's no need to 'baby' the agent when it comes to exact answer format, etc.
+
+Launced the pseudo-GRPO with even more simplifications, on the big machine (P40).
 

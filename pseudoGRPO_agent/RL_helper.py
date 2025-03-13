@@ -214,12 +214,16 @@ class GameOutputBuffer:
             # use the values and rewards to compute GAE
             #self.gaes = self.get_gaes() # automatically stores in self.gaes
 
-    def use_values(self, external_values): # values can have ths same shape as the buffer, the same shape as the returns tensor, or be a single value.
+    def use_values(self, external_values, discount=True): # values can have ths same shape as the buffer, the same shape as the returns tensor, or be a single value.
         batch_size, actions = self.logpas.size()
         self.values = torch.zeros(batch_size, actions + 1, device = self.logpas.device)
         self.values += external_values # automatic tensor behavior should take care of all cases
 
-        self.gaes = self.get_gaes()
+        # by default, let's use the simpler number while we are using these external value approximations
+        if discount:
+            self.gaes = self.get_discount_gaes()
+        else:
+            self.gaes = self.get_gaes()
 
     def use_own_dopamine(self):
         self.values = self.get_values()
@@ -304,6 +308,11 @@ class GameOutputBuffer:
             gaes[:, -1 - i - 1] = (deltas[:, -1 -i -1] + self.gamma*self.tau*gaes[:, -1 - i] ) * torch.logical_not(self.past_terminated[:, -1 -i -1])
         return gaes
 
+    # Dirty trick to use this 'mediam value function'
+    # may debug this approach later
+    def _get_discount_gaes(self):
+        return (self.returns - self.values)[:, 1:]
+
     # by default the errors *do* get propagated to the text encoder, but that can be changed to only train the dopamine function
     def get_values(self, evaluation = True, img_gradient = False, text_gradient = True):
         if evaluation:
@@ -332,6 +341,13 @@ class GameOutputBuffer:
                 return self._get_gaes()
         else:
             return self._get_gaes() 
+
+    def get_discount_gaes(self, evaluation = True):
+        if evaluation:
+            with torch.no_grad():
+                return self._get_discount_gaes()
+        else:
+            return self._get__discount_gaes() 
 
     # NOTE: this is the only function which defaults to evaluation=False, thanks to how it is normally used (in training loop)
     def get_probabilities_and_entropies(self, policy_model=None, update_self=False, temp=1.0, evaluation=False):
