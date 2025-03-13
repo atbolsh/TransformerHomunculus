@@ -1045,3 +1045,13 @@ Tmr / Saturday:
     -- this 'interaction with env' mode can get more bells and whistles later. I want, right now, a basic system with only neural (and maybe persisten visual canvas) memory. Text banks and files come later.
     -- reread the Foerster RL paper. Try to use as a guide?
 
+~~~~~~~~
+
+Looking more closely at fake_traces, it really should have worked.
+Debugging it may yield the highest return on investment. Make sure you're computing what you think you're computing.
+But this can wait for the other projects.
+
+I don't think that the 'semi-traditional pseudo-GRPO' thing will work. The off-policy instructions from the guide are too different from the on-policy distribution.
+THough maybe the probabilities for the correct actions will go up . . . will see. It has a couple of days.
+
+Fake_traces must be debugged first, however.
