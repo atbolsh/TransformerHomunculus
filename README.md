@@ -1042,8 +1042,9 @@ Launched the pseudo-GRPO with even more simplifications, on the big machine (P40
 Tmr / Saturday:
 1) Check progress. Maybe debug if does not work (do step by step in new notebook, like what I did back for the vision tutorial)
 2) Sketchbook work (Mermaid editor?). Pick a structure / brain behavior system without too-long logs. Stuff where details can be trained, but a default 'interaction with env' mode is very clear.
-    -- this 'interaction with env' mode can get more bells and whistles later. I want, right now, a basic system with only neural (and maybe persisten visual canvas) memory. Text banks and files come later.
-    -- reread the Foerster RL paper. Try to use as a guide?
+X    -- this 'interaction with env' mode can get more bells and whistles later. I want, right now, a basic system with only neural (and maybe persisten visual canvas) memory. Text banks and files come later.
+X    -- reread the Foerster RL paper. Try to use as a guide?
+            -- does not work. He uses the Markov property to make reactions a function of present state only. No memory.
 
 ~~~~~~~~
 
@@ -1055,4 +1056,38 @@ I don't think that the 'semi-traditional pseudo-GRPO' thing will work. The off-p
 THough maybe the probabilities for the correct actions will go up . . . will see. It has a couple of days.
 
 Fake_traces must be debugged first, however.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 18th, 2025
+
+"Semi-supervised RL" finished (or rather, broke; ran out of disk space). I deleted a lot of the intermediate save points, now order is restored.
+
+Will not test it right now due to physical weakness (food poisoning). Will do that as one of the 'tasks that neeed to get done' once I am sane again.
+
+Good progress creating final brain design with memory. I like the 'fixed remember / fixed forget' gate idea. It's probably not optimal, but it'll do the trick
+and it's fully understandable by humble old me.
+
+The papers mention that I am writing a 'full list of tasks' for the agent before I move on to bigger tasks (like self-curated lists, special actions to store 
+plands / info tidbits / load files, corner learning using all the tools so far, etc). This file is called 'full_task_list.md'
+
+Quick note: 
+A lot of those tasks will require 'creative loss functions'. It will call for imagining something in  arough, not exact, position.
+One thing that could really help would be 'get settings from image': use things like center of mass of yellow, red, and gold to extrapolate the Settings object.
+This can be a '1 gold' or 'multi-gold' task.
+
+I think that writing some helper functions for that will be useful this trip, dunno with which priority.
+
+Big projects this trip. How much I complete depends on physical health, primarily.
+1) Debug RL, relaunch
+2) Make a GUI visualizer for the current state in the agent (except memory, maybe): all canvases, current text, input image.
+3) Make the 'settings from image' func. Test speed / accuracy. Use it for 'creative loss funcs' later.
+      -- if it's 'visualize gold near upper left corner', then make the loss 0 within a chunk of area, and reward variety in output batch.
+4) Lots of notebooks (NOT RUN) written in a mixture of python and pseudo for each of the tasks on the other page.
+5) ONLY THEN, write the new brain (maybe new repo) and start training memory (probably use transfer learning from current brain).
+
+Tmr / Thursday:
+1) Double-check the list of tasks. Double-check the structure, and that it will be able to do everything you are asking of it.
+2) Find ways to do GUI (too sick of RL, unless I am in perfect physical health).
+
 
