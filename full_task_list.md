@@ -20,6 +20,7 @@ First order: (one, max two steps)
  Are you near the gold? (for some function of near; choose this).
 
  Do you want to be in the second or first image? Which is preferable? (other versions of this; uses dopamine and language).
+ Is the gold closer to you in the first or second image?
  
 Requires visualization:
  Where were you in the last step?
@@ -46,6 +47,8 @@ Second order:
  Please tell me which of the gold pieces is closer
  Is this reconstruction better, or worse, than this one?
  Is this path better, or worse, than this one?
+ Look at this agent move over time. Please draw his path in the next image (memory exam; easily can do more than 3 images this way).
+ Look at this agent's path. Is he moving in the right direction?
 
  Please imagine a piece of gold near the center of the board. Then, visualize a path.
 
@@ -56,5 +59,24 @@ Early plans (no more than 2 or 3 steps; longer waits for stored plans):
 NON-VERBAL:
 ** Train the dopamine session every time it reaches gold or not, or every time it can make choices.
  Teain recalll from past events (use text, I guess, but it's not really necessary).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 19th, 2025
+
+The list above is mostly 'toddler-level': basic orientation and imagination.
+This is what I will do in the 'no internal walls' setting.
+
+Once that is done, I will move on to 'internal walls' and 'using imagination deliberately' and maybe 'store plans.'
+
+List of broad categories, and order:
+1) Basic navigation, imagination, description, and goal-targeted actions. This is gold-seeking in empty room. All above.
+2) Brainstorming deliberately, maybe storing plans explicitly. This is corners / internal walls. Will write later.
+3) More advanced navigation, map-making, maybe storing images. THis is multi-room experiments. Will write later.
+4) Explicit novelty; deliberate learning; using L2 masks between reconstruction and original; maybe setting up train loops. This is 'novel items discovered.' Comes much later.
+
+Each point take several months. Each task above should be a day or so of writing and a day or so of training, once I have the tools set up (close).
+With delays, I'll probably be done with / finishing up point 2 when I quit in August.
 
 

@@ -1090,4 +1090,21 @@ Tmr / Thursday:
 1) Double-check the list of tasks. Double-check the structure, and that it will be able to do everything you are asking of it.
 2) Find ways to do GUI (too sick of RL, unless I am in perfect physical health).
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Mar 19th, 2025
+
+I made some notes in full_task_list. Won't repeat here.
+
+At best, this looks like 6 months to a year before I'm done with the game and move on to the 3d robot and self-guided exploration.
+That's at current paces, however. Buying more hardware for training and quiting to work full-time may make this go faster.
+
+Good news is, I'm fully recovered physically.
+
+~~~~~~~~
+
+Afternoon / morning: make the 'image to settings' script. Test this week.
+Then the other tasks.
+
+Alternatively, test out some other options, like retrainiing lava, in another repo. A 'refocusing time' like this break is the right time to do this.
