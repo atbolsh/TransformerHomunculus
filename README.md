@@ -1108,3 +1108,22 @@ Afternoon / morning: make the 'image to settings' script. Test this week.
 Then the other tasks.
 
 Alternatively, test out some other options, like retrainiing lava, in another repo. A 'refocusing time' like this break is the right time to do this.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 20th, 2025
+
+I wrote a python notebook called DoNotSave_PreludeImageToSettings
+
+There, that task is mostly done, except for anything to do with walls.
+
+Tmr, I will finish this, except for walls:
+1) Test the 'multiple gold centers' thing
+   -- probably each step needs checking, what's x and what's y. THink through it.
+2) Write the funcs to process image batch instead of image alone (only matters at the end).
+3) Write the actual python file (use bare_settings=True and copy_walls=True as default, and default device as 'cpu' but can be set easily).
+4) Delete the ipynb.
+5) Test this on some agent reconstructions. Play with epsilon. Pick one. Probably 0.01 is best, no?
+
+That's probably it for Friday. Plus or minus serious planning.
