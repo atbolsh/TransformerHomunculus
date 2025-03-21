@@ -1135,3 +1135,7 @@ That's probably it for Friday. Plus or minus serious planning.
 Mar 21st, 2025
 
 FInished the image_to_settings fun. May do several other tasks if today is an intensive.
+
+Updated business plans with conviction.com info
+
+
