@@ -4,6 +4,7 @@
 
 # TODO: experiment if the differentiable mask does well, or you need a better mask to make the gradient actually propagate (eg, multiply the mask by the input or something)
 # TODO: once using this for losses, experiment with agnet reconstructions and choose better default epsilon. My money is on 0.01 or 0.03
+# TODO: probably needs some torch.no_grad placement
 
 from game import *
 from visual_transformer import *
@@ -23,6 +24,16 @@ def _get_color_masks_diff(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs la
     diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
     mag = (diff*diff).sum(1)
     return F.sigmoid((epsilon - mag) / (10 * epsilon)) # other activation functions possible. So is an undifferentiable mask mult by the input, and other tricks
+
+def _get_color_masks_diff_alt(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
+    with torch.no_grad():
+        c_vector = torch.tensor(c_tuple, device=img_batch.device)
+        diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
+        mag = (diff*diff).sum(1)
+        mask = (mag < epsilon)
+        norm = torch.sum(c_vector*c_vector)
+    masked = mask.unsqueeze(1) * img_batch / norm
+    return (masked * masked).sum(1) # exactly like mask, but all the 1s have gradients wrt to the color blob.
 
 def get_color_masks(img_batch, c_tuple, epsilon=3.0/(255*255), differentiable=True): # needs larger epsilon later; test!
     if differentiable:
