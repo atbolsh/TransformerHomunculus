@@ -1138,4 +1138,33 @@ FInished the image_to_settings fun. May do several other tasks if today is an in
 
 Updated business plans with conviction.com info
 
+~~~~~~~~
+
+Started widget exploration. Not done. File WidgetExploration.ipynb
+
+Buttons often do not print, but I finally found code where they do print. They can also control the Output widget (eg by clearingit; see notebook)
+
+Widget tutorial sequence: https://ipywidgets.readthedocs.io/en/8.1.2/examples/Widget%20Basics.html
+Widget list: https://ipywidgets.readthedocs.io/en/8.1.2/examples/Widget%20List.html
+Wdiget Output documentation: https://ipywidgets.readthedocs.io/en/latest/examples/Output%20Widget.html
+
+Tmr:
+1) Opent the widget list link above
+2) Run the ipynb
+3) add image output with refreshing and the game object
+4) Build this:
+    -- text box
+    -- button to 'submit'
+    -- pseudo-agent present.
+    -- if "FORWARD", "LEFT", "RIGHT" or "BACKWARD" are present in the submitted text, that action is taken in the game
+    -- The output is cleared, the game display is updated
+    -- a randomly pixelated image is generated and also displayed by the pseudoagent
+    -- whatever the input text was, it's reversed and printed by the pseudo-agent.
+
+That's enough for 1-2 mornings. This system, almost bit-for-bit, will work for the agent (user input, one game step, agent output and print, several image canvases)
+This will actually let me see the agent in its env
+Some sort of 'keep stepping for N steps' button can be added if I feel like it.
+
+This is either tmr or Monday finishing. Then I will be done with widgets.
+
 
