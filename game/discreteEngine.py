@@ -10,9 +10,17 @@ from PIL import Image
 
 from .levels.skeleton import *
 
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+GOLD = (255, 200, 0)
 
 class discreteGame:
-    def __init__(self, settings = None, envMode = True):
+    def __init__(self, settings = None, envMode = True, default_colors = True):
         # params for random initialization; usually ignored (put them into a Settings object?)
         self.typically_restrict_angles = False
 #        self.typical_indicator_length = 0.5
@@ -32,14 +40,15 @@ class discreteGame:
         self.envMode = envMode
         self.initial = deepcopy(settings)
 
-        self.BLACK = (0, 0, 0)
-        self.WHITE = (255, 255, 255)
-        
-        self.RED = (255, 0, 0)
-        self.GREEN = (0, 255, 0)
-        self.BLUE = (0, 0, 255)
-        
-        self.GOLD = (255, 200, 0)
+        if default_colors:
+            self.BLACK = BLACK
+            self.WHITE = WHITE
+            self.RED = RED
+            self.GREEN = GREEN
+            self.BLUE = BLUE
+            self.GOLD = GOLD
+        else:
+            raise NotImplementedError
 
         self.sprite_files = { 'arrow': "game_images_and_modifications/Arrow_example_for_import.png", \
                               'line' : "game_images_and_modifications/LineSprite.png" }

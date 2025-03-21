@@ -1119,11 +1119,19 @@ I wrote a python notebook called DoNotSave_PreludeImageToSettings
 There, that task is mostly done, except for anything to do with walls.
 
 Tmr, I will finish this, except for walls:
-1) Test the 'multiple gold centers' thing
-   -- probably each step needs checking, what's x and what's y. THink through it.
-2) Write the funcs to process image batch instead of image alone (only matters at the end).
-3) Write the actual python file (use bare_settings=True and copy_walls=True as default, and default device as 'cpu' but can be set easily).
-4) Delete the ipynb.
-5) Test this on some agent reconstructions. Play with epsilon. Pick one. Probably 0.01 is best, no?
+X 1) Test the 'multiple gold centers' thing
+X   -- probably each step needs checking, what's x and what's y. THink through it.
+X 2) Write the funcs to process image batch instead of image alone (only matters at the end).
+X 3) Write the actual python file (use bare_settings=True and copy_walls=True as default, and default device as 'cpu' but can be set easily).
+X 4) Delete the ipynb.
+~ 5) Test this on some agent reconstructions. Play with epsilon. Pick one. Probably 0.01 is best, no?
+    -- canceled this; this can wait until this file is used for loss funcs
 
 That's probably it for Friday. Plus or minus serious planning.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 21st, 2025
+
+FInished the image_to_settings fun. May do several other tasks if today is an intensive.
