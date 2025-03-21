@@ -19,13 +19,22 @@ def _get_color_masks_undiff(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs 
     return (mag < epsilon)
 
 # DIFFERENTIABLE
-def _get_color_masks_diff(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
+def _get_color_masks_diff_old(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
     c_vector = torch.tensor(c_tuple, device=img_batch.device)
     diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
     mag = (diff*diff).sum(1)
     return F.sigmoid((epsilon - mag) / (10 * epsilon)) # other activation functions possible. So is an undifferentiable mask mult by the input, and other tricks
 
-def _get_color_masks_diff_alt(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
+# This looks like my favorite.
+# A default, pretty high epsilon is also backed in: something like 0.04
+# Start testing here; natural, good, gradient everywhere
+def _get_color_masks_diff(img_batch, c_tuple, epsilon=0.04): # needs larger epsilon later; test!
+    c_vector = torch.tensor(c_tuple, device=img_batch.device)
+    diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
+    mag = (diff*diff).sum(1) / 3 # divide by 3 to get max val of 1 and min val of 0
+    return F.sigmoid((1.0 + epsilon - mag) ** 100) # other activation functions possible. So is an undifferentiable mask mult by the input, and other tricks
+
+def _get_color_masks_diff_alt2(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
     with torch.no_grad():
         c_vector = torch.tensor(c_tuple, device=img_batch.device)
         diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
@@ -34,6 +43,16 @@ def _get_color_masks_diff_alt(img_batch, c_tuple, epsilon=3.0/(255*255)): # need
         norm = torch.sum(c_vector*c_vector)
     masked = mask.unsqueeze(1) * img_batch / norm
     return (masked * masked).sum(1) # exactly like mask, but all the 1s have gradients wrt to the color blob.
+
+def _get_color_masks_diff_alt3(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
+    c_vector = torch.tensor(c_tuple, device=img_batch.device)
+    diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
+    with torch.no_grad():
+        mag = (diff*diff).sum(1)
+        mask = (mag < epsilon)
+        norm = torch.sum(c_vector*c_vector)
+    masked_ones = (1.0 - diff) * mask.unsqueeze(1)
+    return masked_ones * masked_ones # zero gradient for values at the color; small gradient back to the color, for deviations. Prob need large epsilon
 
 def get_color_masks(img_batch, c_tuple, epsilon=3.0/(255*255), differentiable=True): # needs larger epsilon later; test!
     if differentiable:
