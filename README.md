@@ -1149,22 +1149,41 @@ Widget list: https://ipywidgets.readthedocs.io/en/8.1.2/examples/Widget%20List.h
 Wdiget Output documentation: https://ipywidgets.readthedocs.io/en/latest/examples/Output%20Widget.html
 
 Tmr:
-1) Opent the widget list link above
-2) Run the ipynb
-3) add image output with refreshing and the game object
-4) Build this:
-    -- text box
-    -- button to 'submit'
-    -- pseudo-agent present.
-    -- if "FORWARD", "LEFT", "RIGHT" or "BACKWARD" are present in the submitted text, that action is taken in the game
-    -- The output is cleared, the game display is updated
-    -- a randomly pixelated image is generated and also displayed by the pseudoagent
-    -- whatever the input text was, it's reversed and printed by the pseudo-agent.
+X 1) Opent the widget list link above
+X 2) Run the ipynb
+X 3) add image output with refreshing and the game object
+X 4) Build this:
+X    -- text box
+X    -- button to 'submit'
+~    -- pseudo-agent present.
+~    -- if "FORWARD", "LEFT", "RIGHT" or "BACKWARD" are present in the submitted text, that action is taken in the game
+X    -- The output is cleared, the game display is updated
+X    -- a randomly pixelated image is generated and also displayed by the pseudoagent
+X    -- whatever the input text was, it's reversed and printed by the pseudo-agent.
 
 That's enough for 1-2 mornings. This system, almost bit-for-bit, will work for the agent (user input, one game step, agent output and print, several image canvases)
 This will actually let me see the agent in its env
 Some sort of 'keep stepping for N steps' button can be added if I feel like it.
 
 This is either tmr or Monday finishing. Then I will be done with widgets.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 22nd, 2025
+
+Amazing. Literally 5 minutes of work.
+
+I skipped the use of the game and the agent brain, but it's easy to input text, display text, and display matplotlib plots as much as I want. All of that is in the notebook.
+
+Right now, the sequential display of buttons is ugly, but once I make the system, I could change that if I want:
+https://ipywidgets.readthedocs.io/en/7.6.5/examples/Widget%20Styling.html
+
+Done with widgets. Done with 'image to settings', whether I use that as a differentiable loss or for RL.
+
+Monday (tmr?): lots of RL. Full days. Go through the training scripts. Understand everything that happened. Print critical values and gradients. Make sure they're all correct.
+RL debugging week is nigh.
+
+If I am done with RL debugging week, I could make an NN version of image2settings, or test image2settings on brain outputs.
 
 
