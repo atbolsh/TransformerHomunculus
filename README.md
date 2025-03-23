@@ -1196,6 +1196,9 @@ Running notebooks on penguinsarmy? remember to use 'penguinsfarmForwardPorts 888
 
 Main error I see so far: fake_data_fill does not store the correct settings (only multiple copies of the initial state).
 I will fix this first, but then make sure everything else is as I expect, too (don't just rerun right away).
+  -- fixed! Next step, tmr, is adding options to skip GAE computation in the logic solver, followed by going through all the other steps to see if they make sense.
+  -- once I fix any other egregious errors, optimistically, I can retry training Tuesday evening or Wednesday morning.
+  -- if *that* goes well, I will also fix PPO and rerun it, and / or traing the dopamine func.
 
 One of the traces round 10 showed an attempt to turn then go forward. This suggests that, with the correct data saved, this will actually work.
 

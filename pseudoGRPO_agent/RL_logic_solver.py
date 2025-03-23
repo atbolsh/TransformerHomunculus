@@ -149,13 +149,13 @@ def fake_data_fill(destination_buffer, parent_game, batch_size, maxlen=32, forwa
         trace, reward = get_trace(games[i].settings, maxlen=maxlen-1, zeroPad=True, ret_rewards=True, forward_only=forward_only)
         traces.append([0] + trace)
         rewards.append([0] + reward)
-    destination_buffer.settings_buffer = [[G.settings] for G in games]
+    destination_buffer.settings_buffer = [[deepcopy(G.settings)] for G in games]
     #destination_buffer.rewards = torch.zeros(device
     for b in range(batch_size):
         G = games[b]
         for val in traces[b]:
             if val in special_symbols:
-                G.actions[symbol_action_map[val]] # no need to store rewards, already stored
+                G.actions[symbol_action_map[val]]() # no need to store rewards, already stored
             destination_buffer.settings_buffer[b].append(deepcopy(G.settings))
     destination_buffer.traces = torch.tensor(traces).to(device)
     destination_buffer.rewards = torch.tensor(rewards).to(device)
