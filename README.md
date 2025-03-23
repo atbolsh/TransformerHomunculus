@@ -1186,4 +1186,19 @@ RL debugging week is nigh.
 
 If I am done with RL debugging week, I could make an NN version of image2settings, or test image2settings on brain outputs.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Mar 23rd, 2025
+
+Started debugging. Most notes are in the notebook.
+Running notebooks on penguinsarmy? remember to use 'penguinsfarmForwardPorts 8888 8888' on the laptop.
+
+Main error I see so far: fake_data_fill does not store the correct settings (only multiple copies of the initial state).
+I will fix this first, but then make sure everything else is as I expect, too (don't just rerun right away).
+
+One of the traces round 10 showed an attempt to turn then go forward. This suggests that, with the correct data saved, this will actually work.
+
+I will basically go through and test every element of the training loop, making sure it's what I expect, then relaunch training Tuesday or Wednesday.
+
+Done early? Maybe also carefully test the images_to_settings code (at most one day).
