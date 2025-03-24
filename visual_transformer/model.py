@@ -469,7 +469,8 @@ class DefaultAgentBrain(nn.Module):
         """Like the above, but only returns the value for the final token"""
 #        batches, total_len = x.size()
 #        gen_len = total_len - seed_offset
-        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=False) # should be batches x tokens
+        # I think this is finally it. All the non-terminal tokens are input; the terminal one is index.
+        logits = self.sentence_autoencoder(x[:, :-1], context=context, use_masks=True, return_full=False) # should be batches x tokens
         dist = Categorical(logits = logits / temp)
 
         inds = x[:, -1]

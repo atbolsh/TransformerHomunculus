@@ -1196,8 +1196,9 @@ Running notebooks on penguinsarmy? remember to use 'penguinsfarmForwardPorts 888
 
 Main error I see so far: fake_data_fill does not store the correct settings (only multiple copies of the initial state).
 I will fix this first, but then make sure everything else is as I expect, too (don't just rerun right away).
-  -- fixed! Next step, tmr, is adding options to skip GAE computation in the logic solver, followed by going through all the other steps to see if they make sense.
-  -- once I fix any other egregious errors, optimistically, I can retry training Tuesday evening or Wednesday morning.
+X  -- fixed! Next step, tmr, is adding options to skip GAE computation in the logic solver, followed by 
+X  -- going through all the other steps to see if they make sense.
+X  -- once I fix any other egregious errors, optimistically, I can retry training Tuesday evening or Wednesday morning.
   -- if *that* goes well, I will also fix PPO and rerun it, and / or traing the dopamine func.
 
 One of the traces round 10 showed an attempt to turn then go forward. This suggests that, with the correct data saved, this will actually work.
@@ -1205,3 +1206,35 @@ One of the traces round 10 showed an attempt to turn then go forward. This sugge
 I will basically go through and test every element of the training loop, making sure it's what I expect, then relaunch training Tuesday or Wednesday.
 
 Done early? Maybe also carefully test the images_to_settings code (at most one day).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 24th, 2025
+
+Debugging goes apace
+There's the question of the "+1" in log prob computation (compare with HEAD).
+Weird results in the 'guide' case. the masks should have removed the issue but they didn't.
+Fix, then run.
+
+~~~~~~~~
+
+I think I finally figured it out. I am getting log probs that look correct in all cases. I'm pretty sure I fixed it.
+Rerunning at v3. Will check in the morning.
+
+If good:
+ -- still check past_terminated
+ -- launch non-guided or even PPO (or both; two machines after all)
+
+If not good, keep debugging (except now focus on learning rates, etc).
+
+~~~~~~~~
+
+If satisfied with RL:
+1) Recheck image2settings with reconstructions from agent
+2) Make differentiable settings2img? For fun?
+3) make version with memory? Start making next repo? Basically, act on the other plans, now that RL is finally also in the toolkit.
+
+
+
+

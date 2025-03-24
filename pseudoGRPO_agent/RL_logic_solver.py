@@ -141,7 +141,7 @@ def get_trace(settings, maxlen=1024, zeroPad=False, ret_rewards = False, forward
 
 
 # Fills in traces, settings, and also rewards, returns, values, and gae's
-def fake_data_fill(destination_buffer, parent_game, batch_size, maxlen=32, forward_only=True, device='cpu'):
+def fake_data_fill(destination_buffer, parent_game, batch_size, maxlen=32, forward_only=True, compute_vals=False, device='cpu'):
     games = [discreteGame(parent_game.random_bare_settings(gameSize=224, max_agent_offset=0.5)) for i in range(batch_size)]
     traces = []
     rewards = []
@@ -165,8 +165,10 @@ def fake_data_fill(destination_buffer, parent_game, batch_size, maxlen=32, forwa
     destination_buffer.entropies = torch.zeros((batch_size, maxlen-1), device=device) # Also fine
 
     destination_buffer.terminated, destination_buffer.past_terminated = destination_buffer.get_terminations()
-    destination_buffer.values = destination_buffer.get_values()
     destination_buffer.returns = destination_buffer.get_returns() # rewards computed already, from the gold
-    destination_buffer.gaes = destination_buffer.get_gaes() # automatically stores in destination_buffer.gaes
+
+    if compute_vals:
+        destination_buffer.values = destination_buffer.get_values()
+        destination_buffer.gaes = destination_buffer.get_gaes() # automatically stores in destination_buffer.gaes
 
     return None
