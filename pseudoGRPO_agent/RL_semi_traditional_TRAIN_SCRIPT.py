@@ -82,11 +82,11 @@ def train_policy(policy_optimizer, epochs, buffer_buffer, policy_clip_range=0.1,
             #print(nvidia_smi_spoof())
             logpas, entropies = buffer.get_probabilities_and_entropies(evaluation=False)
             #print(nvidia_smi_spoof())
-            ratios = (logpas - buffer.logpas).exp()
+            ratios = (logpas - buffer.logpas).exp()[:, :-1] # need a shift by one to use the reward that came from the action, recorded next step
             #print(nvidia_smi_spoof())
-            pi_obj = buffer.gaes * ratios
+            pi_obj = buffer.gaes[:, 1:] * ratios
             #print(nvidia_smi_spoof())
-            pi_obj_clipped = buffer.gaes * ratios.clamp(1.0 - policy_clip_range,
+            pi_obj_clipped = buffer.gaes[:, 1:] * ratios.clamp(1.0 - policy_clip_range,
                                                        1.0 + policy_clip_range)
             #print(nvidia_smi_spoof())
             policy_loss = -torch.min(pi_obj, pi_obj_clipped).mean()
@@ -138,7 +138,7 @@ for i in range(num_rounds):
     print(f"**********************ROUND {i} ***************************\n")
     run_round(i, policy_optimizer, num_buffers, batch_size, policy_epochs, policy_clip_range, entropy_loss_weight)
     if ((i + 1) in [1, 2, 3, 4, 5, 8, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]) or (((i + 1) > 10000) and ((i + 1) % 10000 == 0)):
-        torch.save(brain.state_dict(), f'brain_checkpoints/brain_EXPERIMENTAL_5output_weights_semi-guided_RL_GRPO_v3_round{i + 1}.pth')
+        torch.save(brain.state_dict(), f'brain_checkpoints/brain_EXPERIMENTAL_5output_weights_semi-guided_RL_GRPO_v4_round{i + 1}.pth')
     elapsed = time.time() - start
     print(f"***********************TIME WAS {elapsed / 60} min*****************************\n")
     # I think the entropy was too low last time, let's see if this fixes the issue.

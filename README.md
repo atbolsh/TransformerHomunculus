@@ -1235,6 +1235,22 @@ If satisfied with RL:
 2) Make differentiable settings2img? For fun?
 3) make version with memory? Start making next repo? Basically, act on the other plans, now that RL is finally also in the toolkit.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 24th, 2025
+
+Better, but it still didn't learn.
+It learned to spin rapidly, then go forward.
+
+The later rounds were worse than the earlier rounds because it kept trying to kill the round by pressing '2':
+the rewards were misaligned in a way that made this look like a rewarded action.
+
+I relaunched with correctly aligned gae's (v4). Hopefully this is enough.
+If not, I will consider not feeding the trace in (to prevent it from learning 'spam the action you took last move', which is not the lesson I want).
+
+If works: see above for next steps.
+
 
 
 
