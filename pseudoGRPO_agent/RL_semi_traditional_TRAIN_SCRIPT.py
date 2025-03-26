@@ -33,13 +33,13 @@ def average_return(bb):
         s += b.returns[:, 0]
     return torch.sum(s).item()/(len(bb) * bb[0].returns.size()[0])
 
-def get_bb(num_buffers=64, batch_size=1, start_with_guide=True):
+def get_bb(num_buffers=64, batch_size=1, start_with_guide=True, see_traces=True):
     bb = []
     brain.eval()
     for i in range(num_buffers):
         #print(i)
         # In this case, we are only training the 'dopamine' layer on the val training loop
-        buff = GameOutputBuffer(brain, brain.evaluate_text, gamma=0.99, tau=0.97, default_batch_size=batch_size)
+        buff = GameOutputBuffer(brain, brain.evaluate_text, gamma=0.99, tau=0.97, default_batch_size=batch_size, see_traces=see_traces)
         if start_with_guide and (i == 0):
             fake_data_fill(buff, G, batch_size, device=device) # This one guide is the only difference between this and the main one.
         else:
@@ -111,11 +111,11 @@ def train_policy(policy_optimizer, epochs, buffer_buffer, policy_clip_range=0.1,
         print(f"Policy train loss in epoch {epoch}:{train_loss / (len(buffer_buffer))}")
 #train_policy(policy_optimizer, policy_epochs, buffer_buffer, policy_clip_range, entropy_loss_weight)
 
-def run_round(round_num, policy_optimizer, num_buffers=64, batch_size=6, policy_epochs=4, policy_clip_range=0.5, entropy_loss_weight=1e-3):
+def run_round(round_num, policy_optimizer, num_buffers=64, batch_size=6, policy_epochs=4, policy_clip_range=0.5, entropy_loss_weight=1e-3, see_traces=True):
     # First, get some samples
     brain.eval()
 #    get_value.eval()
-    buffer_buffer = get_bb(num_buffers, batch_size) # run the inference side
+    buffer_buffer = get_bb(num_buffers, batch_size, see_traces=see_traces) # run the inference side
     print(f"Return before training was {average_return(buffer_buffer)}")
     #if round_num > 0:
     print("\n~~~~~~~POLICY loop~~~~~~~\n")
@@ -133,12 +133,13 @@ batch_size=32#16
 num_rounds = 150*10*10 # give it more of a chance to learn policy, which can only change a little over each round.
 policy_clip_range=0.5
 entropy_loss_weight=5e-3
+see_traces=False # for v5, I'm experimenting with forcing the agent to base the decision on the image, not the trace history. Wish me luck
 for i in range(num_rounds):
     start = time.time()
     print(f"**********************ROUND {i} ***************************\n")
-    run_round(i, policy_optimizer, num_buffers, batch_size, policy_epochs, policy_clip_range, entropy_loss_weight)
+    run_round(i, policy_optimizer, num_buffers, batch_size, policy_epochs, policy_clip_range, entropy_loss_weight, see_traces)
     if ((i + 1) in [1, 2, 3, 4, 5, 8, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]) or (((i + 1) > 10000) and ((i + 1) % 10000 == 0)):
-        torch.save(brain.state_dict(), f'brain_checkpoints/brain_EXPERIMENTAL_5output_weights_semi-guided_RL_GRPO_v4_round{i + 1}.pth')
+        torch.save(brain.state_dict(), f'brain_checkpoints/brain_EXPERIMENTAL_5output_weights_semi-guided_RL_GRPO_v5_round{i + 1}.pth')
     elapsed = time.time() - start
     print(f"***********************TIME WAS {elapsed / 60} min*****************************\n")
     # I think the entropy was too low last time, let's see if this fixes the issue.

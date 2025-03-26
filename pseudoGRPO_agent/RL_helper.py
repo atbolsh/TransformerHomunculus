@@ -87,10 +87,11 @@ def probs_and_entropies_all(settings_batch, traces, past_terminated, brain, temp
 # That's enough general things; let's get into the buffer class itself
 
 class GameOutputBuffer:
-    def __init__(self, policy_model, value_model, gamma, tau, reward_func=None, default_batch_size=16, max_agent_offset=0.5):
+    def __init__(self, policy_model, value_model, gamma, tau, reward_func=None, default_batch_size=16, max_agent_offset=0.5, see_traces=True):
 
         self.seed_offset = 1 # used to be 0, but strings always start with <s> by design (token 0), even when generated from scratch
         self.max_agent_offset = max_agent_offset
+        self.see_traces = see_traces # whether the agent receives the traces as input, or not
 
         self.tau = tau
         self.gamma = gamma
@@ -158,7 +159,13 @@ class GameOutputBuffer:
         while (self.traces.size()[1] < maxlen) and (not torch.all(is_terminated)):
 #            print('is_terminated before')
 #            print(is_terminated)
-            self.traces, actions, newlp, newent, is_terminated = extend_all(self.games, self.traces, is_terminated, self.policy_model, temp) # call policy model
+            # if traces are visible to the agent, they are fed in; otherwise, only the initial '0s' are seen as input at all
+            if self.see_traces:
+                self.traces, actions, newlp, newent, is_terminated = extend_all(self.games, self.traces, is_terminated, self.policy_model, temp) # call policy model
+            else:
+                new_traces, actions, newlp, newent, is_terminated = extend_all(self.games, self.traces[:, :self.seed_offset], is_terminated, self.policy_model, temp)
+                self.traces = F.pad(self.traces, (0, 1))
+                self.traces[:, -1] = new_traces[:, -1]
 #            print('actions and is_terminated after')
 #            print(actions)
 #            print(is_terminated)
@@ -252,7 +259,13 @@ class GameOutputBuffer:
             settings_ind = [settings_trace[ind] for settings_trace in self.settings_buffer[bS:bE]]
             past_terminated = self.past_terminated[bS:bE, 1 + ind] # we record action leading into '2', but no others
 #            print(f"past_terminated size: {past_terminated.size()}")
-            newlp, newent = probs_and_entropies_all(settings_ind, self.traces[bS:bE, :self.seed_offset + ind + 1], past_terminated, policy_model, temp, img_gradient)
+            if self.see_traces:
+                newlp, newent = probs_and_entropies_all(settings_ind, self.traces[bS:bE, :self.seed_offset + ind + 1], past_terminated, policy_model, temp, img_gradient)
+            else:
+                fake_trace_input = torch.zeros((batch_num, self.seed_offset + 1), device=self.traces.device, dtype=self.traces.dtype)
+                fake_trace_input[:, :self.seed_offset] = self.traces[bS:bE, :self.seed_offset] # should just be 0, but I'll future-proof this code, why not
+                fake_trace_input[:, -1] = self.traces[bS:bE, self.seed_offset + ind] # and then copy the relevant action whose probability we're evaluating
+                newlp, newent = probs_and_entropies_all(settings_ind, fake_trace_input, past_terminated, policy_model, temp, img_gradient)
             logpas[:, i] = newlp
             entropies[:, i] = newent
         if update_self:

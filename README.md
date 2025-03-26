@@ -1251,6 +1251,23 @@ If not, I will consider not feeding the trace in (to prevent it from learning 's
 
 If works: see above for next steps.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 25th, 2025
+
+It was not enough.
+
+Oddly, self-terminating did not fully go away as a habit, even though its GAE was always strictly negative.
+Maybe, in certain contexts, the 2 action was not pushed down as much as the others? Say, after you've spun and it's already hopeless, the '1' and '3' actions
+got pushed down 10 times per (non-guide) round, but the 2 action only once?
+
+It doesn't really matter. I relaunched it without feeding in the trace, hopefully forcing it to *properly* use the rich image information.
+If that doesn't work, I'll do a post-mortem and move one. This is no longer a mysterious black box; I understand what RL can and can't do and why it's doing 
+what it's doing.
+
+It'll be *so* much fun to get a full agent to go for the gold after talking through all the reasons (I need to turn toward it, which is left right now, then go forward).
+
 
 
 
