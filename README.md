@@ -1233,6 +1233,7 @@ If not good, keep debugging (except now focus on learning rates, etc).
 If satisfied with RL:
 1) Recheck image2settings with reconstructions from agent
 2) Make differentiable settings2img? For fun?
+   -- I have *something* like this. Will check
 3) make version with memory? Start making next repo? Basically, act on the other plans, now that RL is finally also in the toolkit.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1267,6 +1268,30 @@ If that doesn't work, I'll do a post-mortem and move one. This is no longer a my
 what it's doing.
 
 It'll be *so* much fun to get a full agent to go for the gold after talking through all the reasons (I need to turn toward it, which is left right now, then go forward).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 26th, 2025
+
+I almost killed it, but round 230 had slightly-above-average returns (like 0.128), so I'll let it run for another day
+I'm almost certain I see a spike in performance before a drop-off.
+
+Next things:
+1) Debug image2settings. Take that RL break
+2) Rerun, but save the traces. Try to see if it 'starts learning then fails' or not. I suspect it might be
+3) Debug from there? Flip a coin, I have other priorities.
+
+On the trip and probably next week, I don't have much else to do.
+Big day (or a happy morning):
+ -- new branch, build agent with memory
+ -- transfer the weights somehow; save
+ -- train some recall and see how it works
+
+Once I have that, I'll make a proper notebook with widgets that uses this agent.
+Then I will make that new repo and start knocking out a tutorial a day (see full_task_list.
+ -- remember to make them in a way that can be imported. Remember to run train loops that include prev. seen tricks, maybe not as often as the new trick
+ -- now that I know what I can / can't do, I can take more time here and not train right away. I need to write a ton of these and not 'shake from fright' after each one during training. Take several days.
 
 
 
