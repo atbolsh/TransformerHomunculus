@@ -139,7 +139,7 @@ for i in range(num_rounds):
     print(f"**********************ROUND {i} ***************************\n")
     run_round(i, policy_optimizer, num_buffers, batch_size, policy_epochs, policy_clip_range, entropy_loss_weight, see_traces)
     if ((i + 1) in [1, 2, 3, 4, 5, 8, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]) or (((i + 1) > 10000) and ((i + 1) % 10000 == 0)):
-        torch.save(brain.state_dict(), f'brain_checkpoints/brain_EXPERIMENTAL_5output_weights_semi-guided_RL_GRPO_v5_round{i + 1}.pth')
+        torch.save(brain.state_dict(), f'brain_checkpoints/brain_EXPERIMENTAL_5output_weights_semi-guided_RL_GRPO_v6_round{i + 1}.pth')
     elapsed = time.time() - start
     print(f"***********************TIME WAS {elapsed / 60} min*****************************\n")
     # I think the entropy was too low last time, let's see if this fixes the issue.

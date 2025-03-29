@@ -1293,6 +1293,32 @@ Then I will make that new repo and start knocking out a tutorial a day (see full
  -- remember to make them in a way that can be imported. Remember to run train loops that include prev. seen tricks, maybe not as often as the new trick
  -- now that I know what I can / can't do, I can take more time here and not train right away. I need to write a ton of these and not 'shake from fright' after each one during training. Take several days.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Mar 29th, 2025
 
+It still did not really learn, though now the failure modes are less bad, and success is like 1 in 16 or 32 traces (not rigourous sampling).
+At both early and late epochs, v5 can't decide which way to turn, and wobbles back and forth.
+Looking at a succesful trace, one almost thinks it learned the right steps, but looking at a failed trace, it clearly doesn't know what to do.
+
+Round 5 looks slightly better than all others (early and late), but the data sampling was not rigourous.
+Later rounds seem more 'sure of themselves' (consistently turn in one direction, longer), but seemingly without great jumps in performance.
+
+Maybe running longer, or with different time discounts, or on a curriculum, or lower lr, could have resolved this, but I don't need that right now.
+** I'm most curious about repeating this after training it on words, with concepts like 'looking at', etc. I think there will be some transfer learning, 
+even if I use RL.
+
+~~~~~~~~
+
+I'm rerunning with output to v6_training_trace (or some such filename) so I can check whether or not there is an 'early spike' in performance followed by a dropoff
+
+I will kill this tonight or tomorrow morning, I do not need a full trace.
+
+After that, if I rerun, it'll be a 'fake traces' style learning ONLY. Sanity check.
+
+Next steps, as described before:
+0) Fake traces run?
+1) On penguinsfarm, debug image2settings
+2) Big day (Tuesday? Wednesday?), make that full memory agent and start on that new branch /  repo.
 
