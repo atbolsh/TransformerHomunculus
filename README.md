@@ -1332,4 +1332,13 @@ Round 20 seems to have been the peak.
 
 ~~~~~~~~
 
+Launched fake_traces script. Will see what that yields. Script written quickly, may need debugging.
+
+Plans:
+1) Monday, launch fake_traces, write / launch DDQN
+2) Debug image2settings. Sleep in Tuesday.
+3) Wed, BIG DAY! Day off work, but fully home. Write the memory agent. Maybe launch some training.
+
+Various other algos for RL (DDQN, PPO, REINFOCE, A2C) are on the menu for mornings where I can't do memory-agent work.
+
 
