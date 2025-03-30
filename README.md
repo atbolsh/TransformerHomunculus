@@ -1322,3 +1322,14 @@ Next steps, as described before:
 1) On penguinsfarm, debug image2settings
 2) Big day (Tuesday? Wednesday?), make that full memory agent and start on that new branch /  repo.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 30th, 2025
+
+v6 trace: there really does seem to be an early peak. Lots of sucess rates close to 16%, for a while, whereas later ones go down to 9-10.
+Round 20 seems to have been the peak.
+
+~~~~~~~~
+
+
