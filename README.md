@@ -1341,4 +1341,19 @@ Plans:
 
 Various other algos for RL (DDQN, PPO, REINFOCE, A2C) are on the menu for mornings where I can't do memory-agent work.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mar 31st, 2025
+
+Naive fake traces managed to fail. I used only logic-solver traces, and this led to only the most common action geting rewarded.
+
+I launched a new fake_traces, using proper cross-entropy loss. Hopefully that is enough.
+
+Next steps:
+1) Check in on fake_traces
+2) image2settings!! 
+3) Tuesday: sleep in, DQN if up for it.
+4) Wed, big day planned as before. Memory agent.
+
 

@@ -72,7 +72,7 @@ def train_policy(policy_optimizer, epochs, buffer_buffer, policy_clip_range=0.1,
         brain.train()
         #print(nvidia_smi_spoof())
         train_loss = 0
-        random.shuffle(buffer_buffer)
+        #random.shuffle(buffer_buffer)
         i = 0
         if ignore_last:
             bb = buffer_buffer[:-1]
