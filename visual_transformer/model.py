@@ -231,6 +231,28 @@ class SolitaryValueFunc(nn.Module):
     def forward(self, text, context=None):
         return self.evaluate_text(text, context)
 
+## Memory processing
+
+# class Memory Processor
+# consumes the memory tensor, uses positional encoding on it, and uses the Decoder architecture (maybe 1 encoder layer?) to produce a vector based on the text and image encodigns
+# THis vector is then used as context for the others (eg for answering questions or recalling saved images).
+
+# class Memory Encoder
+# consumes arbitrary input (standardized to one text and 3 canvases) + memory; probably uses markers for 1st tensor, 2nd tensor, 3rd tensor, etc.
+# Produces 4 vectors of length 768 (or 1?? consier)
+# These are fed through the 'forget' gates and added to existing memory
+# This class will have the infamous 'saved forget gate'
+
+# class Memory
+# Tensor storage
+# initialization, addition of the new 4-token thing
+
+# Additions to the brain (or new brain class):
+# 1) fixed slots for the vision canvases, possibly with their own 'signatures' to tell them apart
+# 2) Memory processing on every input
+# 3) Standardized 'forward' call that uses the memory and the canvases and the text
+# 4) Everything else more or less carried over
+
 # Default class. Will get built out into full agent brain
 class DefaultAgentBrain(nn.Module):
     def __init__(self, vocab_size=10000):

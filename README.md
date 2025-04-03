@@ -1426,6 +1426,17 @@ Will return to this some other time. First games will probably be 'strung togeth
 
 Tested image2settings. Everything I needed seems to work well. Leaving the python notebook as evidence / user guide.
 
+~~~~~~~~
+
+Started branch memoryUnit. This will redo the brain
+For now, all the new class details are in comments alone
+Tmr, will write them one at a time, debugging code in throw-away notebook (make sure you *do* throw it away)
+
+Should be done in 2 or 3 work days.
+Then, transfer weights in some way (new class for old brain??)
+Then, test, maybe write the widgets
+If I'm at all productive, one - two weeks
+
 
 
 
