@@ -1356,4 +1356,75 @@ Next steps:
 3) Tuesday: sleep in, DQN if up for it.
 4) Wed, big day planned as before. Memory agent.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 1st, 2025
+
+The new cross-entropy is close to 0.1 but is not 0. I will give it another day to run since I don't have any more time to work on it today.
+
+Tmr plan:
+X -- check in
+ -- image2settings
+X -- cleanup / syncing / records of progress
+ -- DQN if fake-traces worked (new folder)
+ -- other machine: finally, the big project
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 2nd, 2025
+
+Failed day.
+
+Killed training (it failed)
+Same plan tmr.
+
+Try to start the second branch, but don't cut work for it.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 3rd, 2025
+
+Finally, fake_traces, the improved version (proper supervised training), learned this task.
+
+Every RL and RL-like approach failed, however.
+
+It learned by epoch 30,000 or so, so it should have taken a little under 4 hours. Still slightly worse performance than the guide, but what can you do.
+
+RL fine-tuning might fix that. I don't care enough to try.
+
+I do not want to set up DQN at this time. I have seen how PPO and GRPO start moving in the right direction but get stopped; I'm sure I could get them to work with some
+tricks / guides / initial-burn-in / FEWER DECISIONS.
+
+I won't touch this again until I need it.
+
+~~~~~~~~
+
+Deleted all except round400000 (best version) of the improved_fake_traces
+
+Deleted all the *EXPERIMENTAL* files except for that one. RL failed, no need to store all of these different versions.
+
+GRPO *does* slowly improve the correct weights, and can be used. I'm sure that *explaining* the RL mechanism, once 
+the beast knows enough words, will yield far better results. (THis is also something to try once I try finetuning existing models).
+
+~~~~~~~~
+
+FINAL RL SUMMARY:
+
+PPO, as written, simply does not converge.
+If I try value functions again, they will be separately trained, or I'll use value-based systems like DQN (at least first), to have experience with value funcs that converge
+pseudo-GRPO almost converged, by means of having a better value baseline. Still, it suffered from the fact that this is a difficult task and probably needed some noise reduction / pretraining / something else.
+Fake traces finally converged. I deleted the version that didn't work, and only kept the one with the full, correct supervised learning loop
+ -- shows that convergence for these tasks is possible
+ -- shows the proper way to learn these situational moves, and how not to be lazy.
+
+Will return to this some other time. First games will probably be 'strung together' from skills learned by supervised learning (call it instinct).
+
+~~~~~~~~
+
+
+
+
 
