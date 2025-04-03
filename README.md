@@ -1365,7 +1365,7 @@ The new cross-entropy is close to 0.1 but is not 0. I will give it another day t
 
 Tmr plan:
 X -- check in
- -- image2settings
+X -- image2settings
 X -- cleanup / syncing / records of progress
  -- DQN if fake-traces worked (new folder)
  -- other machine: finally, the big project
@@ -1424,6 +1424,7 @@ Will return to this some other time. First games will probably be 'strung togeth
 
 ~~~~~~~~
 
+Tested image2settings. Everything I needed seems to work well. Leaving the python notebook as evidence / user guide.
 
 
 
