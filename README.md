@@ -1437,6 +1437,17 @@ Then, transfer weights in some way (new class for old brain??)
 Then, test, maybe write the widgets
 If I'm at all productive, one - two weeks
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Apr 4th, 2025
+
+Wrote all the main memory classes
+
+Will test their validity tmr, then consider some more, and write the brain 'forward' loop.
+
+THen consider some more and write it with full img canvases and everything.
+
+Sat / next week: make brain forward loop with canvases and widgets and things. Transfer weights.
 
 
