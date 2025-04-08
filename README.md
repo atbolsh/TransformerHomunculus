@@ -1450,4 +1450,18 @@ THen consider some more and write it with full img canvases and everything.
 
 Sat / next week: make brain forward loop with canvases and widgets and things. Transfer weights.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 8th, 2025
+
+Tested everything and it works.
+
+Next:
+1) Add this to a new brain class; save it with transferred weights
+2) Write the forward loop
+3) Begin transferring the other stuff
+
+Biggest job will be this weekend.
+
 

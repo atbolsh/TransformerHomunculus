@@ -239,7 +239,6 @@ class SolitaryValueFunc(nn.Module):
 class MemoryProcessor(nn.Module):
     def __init__(self, sequence_length=128, embed_dim=768, num_heads=6, num_layers=8, dropout=0.1, norm_first=False):
         super().__init__()
-        self.vocab_size = num_embed
         self.sequence_length = sequence_length
         self.embed_dim = embed_dim
         self.sqrt_embed_dim = math.sqrt(embed_dim)
@@ -263,14 +262,14 @@ class MemoryProcessor(nn.Module):
             nn.LeakyReLU(),
             nn.Dropout(p=dropout),
 
-            nn.Linear(embed_dim * 4, num_embed),
+            nn.Linear(embed_dim * 4, embed_dim),
         )
 
         # Convenient tensor:
         self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
 
     def get_device(self):
-        return self._modules['encoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
+        return self._modules['fc'][0].weight.device # this function should be part of nn.Module, honestly
    
     # Accepts already encoded inputs (dimension 768)
     def forward(self, x, text_context=None, img_context=None):
@@ -279,10 +278,10 @@ class MemoryProcessor(nn.Module):
             context = x
         elif (not (text_context is None)) and (img_context is None):
             context = text_context
-        elif (text_content is None) and (not (img_context is None):
+        elif (text_context is None) and (not (img_context is None)):
             context = img_context
         else:
-            context = torch.cat(text_context + self.text_img_marker[:, :1], img_context + self.text_img_marker[:, 1:]) # default mode
+            context = torch.cat((text_context + self.text_img_marker.pe[:, :1], img_context + self.text_img_marker.pe[:, 1:]), dim=1) # default mode
         x = self.decoder(x, context)
         return self.fc(x)
 
@@ -310,7 +309,7 @@ class MemoryEncoder(nn.Module):
             nn.LeakyReLU(),
             nn.Dropout(p=dropout)
         ) 
-        self.fcs = [nn.Linear(4*embed_dim, embed_dim) for i in range(self.new_tokens)] # different final layer for each token used
+        self.fcs = nn.Sequential(*[nn.Linear(4*embed_dim, embed_dim) for i in range(self.new_tokens)]) # different final layer for each token used
 
     def get_device(self):
         return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
@@ -321,7 +320,7 @@ class MemoryEncoder(nn.Module):
             context = x
         x = self.decoder(x, context)
         prep = self.fc_prep(x) # 4 times larger internal dim
-        result = torch.zeros((x.size()[0], self.new_tokens, x.size()[2]) dtype=x.dtype, device=x.device)
+        results = torch.zeros((x.size()[0], self.new_tokens, x.size()[2]), dtype=x.dtype, device=x.device)
         for i in range(self.new_tokens):
             results[:, i, :] = torch.sum(self.fcs[i](prep), dim=1)
         return results
@@ -335,10 +334,10 @@ class Memory:
     def __init__(self, mem_size=128, new_tokens=1):
         self.mem_size = mem_size
         self.new_tokens = new_tokens
-        self.repetitions = mem_size / new_tokens
+        self.repetitions = int(mem_size // new_tokens)
 
-        starter = 1.0 / torch.arange(1, self.repetitions, 1)
-        self.scales = starters.unsqueeze(0).repeat(new_tokens, 1).T.flatten().contiguous()
+        starter = 1.0 / torch.arange(1, self.repetitions + 1, 1)
+        self.scales = starter.unsqueeze(0).repeat(new_tokens, 1).T.flatten().contiguous()
         self.scales = self.scales.unsqueeze(0).unsqueeze(2).contiguous()
 
         self.memory = None
@@ -347,26 +346,27 @@ class Memory:
         return self.scales.device
 
     def to(self, device):
-        self.scales.to(device)
+        self.scales = self.scales.to(device)
         if not (self.memory is None):
-            self.memory.to(device)
+            self.memory = self.memory.to(device)
+        return self
 
     def cpu(self):
-        self.to('cpu')
+        return self.to('cpu')
 
     def cuda(self):
-        self.to('cuda')
+        return self.to('cuda')
 
     # tokens has shape (batches, new_tokens, 768). Even if batches is 1
-    def remember(tokens):
+    def remember(self, tokens):
         # last layer forgot to unsqueeze
-        if len(tokens.size() == 2):
+        if len(tokens.size()) == 2:
             tokens = tokens.unsqueeze(1).repeat(1, self.new_tokens, 1)
         tokens = tokens.repeat(1, self.repetitions, 1)
         if self.memory is None:
             self.memory = tokens # have to start somewhere
         else:
-            self.memory = self.memory * (1.0 - self.scales) + (self.scales * self.tokens)
+            self.memory = self.memory * (1.0 - self.scales) + (self.scales * tokens)
 
 # Additions to the brain (or new brain class):
 # 1) fixed slots for the vision canvases, possibly with their own 'signatures' to tell them apart
