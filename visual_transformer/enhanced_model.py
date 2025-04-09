@@ -1,250 +1,225 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-import torch.utils.data as data
-from torch.distributions import Categorical
+from model import *
 
-import math
-import copy
+# The below is copied over from model.py
 
-from pathlib import Path
-from tokenizers import ByteLevelBPETokenizer
-from tokenizers.processors import BertProcessing
-from torch.utils.data import Dataset
+## Memory processing
 
-from .custom_transformer import *
-
-# Main workhorse, image to embedding
-# Default are the ViT parameters: https://arxiv.org/pdf/2010.11929 page 5
-class ImageTransformerEncoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=6, output_dim=768, dropout=0.1, norm_first=False):
+# class Memory Processor
+# consumes the memory tensor, uses positional encoding on it, and uses the Decoder architecture (maybe 1 encoder layer?) to produce a vector based on the text and image encodigns
+# THis vector is then used as context for the others (eg for answering questions or recalling saved images).
+class MemoryProcessor(nn.Module):
+    def __init__(self, sequence_length=128, embed_dim=768, num_heads=6, num_layers=8, dropout=0.1, norm_first=False):
         super().__init__()
-        self.patch_num = num_patches
-        self.sequence_length = num_patches * num_patches
-        self.img_size = img_size
-        self.patch_size = img_size // num_patches
-        self.embed_dim = embed_dim
-        self.sqrt_embed_dim = math.sqrt(embed_dim)
-        self.embed = nn.Sequential(
-            PatchEmbedding(embed_dim, self.img_size, self.patch_size, num_channels),
-            PositionalEncoding_2D(embed_dim, num_patches),
-            nn.LayerNorm(embed_dim),
-            nn.Dropout(p=0.1),
-        )
-
-        self.pe = self.embed[1]
-        # I may be doing this wrong; I may need 1024 * 3 instead of 768 here, but I think this will do for now.
-        encoder_layer = nn.TransformerEncoderLayer(
-            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
-        )
-        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
-        self.post_norm = nn.LayerNorm(embed_dim)
-        # Convenient tensor:
-        self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
-
-    def get_device(self):
-        return self.pe.pe.device
-    
-    def forward(self, x):
-        x = self.embed(x)
-        x = self.encoder(x) # x + self.encoder(x)
-#        return self.post_norm(self.pe(x)) # add position information at the end, too
-        return self.post_norm(x)
-
-# At the end, we have an emedding for every patch.
-
-class ImageTransformerDecoder(nn.Module):
-    def __init__(self, num_channels=3, num_patches=16, img_size=224, embed_dim=768, num_heads=12, num_layers=3, output_dim=768, dropout=0.01, norm_first=False):
-        super().__init__()
-        self.patch_num = num_patches
-        self.sequence_length = num_patches * num_patches
-        self.img_size = img_size
-        self.patch_size = img_size // num_patches
-        self.embed_dim = embed_dim
-        self.sqrt_embed_dim = math.sqrt(embed_dim)
-        # I may be doing this wrong; I may need 1024 * 3 instead of 768 here, but I think this will do for now.
-        self.pe = PositionalEncoding_2D(embed_dim, num_patches)
-        decoder_layer = nn.TransformerDecoderLayer(
-            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
-        )
-        self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
-        self.linear_layer = nn.Sequential(
-            nn.Dropout(p=0.1),
-            nn.LayerNorm(embed_dim),
-            PatchEmbeddingTranspose(embed_dim, self.img_size, self.patch_size, num_channels)
-        )
-        # Convenient tensor:
-        self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
-
-    def get_device(self):
-        return self.pe.pe.device
-    
-    def forward(self, x, context = None):
-        if context is None:
-            context = x
-        x = self.decoder(x, context)
-        return self.linear_layer(x)
-
-#### Lang model
-
-def generate_src_mask(sz, device):
-    return torch.triu(torch.full((sz, sz), True, device=device), diagonal=1) # Changing backto =1 to nan's
-
-def generate_src_padding_mask(x):
-    mask = (x == 0) #torch.logical_and((x == 0), (x != 4)) # I'm going to use the <mask> tag as the placeholder for the images themselves; <img><mask> is the standard now.
-    mask[:, 0] = False # include first element
-    return mask
-
-class PositionalEmbedding(nn.Module):
-    def __init__(self, sequence_length, embed_dim):
-        super().__init__()
-        self.sqrt_embed_dim = math.sqrt(embed_dim)
-        self.pos_embed = nn.Parameter(torch.empty((1, sequence_length, embed_dim)))
-        nn.init.uniform_(self.pos_embed, -1.0, 1.0)
-    
-    def forward(self, x):
-        return x * self.sqrt_embed_dim + self.pos_embed[:,:x.size(1)]
-
-
-class SentenceTransformerEncoder(nn.Module):
-    def __init__(self, sequence_length=32, num_embed=10000, embed_dim=768, pad_idx=0, num_heads=6, num_layers=8, dropout=0.1, norm_first=False):
-        super().__init__()
-        self.vocab_size = num_embed
         self.sequence_length = sequence_length
         self.embed_dim = embed_dim
         self.sqrt_embed_dim = math.sqrt(embed_dim)
         self.embed = nn.Sequential(
-            nn.Embedding(num_embed, embed_dim, pad_idx),
             PositionalEncoding(embed_dim, sequence_length),
             nn.LayerNorm(embed_dim),
             nn.Dropout(p=0.1),
         )
 
-        encoder_layer = nn.TransformerEncoderLayer(
-            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
-        )
-        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
-        # Convenient tensor:
-        self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
-
-    def get_device(self):
-        return self._modules['encoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
-    
-    def forward(self, x, src_attention_mask=None, src_key_padding_mask=None):
-        x = self.embed(x)
-        x = self.encoder(x, mask=src_attention_mask, src_key_padding_mask=src_key_padding_mask)
-        return x
-
-# THis is useful as a value function
-# Consumes only intermediate representations (768 dim), dumps 1 value per batch
-class IntermediateTransformerScorer(nn.Module):
-    # I made it have fewer heads and layers for compactness; check later if this is enough
-    def __init__(self, sequence_length=32, embed_dim=768, pad_idx=0, num_heads=3, num_layers=4, dropout=0.1, norm_first=False):
-        super().__init__()
-        self.sequence_length = sequence_length
-        self.embed_dim = embed_dim
         decoder_layer = nn.TransformerDecoderLayer(
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
         self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
-        # Convenient tensor:
-        self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
+
+        self.text_img_marker = PositionalEncoding(embed_dim, 2) # extend to num_canvases? Or some other processing like that?
+
+        # Really necessary? Think
         self.fc = nn.Sequential(
             nn.Linear(embed_dim, embed_dim * 4),
             nn.LayerNorm(embed_dim * 4),
             nn.LeakyReLU(),
             nn.Dropout(p=dropout),
 
-            nn.Linear(embed_dim * 4, 1),
+            nn.Linear(embed_dim * 4, embed_dim),
         )
+
+        # Convenient tensor:
+        self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
+
+    def get_device(self):
+        return self._modules['fc'][0].weight.device # this function should be part of nn.Module, honestly
+   
+    # Accepts already encoded inputs (dimension 768)
+    def forward(self, x, text_context=None, img_context=None):
+        x = self.embed(x)
+        if (text_context is None) and (img_context is None):
+            context = x
+        elif (not (text_context is None)) and (img_context is None):
+            context = text_context
+        elif (text_context is None) and (not (img_context is None)):
+            context = img_context
+        else:
+            context = torch.cat((text_context + self.text_img_marker.pe[:, :1], img_context + self.text_img_marker.pe[:, 1:]), dim=1) # default mode
+        x = self.decoder(x, context)
+        return self.fc(x)
+
+
+# class Memory Encoder
+# consumes arbitrary input (standardized to one text and 3 canvases) + memory; probably uses markers for 1st tensor, 2nd tensor, 3rd tensor, etc.
+# Produces 4 vectors of length 768 (or 1?? consier)
+# These are fed through the 'forget' gates and added to existing memory
+# This class will have the infamous 'saved forget gate'
+class MemoryEncoder(nn.Module):
+    # I made it have fewer heads and layers for compactness; check later if this is enough
+    def __init__(self, new_tokens=1, embed_dim=768, num_heads=3, num_layers=4, dropout=0.1, norm_first=False):
+        super().__init__()
+        self.embed_dim = embed_dim
+        self.new_tokens = new_tokens
+        decoder_layer = nn.TransformerDecoderLayer(
+            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
+        )
+        self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
+
+        
+        self.fc_prep = nn.Sequential(
+            nn.Linear(embed_dim, embed_dim * 4),
+            nn.LayerNorm(embed_dim * 4),
+            nn.LeakyReLU(),
+            nn.Dropout(p=dropout)
+        ) 
+        self.fcs = nn.Sequential(*[nn.Linear(4*embed_dim, embed_dim) for i in range(self.new_tokens)]) # different final layer for each token used
 
     def get_device(self):
         return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
     
+    # x is the text; context is the images
     def forward(self, x, context=None):
         if context is None:
             context = x
         x = self.decoder(x, context)
-        x = self.fc(x)
-        x = torch.sum(x, dim=1) # sum accross the sequence dimension. Replace with average?
-        return x
+        prep = self.fc_prep(x) # 4 times larger internal dim
+        results = torch.zeros((x.size()[0], self.new_tokens, x.size()[2]), dtype=x.dtype, device=x.device)
+        for i in range(self.new_tokens):
+            results[:, i, :] = torch.sum(self.fcs[i](prep), dim=1)
+        return results
 
-class SentenceTransformerDecoder(nn.Module):
-    def __init__(self, sequence_length=32, num_embed=10000, embed_dim=768, pad_idx=0, num_heads=6, num_layers=4, dropout=0.1, norm_first=False):
-        super().__init__()
-        self.vocab_size = num_embed
-        self.sequence_length = sequence_length
-        self.embed_dim = embed_dim
-        self.sqrt_embed_dim = math.sqrt(embed_dim)
 
-        decoder_layer = nn.TransformerDecoderLayer(
-            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
-        )
-        self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
+# class Memory
+# Tensor storage
+# initialization, addition of the new 1-token thing
+# new_tokens MUST factor neatly into mem_size
+class Memory:
+    def __init__(self, mem_size=128, new_tokens=1):
+        self.mem_size = mem_size
+        self.new_tokens = new_tokens
+        self.repetitions = int(mem_size // new_tokens)
 
-        self.fc = nn.Sequential(
-            nn.Linear(embed_dim, embed_dim * 4),
-            nn.LayerNorm(embed_dim * 4),
-            nn.LeakyReLU(),
-            nn.Dropout(p=dropout),
+        starter = 1.0 / torch.arange(1, self.repetitions + 1, 1)
+        self.scales = starter.unsqueeze(0).repeat(new_tokens, 1).T.flatten().contiguous()
+        self.scales = self.scales.unsqueeze(0).unsqueeze(2).contiguous()
 
-            nn.Linear(embed_dim * 4, num_embed),
-        )
-        # Convenient tensor:
-        self.consecutive_indeces = torch.LongTensor(list(range(self.sequence_length))).to(self.get_device())
+        self.memory = None
+
+    def is_empty(self):
+        return (self.memory is None)
 
     def get_device(self):
-        return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
-    
-    def forward(self, x, context=None, return_full=False, tgt_mask=None, tgt_key_padding_mask=None, memory_mask=None, memory_key_padding_mask=None):
-        if context is None:
-            context = x
-            memory_mask = tgt_mask
-            memory_key_padding_mask = memory_key_padding_mask
-        x = self.decoder(x, context, tgt_mask=tgt_mask, tgt_key_padding_mask=tgt_key_padding_mask, memory_mask=memory_mask, memory_key_padding_mask=memory_key_padding_mask)
-        if return_full:
-            x = self.fc(x)
-            x = x.permute(0, 2, 1)
-            return x
-        else: # only last character; perhaps useful for per-character generation. May be replaced with something else, like torch.sum(dim=1)
-            x = x[:, -1, :]
-            x = self.fc(x)
-            return x # one logit vector for every batch member.
+        return self.scales.device
 
+    def to(self, device):
+        self.scales = self.scales.to(device)
+        if not (self.memory is None):
+            self.memory = self.memory.to(device)
+        return self
 
-class SolitaryValueFunc(nn.Module):
-    def __init__(self, vocab_size=7):
-        super().__init__()
-        self.text_enc = SentenceTransformerEncoder(num_embed=vocab_size)
-        self.dopamine = IntermediateTransformerScorer() # for RL; not yet tested, use later
+    def cpu(self):
+        return self.to('cpu')
 
-    # I will keep this as the default dopamine signal; may spin some other 'raw default' types later.
-    def evaluate_text(self, text_batch, context=None, text_gradient = True):
-        if text_gradient:
-            text_encoding = self.text_enc(text_batch)
+    def cuda(self):
+        return self.to('cuda')
+
+    # tokens has shape (batches, new_tokens, 768). Even if batches is 1
+    def remember(self, tokens):
+        # last layer forgot to unsqueeze
+        if len(tokens.size()) == 2:
+            tokens = tokens.unsqueeze(1).repeat(1, self.new_tokens, 1)
+        tokens = tokens.repeat(1, self.repetitions, 1)
+        if self.memory is None:
+            self.memory = tokens # have to start somewhere
         else:
-            with torch.no_grad():
-                text_encoding = self.text_enc(text_batch)
-        return self.dopamine(text_encoding, context)
+            self.memory = self.memory * (1.0 - self.scales) + (self.scales * tokens)
 
-    def forward(self, text, context=None):
-        return self.evaluate_text(text, context)
 
-# Default class. Will get built out into full agent brain
-class DefaultAgentBrain(nn.Module):
-    def __init__(self, vocab_size=10000):
+##################
+class VisionCanvases:
+    def __init__(self, num_canvases=3, num_channels=3, width=224, height=224):
+        self.num_canvases=num_canvases
+        self.num_channels=num_channels
+        self.width=width
+        self.height=height
+
+        self.canvases=None
+        self.device='cpu'
+
+    def get_device(self):
+        if self.canvases is None:
+            return self.device
+        else:
+            return self.canvases[0].device
+
+    def is_empty(self):
+        return (self.canvases is None)
+
+    def to(self, device):
+        self.device=device
+        if not (self.canvases is None):
+            for i in range(self.num_canvases):
+                self.canvases[i].to(device)
+        return self
+
+    def cpu(self):
+        return self.to('cpu')
+
+    def cuda(self):
+        return self.to('cuda')
+
+    def store(self, img):
+        b = img.size()[0]      
+        if self.canvases is None:
+            self.device = img.device
+            self.canvases = [torch.zeros(b, self.num_channels, self.width, self.height, device=img.device) for i in range(self.num_canvases)]
+            for i in range(self.num_canvases):
+                self.canvases[i][:, :, :, :] = img[:, :, :, :] # this notation ensures a copy rather than pass by reference, I think
+            self.canvases.contiguous()
+        else:
+            self.cancases = self.canvases[1:] # drop oldest
+            self.canvases.append(torch.zeros(b, self.num_channels, self.width, self.heith, device=img.device))
+            self.canvases[-1][:, :, :, :] = img[:, :, :, :]
+
+##################
+
+# Additions to the brain (or new brain class):
+# 1) fixed slots for the vision canvases, possibly with their own 'signatures' to tell them apart
+# 2) Memory processing on every input
+# 3) Standardized 'forward' call that uses the memory and the canvases and the text
+# 4) Everything else more or less carried over
+
+# The new Brain type
+# Code copied over from model.py before modification
+# I may delete that file (and merge these two files) in a later commit
+class EnhancedAgentBrain(nn.Module):
+    def __init__(self, vocab_size=10000, mem_size=128, new_tokens=1):
         super().__init__()
         self.img_enc = ImageTransformerEncoder()
         self.img_dec = ImageTransformerDecoder()
         self.text_enc = SentenceTransformerEncoder(num_embed=vocab_size)
         self.text_dec = SentenceTransformerDecoder(num_embed=vocab_size)
         self.dopamine = IntermediateTransformerScorer() # for RL; not yet tested, use later
-        # sometimes it makes sense to compare images; this embedding helps distinguish them
-        # Two images; 768 values as the hidden layer dim
-        # I may use more than 2 images later.
-        self.img_tagging = nn.Parameter(torch.empty((1, 2, 768)))
-        nn.init.uniform_(self.img_tagging, -1.0/math.sqrt(768), 1.0/math.sqrt(768)) 
+
+        # 6 inputs; 3 img canvases, 1 img input, text input, memory input
+        self.context_tagging = nn.Parameter(torch.empty((1, 6, 768)))
+        nn.init.uniform_(self.context_tagging, -1.0/math.sqrt(768), 1.0/math.sqrt(768)) 
+
+        # Memory processing
+        self.memory = Memory(mem_size, new_tokens)
+        self.memenc = MemoryEncoder(new_tokens=new_tokens)
+#        self.memproc = MemoryProcessor(sequence_length=mem_size) # canceling memory processing for now
+
+        # image canvases
+        self.canvases = VisionCanvases(3)
 
     def get_device(self):
         return self.img_enc.get_device()
@@ -264,7 +239,51 @@ class DefaultAgentBrain(nn.Module):
     def get_text_decoding(self, text_encoding, src_attention_mask, src_key_padding_mask, context=None, return_full=True):
         return self.text_dec(text_encoding, context, return_full=return_full, tgt_mask=src_attention_mask, tgt_key_padding_mask=src_key_padding_mask)
 
-    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
+    # Unlike the below, whether or not ret_imgs is marked, img_dec will be called and the reconstruction saved.
+    def forward(self, text_batch, img_batch, ret_imgs=False, return_full=True, use_masks=True):
+        if self.canvases.is_empty():
+            self.canvases.store(img_batch)
+
+        context = []
+        b = text_batch.size()[0]
+
+        real_img_context = self.img_enc(img_batch)
+        context.append(real_img_context)
+
+        for i in range(self.canvases.num_canvases):
+            context.append(self.img_enc(self.canvases[i]))
+
+        src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
+        text_encoding = self.get_text_encoding(text_batch, src_attention_mask, src_key_padding_mask)
+#        context.append(text_encoding) # This cannot be done! this would let the text output have direct access to full text input
+
+        if self.memory.is_empty():
+            context.append(torch.zeros(b, 128, 768, device=text_batch.device))
+        else:
+            context.append(self.memory.memory)
+
+        for i in range(len(context)):
+            context[i] += self.tagging[i]
+        tensor_context = torch.cat(context, dim=1)
+
+        # now that we have built the shared representation, we use it
+        text_probs = self.get_text_decoding(text_encoding, src_attention_mask, src_key_padding_mask, tensor_context, return_full)
+        # For images and memory, the text_encoding can be added to context (in fact, *must* be)
+        context.append(text_encoding + self.tagging[-1])
+        full_context = torch.cat(tensor_context, context[-1], dim=1)
+
+        img_recon = self.img_dec(real_image_context, full_context)
+        self.canvases.store(img_recon)
+
+        self.memory.remember(self.mem_enc(text_encoding, full_context))
+
+        if ret_imgs:
+            return text_probs, img_recon
+        else:
+            return text_probs
+    
+    # Default Brain operation. Preserved for legacy execution (and perhaps to retrain correct answers using transferred weights)
+    def old_forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True):
         src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
         text_encoding = self.get_text_encoding(text_batch, src_attention_mask, src_key_padding_mask)
         if img_batch is None:

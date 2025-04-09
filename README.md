@@ -1458,10 +1458,28 @@ Apr 8th, 2025
 Tested everything and it works.
 
 Next:
-1) Add this to a new brain class; save it with transferred weights
-2) Write the forward loop
+X 1) Add this to a new brain class; save it with transferred weights
+X 2) Write the forward loop
 3) Begin transferring the other stuff
 
 Biggest job will be this weekend.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 9th, 2025
+
+First draft of new class written.
+
+Next steps:
+
+0) Separate file for the memory code
+1) make Memory and Canvases into proper nn.Parameters, so they transfer devices along with the brain
+2) change forward to allow either creating the entire context or not creating, with small steps for text-only generation (allows 'generate')
+3) Properly write the 'generate' code as well
+4) test all of this
+5) transfer weights
+
+This will be several days. Probably much of Saturday, too.
 
 
