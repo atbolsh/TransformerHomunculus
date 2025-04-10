@@ -1473,13 +1473,22 @@ First draft of new class written.
 
 Next steps:
 
-0) Separate file for the memory code
-1) make Memory and Canvases into proper nn.Parameters, so they transfer devices along with the brain
-2) change forward to allow either creating the entire context or not creating, with small steps for text-only generation (allows 'generate')
+X 0) Separate file for the memory code
+X 1) make Memory and Canvases into proper nn.Parameters, so they transfer devices along with the brain
+X 2) change forward to allow either creating the entire context or not creating, with small steps for text-only generation (allows 'generate')
 3) Properly write the 'generate' code as well
 4) test all of this
 5) transfer weights
 
 This will be several days. Probably much of Saturday, too.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 10th, 2025
+
+Good progress. Did most things except write 'generate' code. Will do that for the rest of the week. That and testing.
+
+
 
 
