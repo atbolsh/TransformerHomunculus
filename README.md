@@ -1489,6 +1489,36 @@ Apr 10th, 2025
 
 Good progress. Did most things except write 'generate' code. Will do that for the rest of the week. That and testing.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 11th, 2025
+
+Bad day.
+
+Only read this:
+https://www.anthropic.com/research/tracing-thoughts-language-model
+
+Associated paper:
+https://transformer-circuits.pub/2025/attribution-graphs/methods.html#graphs-constructing
+
+Interesting 'neuroscience' on how LLMs arrive at conclusions, and which input / intermediate / output features they use.
+Pretty cool. The conclusions about how Claude works are to be expected.
+
+Perhaps I will bring this in, later, to use for later-stage debugging, BUT this is not a time investment I want to use now.
+Cool to see it in use for foundation models. Perhaps I will check the state of the art again this summer, and see if I can replace my model with something finetuned.
+COntinuing current track because all the experience and much of the code I use will transfer quite well.
+
+~~~~
+
+Tmr:
+ -- finish writing / testing new model, and transfer weights (see checklist above)
+ -- write first 'memory use' task; run it (somewhere)
+ -- time? start writing the others
+
+Sunday:
+ -- taxes
+ -- drive around, find a boat place, use the boat place
 
 
 
