@@ -1476,9 +1476,9 @@ Next steps:
 X 0) Separate file for the memory code
 X 1) make Memory and Canvases into proper nn.Parameters, so they transfer devices along with the brain
 X 2) change forward to allow either creating the entire context or not creating, with small steps for text-only generation (allows 'generate')
-3) Properly write the 'generate' code as well
+X 3) Properly write the 'generate' code as well
 4) test all of this
-5) transfer weights
+X 5) transfer weights
 
 This will be several days. Probably much of Saturday, too.
 
@@ -1512,13 +1512,35 @@ COntinuing current track because all the experience and much of the code I use w
 ~~~~
 
 Tmr:
- -- finish writing / testing new model, and transfer weights (see checklist above)
+X -- finish writing / testing new model, and transfer weights (see checklist above)
  -- write first 'memory use' task; run it (somewhere)
  -- time? start writing the others
 
 Sunday:
  -- taxes
  -- drive around, find a boat place, use the boat place
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 12th, 2025
+
+Bad day, but got some things done. FInished coding, transferred weights. Testing may need some work
+
+Notes on generate:
+ -- run 'forward' once in each context first, to generate self.context correctly
+ -- run note the 'store memory' field. Notice it won't affect the self.context variable. Keep it in mind, set it properly depending on application
+
+Tmr morning / this week:
+1) Run some 'test img autoencoder' and 'test sentence autoencoder' code. Maybe run a training loop.
+2) Done? Write proper widget wireframe for the enhanced model.
+   -- OR, write some code to train the memory in elementary ways. (This could wait for later this week).
+
+Goals this week:
+ -- repeat in Enhanced Brain all the skills there were before
+ -- train the memory for recal and recall only
+ -- maaaaybe start the other tutorials in the list? Food for thought
 
 
 

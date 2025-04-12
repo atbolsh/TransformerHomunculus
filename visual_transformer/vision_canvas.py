@@ -31,7 +31,7 @@ class VisionCanvas(nn.Module):
         self.canvas = imgs + self.canvas
 
     # should not be used; included for consistency with nn.Module type
-    def forward(self, imgs)
+    def forward(self, imgs):
         self.store(self, imgs)
         return self.canvas
 

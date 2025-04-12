@@ -56,9 +56,9 @@ class EnhancedAgentBrain(nn.Module):
     # Unlike the below, whether or not ret_imgs is marked, img_dec will be called and the reconstruction saved.
     # can be called with create_context=False to just produce the next token, in an otherwise static scene
     def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True, create_context=True):
-        if (img_batch is None) and (create_context:
+        if (img_batch is None) and create_context:
             raise ValueError("Must provide img_batch to create new context")
-        if ret_imgs and (!create_context):
+        if ret_imgs and (not create_context):
             raise ValueError("to generatre new images, create_context must be true")
 
         b = text_batch.size()[0]
@@ -91,6 +91,7 @@ class EnhancedAgentBrain(nn.Module):
     
         # now that we have built the shared representation, we use it
         text_probs = self.get_text_decoding(text_encoding, src_attention_mask, src_key_padding_mask, self.context, return_full)
+        self.memory.remember(self.mem_enc(text_encoding, self.context)) # always store it in memory; no step should be forgotten
 
         if create_context:
             # For images and memory, the text_encoding can be added to context (in fact, *must* be)
@@ -99,9 +100,7 @@ class EnhancedAgentBrain(nn.Module):
     
             img_recon = self.img_dec(real_image_context, full_context)
             self.canvases.store(img_recon)
-    
-            self.memory.remember(self.mem_enc(text_encoding, full_context))
-    
+       
         if ret_imgs:
             return text_probs, img_recon
         else:
@@ -160,9 +159,11 @@ class EnhancedAgentBrain(nn.Module):
             context = img_encoding
         return self.img_dec(img_encoding, context)
 
-    def sentence_autoencoder(self, text_batch, context = None, return_full=True, use_masks=False):
+    def sentence_autoencoder(self, text_batch, context = None, return_full=True, use_masks=False, store_memory=False):
         src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
         text_encoding = self.get_text_encoding(text_batch, src_attention_mask, src_key_padding_mask)
+        if store_memory:
+            self.memory.remember(self.mem_enc(text_encoding, context)) # The case context==None is smoothly handled by mem_enc
 #        print(text_encoding)
         # These lines not needed; this chance is covered more smoothly by the conditions within text_dec
 #        if context is None:
@@ -188,17 +189,6 @@ class EnhancedAgentBrain(nn.Module):
                     context = self.img_enc(img_batch)
             return self.dopamine(text_encoding, context)
 
-    # useful for comparing images
-    # I may later switch to using this by default
-    def two_img_context(self, img1_batch, img2_batch):
-        batches = img1_batch.size()[0]
-        context = torch.zeros((batches, 256*2), device = self.get_device())
-        img1_encoding = self.img_enc(img1_batch)
-        img2_encoding = self.img_enc(img2_batch)
-        context[:, :256] += (img1_encoding + self.img_tagging[0])
-        context[:, 256:] += (img2_encoding + self.img_tagging[1])
-        return context
-
     def select(self, logits, temp=0.0, ret_all = True, temp_eps = 1e-4):
         # logits is a vector batch x vocab size
         # ret_all means return log probs and entropy; that's the assumed behavior.
@@ -220,13 +210,13 @@ class EnhancedAgentBrain(nn.Module):
             log_probs = dist.log_prob(preds)
             return preds, log_probs, entropy
 
-    def extend(self, seed, is_terminated, context=None, temp=1.0, ret_all=True, temp_eps = 1e-4):
+    def extend(self, seed, is_terminated, context=None, temp=1.0, ret_all=True, temp_eps = 1e-4, store_memory=True):
         s = seed.size()
         output = torch.zeros((s[0], s[1] +1), dtype = torch.long, device = seed.device)
         output[:, :-1] += seed
         # Process and return only the logits for the final character. Use the provided (visual) context
         # the final zero is ignored in the computation due to the mask
-        logits = self.sentence_autoencoder(output, context, use_masks=True, return_full=False)
+        logits = self.sentence_autoencoder(output, context, use_masks=True, return_full=False, store_memory=store_memory)
         if not ret_all:
             preds = self.select(logits, temp, ret_all, temp_eps)
         else:
@@ -240,7 +230,8 @@ class EnhancedAgentBrain(nn.Module):
         else:
             return output, preds, log_probs, entropy, is_terminated # maybe also multiply by is_terminated? Dunno.
 
-    def generate(self, x=None, context=None, maxlen = None, temp=1.0, ret_all=True, temp_eps = 1e-4, default_batches = 1):
+    # run 'forward' once first, to compute self.context correctly. the text_probs that result can be discarded
+    def generate(self, x=None, context=None, maxlen = None, temp=1.0, ret_all=True, temp_eps = 1e-4, default_batches = 1, store_memory=True):
         if maxlen is None:
             maxlen = self.text_enc.sequence_length
         if x is None:
@@ -256,7 +247,7 @@ class EnhancedAgentBrain(nn.Module):
         firstGone = False
         while (x.size()[1] < maxlen) and (not torch.all(is_terminated)):
             if ret_all:
-                x, _, newlp, newent, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
+                x, _, newlp, newent, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps, store_memory)
                 if firstGone: # so, in all cases except the first value
                     lp = F.pad(lp, (0, 1))
                     ent = F.pad(ent, (0, 1))
@@ -265,40 +256,25 @@ class EnhancedAgentBrain(nn.Module):
                 lp[:, -1] += newlp
                 ent[:, -1] += newent
             else:
-                x, _, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps)
+                x, _, is_terminated = self.extend(x, is_terminated, context, temp, ret_all, temp_eps, store_memory)
         if ret_all:
             return x, lp, ent
         else:
             return x
 
-#    def compute_probabilities(self, x, seed_offset=0, context=None, temp=1.0):
-#        """Given sentences x, possibly computed by another model, compute the logpas and entropies for all the values chosen.
-#           (Notice that we are talking about the values ALREADY chosen, not the choices this model would make.)"""
-#        batches, total_len = x.size()
-#        gen_len = total_len - seed_offset
-#        logpas = torch.zeros(batches, gen_len, device=x.device)
-#        entropies = torch.zeros(batches, gen_len, device=x.device)
-#        for i in range(gen_len):
-#            cutoff = i + seed_offset
-#            logits = self.sentence_autoencoder(x[:, :cutoff], context, use_masks=True, return_full=False)
-#            dist = Categorical(logits = logits / temp)
-#            entropies[:, i] = dist.entropy()
-#            logpas[:, i] = dist.log_prob(x[:, cutoff])
-#        return logpas, entropies
-
     # SINGLE only returns probs for final val; multi returns all probs (assumes identical contexts)
-    def compute_probabilities(self, x, seed_offset=1, context=None, temp=1.0, single=False):
+    def compute_probabilities(self, x, seed_offset=1, context=None, temp=1.0, single=False, store_memory=False):
         if single:
-            return self._compute_probabilities_SINGLE(x, context, temp)
+            return self._compute_probabilities_SINGLE(x, context, temp, store_memory)
         else:
-            return self._compute_probabilities_MULTI(x, seed_offset, context, temp)
+            return self._compute_probabilities_MULTI(x, seed_offset, context, temp, store_memory)
 
     def _compute_probabilities_MULTI(self, x, seed_offset, context=None, temp=1.0):
         """Given sentences x, possibly computed by another model, compute the logpas and entropies for all the values chosen.
            (Notice that we are talking about the values ALREADY chosen, not the choices this model would make.)"""
         batches, total_len = x.size()
         gen_len = total_len - seed_offset
-        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=True)[:, :, seed_offset-1:-1] # should be batches x tokens x genlen
+        logits = self.sentence_autoencoder(x, context=context, use_masks=True, return_full=True, store_memory=store_memory)[:, :, seed_offset-1:-1] # should be batches x tokens x genlen
         logits = logits.transpose(1, 2) # bathes x genlen x tokens
         logits = logits.reshape((batches*gen_len, self.text_dec.vocab_size)) # (batches * genlen x tokens)
         dist = Categorical(logits = logits / temp)
@@ -309,12 +285,12 @@ class EnhancedAgentBrain(nn.Module):
         entropies = dist.entropy().reshape((batches, gen_len))
         return logpas, entropies
 
-    def _compute_probabilities_SINGLE(self, x, context=None, temp=1.0):
+    def _compute_probabilities_SINGLE(self, x, context=None, temp=1.0, store_memory=False):
         """Like the above, but only returns the value for the final token"""
 #        batches, total_len = x.size()
 #        gen_len = total_len - seed_offset
         # I think this is finally it. All the non-terminal tokens are input; the terminal one is index.
-        logits = self.sentence_autoencoder(x[:, :-1], context=context, use_masks=True, return_full=False) # should be batches x tokens
+        logits = self.sentence_autoencoder(x[:, :-1], context=context, use_masks=True, return_full=False, store_memory=store_memory) # should be batches x tokens
         dist = Categorical(logits = logits / temp)
 
         inds = x[:, -1]
@@ -322,9 +298,5 @@ class EnhancedAgentBrain(nn.Module):
         logpas = dist.log_prob(inds)
         entropies = dist.entropy()
         return logpas, entropies
-
-    # Experimental use of self.generate for a particular type of input question
-    def answer_image_comparison_question(self, text_seed, img1_batch, img2_batch, maxlen = None, temp=1.0, ret_all=True, temp_eps = 1e-4):
-        return self.generate(text_seed, self.two_img_context(img1_batch, img2_batch), maxlen, temp, ret_all, temp_eps)
 
 
