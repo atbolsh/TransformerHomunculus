@@ -1539,8 +1539,30 @@ Tmr morning / this week:
 
 Goals this week:
  -- repeat in Enhanced Brain all the skills there were before
- -- train the memory for recal and recall only
+ -- train the memory for recall and recall only
  -- maaaaybe start the other tutorials in the list? Food for thought
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 13th, 2025
+
+I copied the FirstTutorial and TutorialQA codes into 'framework' files, which can be re-imported and re-used.
+
+Next several days: I will write a short loop that will both test and later be used to train EnhancedBrain (with memory) on these tasks.
+
+Details:
+ -- randomize the order of inputs in the TutorialQA inputs 
+ -- only use the 'full forward' on the first input; the other four get to share context
+ -- intersperse (include?) the firstTutorial tasks
+ -- intersperse (include?) the original image autoencoder stuff (with control texts)
+ -- don't be in a rush to train everything. A good day can be just knocking one of these tasks off this checklist
+
+Plan for week / weekend:
+1) Above 'sanity check' for EnhancedBrain
+2) EnhancedBrain widget-framework. Full and complete.
+3) Merge into the 'master' branch; make new git repo.
+4) (probably next week) Knock off more items off full_task_list.
 
 
 
