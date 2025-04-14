@@ -1552,8 +1552,8 @@ I copied the FirstTutorial and TutorialQA codes into 'framework' files, which ca
 Next several days: I will write a short loop that will both test and later be used to train EnhancedBrain (with memory) on these tasks.
 
 Details:
- -- randomize the order of inputs in the TutorialQA inputs 
- -- only use the 'full forward' on the first input; the other four get to share context
+X -- randomize the order of inputs in the TutorialQA inputs 
+X -- only use the 'full forward' on the first input; the other four get to share context
  -- intersperse (include?) the firstTutorial tasks
  -- intersperse (include?) the original image autoencoder stuff (with control texts)
  -- don't be in a rush to train everything. A good day can be just knocking one of these tasks off this checklist
@@ -1564,5 +1564,16 @@ Plan for week / weekend:
 3) Merge into the 'master' branch; make new git repo.
 4) (probably next week) Knock off more items off full_task_list.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 14th, 2025
+
+Started writing TestingEnhancedBrain python notebook
+Tmr:
+ -- use it for eval purposes
+ -- add training capabilities; use it to run some finetuning on EnhancedBrain
+
+Not much done thanks to taxes, but progress is solid
 
 

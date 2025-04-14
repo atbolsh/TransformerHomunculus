@@ -69,7 +69,7 @@ sdv = SampleDataset(tokenizer=tokenizer, evaluate=True)
 ent_criterion = nn.CrossEntropyLoss(ignore_index=0)
 
 def get_text_loss(res, inputs):
-    return torch.sum(ent_criterion(res[:, :, :-1], inputs[:, 1:])
+    return torch.sum(ent_criterion(res[:, :, :-1], inputs[:, 1:]))
 
 ############
 # On to the functions for the task at hand

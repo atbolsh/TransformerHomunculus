@@ -32,8 +32,15 @@ class EnhancedAgentBrain(nn.Module):
         self.memenc = MemoryEncoder(new_tokens=new_tokens)
 #        self.memproc = MemoryProcessor(sequence_length=mem_size) # canceling memory processing for now
 
-        # image canvases
+        # set image canvases and None for self.context
+        self.reset()
+
+    def reset(self):
+        # note this may create orphaned tensors and memory leaks down the line.
+        # I will need to be very careful with resets and zero_grads. Possibly I should include a 'del' statement here.
+        # alternatively, I can invest in creating a single tensor and reseting it all the time to 0. uglier code, may run better
         self.canvases = VisionCanvases(3)
+        self.context = None
 
     def get_device(self):
         return self.img_enc.get_device()
