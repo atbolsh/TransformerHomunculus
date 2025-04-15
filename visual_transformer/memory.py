@@ -136,21 +136,9 @@ class Memory(nn.Module):
     def is_empty(self):
         return self.empty
 
-#    def get_device(self):
-#        return self.scales.device
-#
-#    def to(self, device):
-#        self.scales = self.scales.to(device)
-#        if not self.is_empty():
-#            self.memory = self.memory.to(device)
-#        return self
-#
-#    def cpu(self):
-#        return self.to('cpu')
-#
-#    def cuda(self):
-#        return self.to('cuda')
-#
+    def get_device(self):
+        return self.scales.device
+
     # tokens has shape (batches, new_tokens, 768). Even if batches is 1
     def remember(self, tokens):
         # last layer forgot to unsqueeze

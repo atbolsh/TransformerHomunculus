@@ -24,12 +24,12 @@ class EnhancedAgentBrain(nn.Module):
         self.dopamine = IntermediateTransformerScorer() # for RL; not yet tested, use later
 
         # 6 inputs; 3 img canvases, 1 img input, text input, memory input
-        self.context_tagging = nn.Parameter(torch.empty((1, 6, 768)))
+        self.context_tagging = nn.Parameter(torch.empty((6, 1, 768)))
         nn.init.uniform_(self.context_tagging, -1.0/math.sqrt(768), 1.0/math.sqrt(768)) 
 
         # Memory processing
         self.memory = Memory(mem_size, new_tokens)
-        self.memenc = MemoryEncoder(new_tokens=new_tokens)
+        self.mem_enc = MemoryEncoder(new_tokens=new_tokens)
 #        self.memproc = MemoryProcessor(sequence_length=mem_size) # canceling memory processing for now
 
         # set image canvases and None for self.context
@@ -40,6 +40,9 @@ class EnhancedAgentBrain(nn.Module):
         # I will need to be very careful with resets and zero_grads. Possibly I should include a 'del' statement here.
         # alternatively, I can invest in creating a single tensor and reseting it all the time to 0. uglier code, may run better
         self.canvases = VisionCanvases(3)
+        self.canvases.to(self.get_device())
+        self.memory = Memory(self.memory.mem_size, self.memory.new_tokens)
+        self.memory.to(self.get_device())
         self.context = None
 
     def get_device(self):
@@ -83,7 +86,7 @@ class EnhancedAgentBrain(nn.Module):
             context.append(real_img_context)
 
             for i in range(self.canvases.num_canvases):
-                context.append(self.img_enc(self.canvases[i].canvas))
+                context.append(self.img_enc(self.canvases[i]))
     
             if self.memory.is_empty():
                 context.append(torch.zeros(b, 128, 768, device=text_batch.device))
@@ -91,7 +94,7 @@ class EnhancedAgentBrain(nn.Module):
                 context.append(self.memory.memory)
     
             for i in range(len(context)):
-                context[i] += self.tagging[i]
+                context[i] += self.context_tagging[i]
             tensor_context = torch.cat(context, dim=1)
     
             self.context = tensor_context
@@ -102,10 +105,10 @@ class EnhancedAgentBrain(nn.Module):
 
         if create_context:
             # For images and memory, the text_encoding can be added to context (in fact, *must* be)
-            context.append(text_encoding + self.tagging[-1])
-            full_context = torch.cat(tensor_context, context[-1], dim=1)
+            context.append(text_encoding + self.context_tagging[-1])
+            full_context = torch.cat((tensor_context, context[-1]), dim=1) # 
     
-            img_recon = self.img_dec(real_image_context, full_context)
+            img_recon = self.img_dec(real_img_context, full_context)
             self.canvases.store(img_recon)
        
         if ret_imgs:

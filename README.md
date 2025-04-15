@@ -1554,7 +1554,7 @@ Next several days: I will write a short loop that will both test and later be us
 Details:
 X -- randomize the order of inputs in the TutorialQA inputs 
 X -- only use the 'full forward' on the first input; the other four get to share context
- -- intersperse (include?) the firstTutorial tasks
+X -- intersperse (include?) the firstTutorial tasks
  -- intersperse (include?) the original image autoencoder stuff (with control texts)
  -- don't be in a rush to train everything. A good day can be just knocking one of these tasks off this checklist
 
@@ -1571,9 +1571,27 @@ Apr 14th, 2025
 
 Started writing TestingEnhancedBrain python notebook
 Tmr:
- -- use it for eval purposes
+X -- use it for eval purposes
  -- add training capabilities; use it to run some finetuning on EnhancedBrain
 
 Not much done thanks to taxes, but progress is solid
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 15th, 2025
+
+FInally debugged yesterday's code. Wasted day. There were faster ways to do this. Should have done that, first. But I just couldn't wait, huh?
+
+Tmr:
+ -- check how other systems with memory are written. briefly. I'm doing something crooked, I think.
+ -- add training to the functions in TestingEnhancedBrain, then save them with the 'framework' files
+ -- no need for img_autoencoder or text_autoencoder special pleading. Those losses are part of the QA and firstTutorial losses.
+ -- everything on-time? move to other server and launch a training loop.
+
+Plan for other tutorials:
+1) Write new training functions like the ones in this file
+2) During actual training, cycle through them (or sample randomly), and chase all the losses together.
+  -- later, I can add code to weigh likelihoods, but that's far from today.
 
 
