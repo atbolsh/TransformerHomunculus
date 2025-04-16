@@ -1590,8 +1590,24 @@ Tmr:
  -- everything on-time? move to other server and launch a training loop.
 
 Plan for other tutorials:
-1) Write new training functions like the ones in this file
+X 1) Write new training functions like the ones in this file
 2) During actual training, cycle through them (or sample randomly), and chase all the losses together.
   -- later, I can add code to weigh likelihoods, but that's far from today.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 16th, 2025
+
+Added training code but did not run
+
+Tmr:
+0) COnsider how to run (when to reset?)
+1) Move to penguins.army
+2) Run training, overnight
+
+Rest of week: depending on results, either debugging or testing the results
+
+
 
 

@@ -1,75 +1,4 @@
-# should have all the torch libraries I need
-from visual_transformer import *
-
-device = torch.device('cuda:0') # can be changed after import
-
-# from viusual_transformer.enhanced_model import *
-
-from game import *
-
-game_settings = BIG_tool_use_advanced_2_5
-game_settings.gameSize = 224 # for compatibility with brain's expected size
-G = discreteGame(game_settings)
-
-########
-
-vocab_size = 10000
-# tokenizer.save_model(".", "tokenizer/eng_sentences_tokenizer_vc10000")
-tokenizer = ByteLevelBPETokenizer(
-    "./text_pretraining_tokenizer/eng_sentences_tokenizer_vc10000_v2-vocab.json",
-    "./text_pretraining_tokenizer/eng_sentences_tokenizer_vc10000_v2-merges.txt",
-)   
-tokenizer._tokenizer.post_processor = BertProcessing(
-    ("</s>", tokenizer.token_to_id("</s>")),
-    ("<s>", tokenizer.token_to_id("<s>")),
-)   
-tokenizer.enable_truncation(max_length=32)
-tokenizer.enable_padding()
-
-
-## Dataset
-class SampleDataset(Dataset):
-    def __init__(self, seq_length = 32, evaluate: bool = False, tokenizer=None, device = None):
-        if device is None:
-            device = 'cpu'
-        self.device = device
-        self.seq_length = seq_length
-        if tokenizer is None:
-            tokenizer = ByteLevelBPETokenizer(
-                "./text_pretraining_tokenizer/eng_sentences_tokenizer_v2-vocab.json",
-                "./text_pretraining_tokenizer/eng_sentences_tokenizer_v2-merges.txt",
-            )   
-        tokenizer._tokenizer.post_processor = BertProcessing(
-            ("</s>", tokenizer.token_to_id("</s>")),
-            ("<s>", tokenizer.token_to_id("<s>")),
-        )   
-        tokenizer.enable_truncation(max_length=self.seq_length)
-        tokenizer.enable_padding()#length=seq_length)
-        # or use the RobertaTokenizer from `transformers` directly.
-
-        self.examples = []
-
-        src_files = Path("./text_pretraining_data/").glob("*-eval.txt") if evaluate else Path("./text_pretraining_data/").glob("*-train.txt")
-        for src_file in src_files:
-            print("🔥", src_file)
-            lines = src_file.read_text(encoding="utf-8").splitlines()
-            self.examples += [x.ids for x in tokenizer.encode_batch(lines)]
-
-    def __len__(self):
-        return len(self.examples)
-
-    def __getitem__(self, i): 
-        # We’ll pad at the batch level.
-        return torch.tensor(self.examples[i]).to(self.device)
-
-sdt = SampleDataset(tokenizer=tokenizer)
-sdv = SampleDataset(tokenizer=tokenizer, evaluate=True)
-
-
-ent_criterion = nn.CrossEntropyLoss(ignore_index=0)
-
-def get_text_loss(res, inputs):
-    return torch.sum(ent_criterion(res[:, :, :-1], inputs[:, 1:]))
+from general_framework import *
 
 ############
 # On to the functions for the task at hand
@@ -369,4 +298,78 @@ def get_settings_batch(batch_size):
 
 ########
 
-# The train loop is below this; look to the original in order to recreate that and adjust to your particular desires
+# THis is modified from the original. This function can be used to train or test. For the train loop, run this function with training and compute_grad and provide the optimizer
+
+def _qa_task_batch(batch_size, model, optimizer=None, batch_num=0, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
+    if training and model_eval:
+        raise ValueError("Cannot be training and model_eval cannot both be True")
+    
+    if model_eval:
+        model.eval()
+
+    if training:
+        model.train()
+
+    if training and (optimizer is None):
+        raise ValueError("Must provide an optimizer if training")
+        
+    S = get_settings_batch(batch_size)
+    imgs = get_images(S)
+    
+    texts_lrg = task2_lrgold_generator_simple(S)
+    texts_udg = task2_udgold_generator_simple(S)
+    texts_lra = task2_lragent_generator_simple(S)
+    texts_uda = task2_udagent_generator_simple(S)
+
+    ind = (batch_num * batch_size) % num_controls
+    if ind + batch_size > num_controls:
+        ind = num_controls - batch_size
+    control_texts = sdt[ind:ind + batch_size].to(device)
+
+    all_texts = [control_texts, texts_lrg, texts_udg, texts_lra, texts_uda]
+    text_inds = list(range(5))
+    # new code. Shuffling helps enhanced brain not transfer information 
+    # between tasks, despite not doing any resets
+    if random_order:
+        random.shuffle(text_inds)
+
+    all_probs = [0 for t_ind in text_inds]
+    # first to be computed needs to initialize context buffer
+    if type(model) is EnhancedAgentBrain:
+        all_probs[text_inds[0]] = (model(all_texts[text_inds[0]], imgs, ret_imgs=False, create_context=True))
+    else:
+        all_probs[text_inds[0]] = (model(all_texts[text_inds[0]], imgs, ret_imgs=False))
+    for t_ind in text_inds[1:]:
+        if type(model) is EnhancedAgentBrain:
+            all_probs[t_ind] = (model(all_texts[t_ind], imgs, ret_imgs=False, create_context=False))
+        else:
+            all_probs[t_ind] = (model(all_texts[t_ind], imgs, ret_imgs=False))
+    #now, all_probs, despite random execution order, has the corresponding output for every element of all_texts
+
+    all_losses = [get_text_loss(all_probs[i], all_texts[i]) for i in range(5)]
+    
+    loss = sum(all_losses)
+
+    if training:
+        loss.backward()
+        optimizer.step()
+        optimizer.zero_grad()
+
+    if printing:
+        print(f"Total loss: {loss.item()}:\n{all_losses[0].item()} control,\n{all_losses[1].item()} lrg,\n{all_losses[2].item()} udg,\n{all_losses[3].item()} lra,\n{all_losses[4].item()} uda\n\n")
+
+    if reset_model and (type(model) is EnhancedAgentBrain):
+        model.reset()
+
+    return (loss.item(), all_losses[0].item(), all_losses[1].item(), all_losses[2].item(), all_losses[3].item(), all_losses[4].item())
+
+def qa_task_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
+    if compute_grad:
+        return _qa_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+    else:
+        if training:
+            raise ValueError("If training is True, compute_grad must also be True")
+        with torch.no_grad():
+            return _qa_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+
+
