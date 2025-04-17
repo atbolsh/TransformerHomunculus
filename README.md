@@ -1602,11 +1602,41 @@ Apr 16th, 2025
 Added training code but did not run
 
 Tmr:
-0) COnsider how to run (when to reset?)
-1) Move to penguins.army
+X 0) COnsider how to run (when to reset?)
+     -- considered. NEed different remembered images, so allowed non-reset execution. We will see if this produces memory leaks.
+X 1) Move to penguins.army
 2) Run training, overnight
 
 Rest of week: depending on results, either debugging or testing the results
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 17th, 2025
+
+Noticed we must change the device in general_framework. Oh well. Bit of a pain.
+Removed Tests4Memunit; ugly scratchwork I only needed for development. 
+
+~~~~
+
+We're back to VisionCanvases dropping canvases for no reason.
+
+I think I'm done with using nn.Sequential.
+Instead, I will use a new class (just a wrapper around a list of tensors), and try to use 'register_buffer' for the new class.
+Will see if it works.
+
+If not . . . I'll use external memory? And be careful to transport it between devices with the brain? Dunno, man, this is frustrating.
+
+~~~~
+
+Tmr: fix the canvas thing. Try rerunning training.
+Next week: 
+ -- fix training and run; 
+ -- widgets for display; 
+ -- next several frameworks, in this order:
+     -- image retraining (don't forget how to zoom)
+     -- using the memory directly (recollection task)
+     -- then the other tasks from the list, in any order.
 
 
 

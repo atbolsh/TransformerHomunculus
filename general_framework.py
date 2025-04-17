@@ -4,7 +4,7 @@ from visual_transformer import *
 from visual_transformer.enhanced_model import *
 import random
 
-device = torch.device('cuda:0') # can be changed after import
+device = torch.device('cuda:1') # CHANGE THIS EVERY TIME
 
 # from viusual_transformer.enhanced_model import *
 
