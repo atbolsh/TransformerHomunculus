@@ -15,81 +15,49 @@ from torch.utils.data import Dataset
 
 from .custom_transformer import *
 
-class VisionCanvas(nn.Module):
-    def __init__(self, num_channels=3, width=224, height=224, device='cpu'):
-        super(VisionCanvas, self).__init__()
-
-        self.num_channels = num_channels
-        self.width = width
-        self.height = height
-
-        canvas = torch.zeros(1, num_channels, width, height).to(device)
-        self.register_buffer('canvas', canvas)
-
-    # Should not be called besides beginning; will mostly be calling on fresh ones, anyway.
-    def store(self, imgs):
-        self.canvas = imgs + self.canvas
-
-    def get_device(self):
-        return self.canvas.device
-
-    # should not be used; included for consistency with nn.Module type
-    def forward(self, imgs):
-        self.store(self, imgs)
-        return self.canvas
-
-
 class VisionCanvases(nn.Module):
-    def __init__(self, num_canvases=3, num_channels=3, width=224, height=224):
+    def __init__(self, num_canvases=3, num_channels=3, width=224, height=224, device='cpu'):
         super(VisionCanvases, self).__init__()
 
+        self.current_index = 0
+        self.empty = True
+        
         self.num_canvases=num_canvases
         self.num_channels=num_channels
         self.width=width
         self.height=height
-
-        self.empty = True
-        self.canvases = nn.Sequential(*[VisionCanvas(num_channels, width, height) for i in range(num_canvases)])
+        
+        canvases = torch.zeros(1, device=device) # placeholder
+        self.register_buffer('canvases', canvases)
 
     def get_device(self):
-        return self.canvases[0].canvas.device
+        return self.canvases.device
 
     def is_empty(self):
         return self.empty
 
-#    def to(self, device):
-#        self.device=device
-#        if not (self.canvases is None):
-#            for i in range(self.num_canvases):
-#                self.canvases[i].to(device)
-#        return self
-#
-#    def cpu(self):
-#        return self.to('cpu')
-#
-#    def cuda(self):
-#        return self.to('cuda')
-#
-    def store(self, img):
-        b = img.size()[0]      
+    def store(self, img_batch):
         if self.is_empty():
-            for i in range(self.num_canvases):
-                self.canvases[i].store(img)
+            nc = img_batch.unsqueeze(0).repeat(self.num_canvases, 1, 1, 1, 1)
+            self.register_buffer('canvases', nc)
         else:
-            device = self.get_device()
-            self.canvases.append(VisionCanvas(num_channels=self.num_channels, width=self.width, height=self.height, device=device))
-            self.canvases = self.canvases[1:] # drop oldest
-            self.canvases[-1].store(img)
+            self.current_index = (self.current_index + 1) % self.num_canvases
+            # pytorch complains about rewriting in place, so we're left with this immaturity:
+            self.canvases[self.current_index] *= 0
+            self.canvases[self.current_index] += img_batch
         self.empty = False
 
-    # should not be used; included for consistency with nn.Module type
-    def forward(self, img):
-        self.store(img)
-        return self.canvases[0].canvas
-
     def __getitem__(self, ind):
-        return self.canvases[ind].canvas
+        if self.is_empty():
+            raise ValueError("can't return canvases from an empty container")
+        if (ind >= self.num_canvases) or (ind <= -1 - self.num_canvases):
+            raise ValueError("index out of bounds")
 
+        newind = (self.current_index - ind) % self.num_canvases
+        return self.canvases[newind]
 
-
+    # should not be used; use store instead
+    def forward(self, img_batch):
+        self.store(img_batch)
+        return self[0] # the stored value
 

@@ -1638,6 +1638,21 @@ Next week:
      -- using the memory directly (recollection task)
      -- then the other tasks from the list, in any order.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 18th, 2025
+
+Two new versions of VisionCanvases attempted. Neither works.
+
+New plan: Monday, I'm rewriting all this to include an external VisionCanvas at initialization, and moving both between devices manually.
+Kinda ugly. Oh well. I might add a custom 'move_to' instead of 'to' which also sends the vision canvases. Some ugly solution like that.
+
+I don't like that, but it's not very avoidable. Perhaps it's time to start working with external objects anyway.
+
+NEXT WEEK GOAL: make the damn thing train.
+After that, train the old skills, then basic memory, then new tricks and widget display.
+
 
 
 
