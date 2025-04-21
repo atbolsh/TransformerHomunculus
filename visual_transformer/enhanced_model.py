@@ -45,6 +45,11 @@ class EnhancedAgentBrain(nn.Module):
         self.memory.to(self.get_device())
         self.context = None
 
+    # prefered way to move from device to device; otherwise, the canvases may not move with the device
+    def move_to(self, device):
+        self.canvases.to(device)
+        return self.to(device)
+
     def get_device(self):
         return self.img_enc.get_device()
 

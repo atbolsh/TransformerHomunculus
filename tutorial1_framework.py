@@ -76,7 +76,7 @@ def _arrow_task_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
     loss = img_loss + (text_loss / 5000)
 
     if training:
-        loss.backward()
+        loss.backward()#retain_graph=True)
         optimizer.step()
         optimizer.zero_grad()
     

@@ -351,7 +351,7 @@ def _qa_task_batch(batch_size, model, optimizer=None, batch_num=0, random_order 
     loss = sum(all_losses)
 
     if training:
-        loss.backward()
+        loss.backward()#retain_graph=True) # needed? consider.
         optimizer.step()
         optimizer.zero_grad()
 

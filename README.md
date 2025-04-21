@@ -1654,5 +1654,18 @@ NEXT WEEK GOAL: make the damn thing train.
 After that, train the old skills, then basic memory, then new tricks and widget display.
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 21st, 2025
+
+Slow day.
+
+So close to grad computations actually working.
+Try:
+ -- retain_graph again
+ -- strategic ".detach" calls (make it part of 'reset'? Or as a backward hook?)
+
+One of those two should work. Then launch proper training, finally.
 
 
