@@ -1555,11 +1555,11 @@ Details:
 X -- randomize the order of inputs in the TutorialQA inputs 
 X -- only use the 'full forward' on the first input; the other four get to share context
 X -- intersperse (include?) the firstTutorial tasks
- -- intersperse (include?) the original image autoencoder stuff (with control texts)
+X -- intersperse (include?) the original image autoencoder stuff (with control texts)
  -- don't be in a rush to train everything. A good day can be just knocking one of these tasks off this checklist
 
 Plan for week / weekend:
-1) Above 'sanity check' for EnhancedBrain
+X 1) Above 'sanity check' for EnhancedBrain
 2) EnhancedBrain widget-framework. Full and complete.
 3) Merge into the 'master' branch; make new git repo.
 4) (probably next week) Knock off more items off full_task_list.
@@ -1572,7 +1572,7 @@ Apr 14th, 2025
 Started writing TestingEnhancedBrain python notebook
 Tmr:
 X -- use it for eval purposes
- -- add training capabilities; use it to run some finetuning on EnhancedBrain
+X -- add training capabilities; use it to run some finetuning on EnhancedBrain
 
 Not much done thanks to taxes, but progress is solid
 
@@ -1605,7 +1605,7 @@ Tmr:
 X 0) COnsider how to run (when to reset?)
      -- considered. NEed different remembered images, so allowed non-reset execution. We will see if this produces memory leaks.
 X 1) Move to penguins.army
-2) Run training, overnight
+X 2) Run training, overnight
 
 Rest of week: depending on results, either debugging or testing the results
 
@@ -1631,7 +1631,7 @@ If not . . . I'll use external memory? And be careful to transport it between de
 
 Tmr: fix the canvas thing. Try rerunning training.
 Next week: 
- -- fix training and run; 
+X -- fix training and run; 
  -- widgets for display; 
  -- next several frameworks, in this order:
      -- image retraining (don't forget how to zoom)
@@ -1663,9 +1663,58 @@ Slow day.
 
 So close to grad computations actually working.
 Try:
- -- retain_graph again
- -- strategic ".detach" calls (make it part of 'reset'? Or as a backward hook?)
+X -- retain_graph again
+X -- strategic ".detach" calls (make it part of 'reset'? Or as a backward hook?)
 
 One of those two should work. Then launch proper training, finally.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 22nd, 2025
+
+Added 'soft_reset' (detach) between batches (after loss.backward is called).
+
+Damn thing finally training. Will check results later today or tomorrow.
+
+FINALLY IT TRAINS!!
+
+~~~~
+
+For the next tasks, here is the checklist from April 13th.
+I'm recopying it here and adding an element, to avoid scrolling up too much:
+
+X 1) Above 'sanity check' for EnhancedBrain
+2) Look at results. Retrain? Fix
+3) EnhancedBrain widget-framework. Full and complete.
+3.5) add training code to store the entire learning curve
+4) Merge into the 'master' branch; make new git repo.
+5) More frameworks from full_task_list
+   -- start with more finetuning for image_autoencoder
+   -- next, train the memory and vision-canvas using abilities
+   -- start writing the other frameworks one at a time after that.
+
+
+~~~~
+
+Tmr plan, specifically:
+X 1) look at training; see what went wrong / right.
+X   -- failed to train? try different 'labeling' for vision canvas (or bigger amplitude, or limited to only last several dimensions, or something).
+X   -- think about the losses. Estimate how much / what you'll need for specific results.
+2) everything good? think about the first 'memory' task. Look at notes, look at full_task_list, etc. Pick an approach; maybe start coding.
+
+Other stuff from the list (widgets? add code for full learning curve? think) can substitute #2, or complement it.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 23rd, 2025
+
+Training was slower than desired; 10000 batches was not enough. Retraining with more opportunity to learn, based on last night's results. Will check tmr.
+
+Done? Will write:
+ -- basic memory framework
+ -- img autoencoder framework
+ -- widget interaction ipynb.
 
 

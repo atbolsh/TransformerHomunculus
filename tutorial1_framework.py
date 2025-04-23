@@ -79,6 +79,8 @@ def _arrow_task_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
         loss.backward()#retain_graph=True)
         optimizer.step()
         optimizer.zero_grad()
+        if type(model) is EnhancedAgentBrain:
+            model.soft_reset()
     
     if printing:
         print(f"Total loss: {loss.item()}; that's {l1.item()} task and {l2.item()} recon and {text_loss.item()} total text\n\n")

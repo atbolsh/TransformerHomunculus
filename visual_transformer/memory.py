@@ -139,6 +139,10 @@ class Memory(nn.Module):
     def get_device(self):
         return self.scales.device
 
+    def soft_reset(self):
+        self.memory = self.memory.detach()
+        self.scales = self.scales.detach()
+
     # tokens has shape (batches, new_tokens, 768). Even if batches is 1
     def remember(self, tokens):
         # last layer forgot to unsqueeze

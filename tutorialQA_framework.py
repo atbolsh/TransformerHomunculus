@@ -354,6 +354,8 @@ def _qa_task_batch(batch_size, model, optimizer=None, batch_num=0, random_order 
         loss.backward()#retain_graph=True) # needed? consider.
         optimizer.step()
         optimizer.zero_grad()
+        if type(model) is EnhancedAgentBrain:
+            model.soft_reset()
 
     if printing:
         print(f"Total loss: {loss.item()}:\n{all_losses[0].item()} control,\n{all_losses[1].item()} lrg,\n{all_losses[2].item()} udg,\n{all_losses[3].item()} lra,\n{all_losses[4].item()} uda\n\n")

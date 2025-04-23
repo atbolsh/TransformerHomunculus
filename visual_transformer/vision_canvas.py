@@ -108,6 +108,10 @@ class VisionCanvases:
     def is_empty(self):
         return self.empty
 
+    def soft_reset(self):
+        for i in range(self.num_canvases):
+            self.tw.L[i] = self.tw.L[i].detach()
+
     def store(self, img_batch):
         if self.is_empty():
             for i in range(self.num_canvases):

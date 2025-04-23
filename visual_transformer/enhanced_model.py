@@ -45,6 +45,11 @@ class EnhancedAgentBrain(nn.Module):
         self.memory.to(self.get_device())
         self.context = None
 
+    # this is to keep the tensors but remove gradient connections further back than needed.
+    def soft_reset(self):
+        self.memory.soft_reset()
+        self.canvases.soft_reset()
+
     # prefered way to move from device to device; otherwise, the canvases may not move with the device
     def move_to(self, device):
         self.canvases.to(device)
