@@ -1713,8 +1713,36 @@ Apr 23rd, 2025
 Training was slower than desired; 10000 batches was not enough. Retraining with more opportunity to learn, based on last night's results. Will check tmr.
 
 Done? Will write:
- -- basic memory framework
- -- img autoencoder framework
+X -- basic memory training framework
+X -- img autoencoder framework
  -- widget interaction ipynb.
 
+~~~~~~~~
+
+Made some new business plans.
+
+Will make a decision about BASE club in Miami sometime in August, when it's more professionally relevant and when I have a better idea of my exact starting capital.
+ -- for now, saving, not extravagant payments, are the law. I need to learn how to save.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 24th, 2025
+
+It's still training. It's making progress, though it's slow, so I will give it another several days.
+
+Training these two together is probably not the correct call, because the lr's are so different.
+For next train sessions, will alter their relative frequencies, and generally focus on one training at a time.
+
+Wrote two more frameworks: control and tutorial_mem_canvas. Both are untested so far.
+ -- control for the standard recall of normal and zoomed games
+ -- tutorial_mem_canvas for recall.
+
+If tutorial_mem_canvas proves very difficult, I will have to change which vectors I use to 'label' the canvases (and start all Enhanced training over again).
+
+I may need to restart exactly once more, for memory use (requires better autoencoders), but hopefully after that never again.
+
+~~~~
+
+All VC stuff can be left until a later date. I need my product.
 
