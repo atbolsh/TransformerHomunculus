@@ -1762,4 +1762,12 @@ Can't do widget work on penguinsarmy, pulling progress onto penguinsfarm and bra
 
 ~~~~
 
+This is on the memUnit branch (should be master).
+No progress here today, moved slow.
+
+System still training, number going down, so I'm letting it keep going for now, though patience is for sure wearing thin,
+
+Next time: 
+ -- check progress; make training decisions
+ -- knock out some more frameworks, especially any that require image-to-settings loss funcs.
 
