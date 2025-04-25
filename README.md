@@ -1748,7 +1748,7 @@ All VC stuff can be left until a later date. I need my product.
 
 Tmr / next stuff:
  -- check on training. Interrupt?
- -- widget stuff
+X -- widget stuff
  -- intelligent 'device' loading (force specification before general_training import)
  -- try a task with 'settings from output image' (two losses: 'gameness' of image and correctness of result)
 
@@ -1762,4 +1762,13 @@ Can't do widget work on penguinsarmy, pulling progress onto penguinsfarm and bra
 
 ~~~~
 
+This version is on widgetBranch
 
+Made a rough draft of all the functions. Moved slow.
+Next tasks:
+1) Make the buttons and test the functions
+2) Make the buttons pretty.
+3) Try to make an importable 'widget framework'. No sweat if doesn't work.
+4) Clean version, with only one mode of operation (import from the game, and updating the game when the right move is detected).
+
+That is weekend / next week.
