@@ -1746,3 +1746,20 @@ I may need to restart exactly once more, for memory use (requires better autoenc
 
 All VC stuff can be left until a later date. I need my product.
 
+Tmr / next stuff:
+ -- check on training. Interrupt?
+ -- widget stuff
+ -- intelligent 'device' loading (force specification before general_training import)
+ -- try a task with 'settings from output image' (two losses: 'gameness' of image and correctness of result)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 25th, 2025
+
+Can't do widget work on penguinsarmy, pulling progress onto penguinsfarm and branching (widgetBranch).
+ -- update the 'player' env on penguinsarmy.
+
+~~~~
+
+

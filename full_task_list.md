@@ -73,10 +73,21 @@ Once that is done, I will move on to 'internal walls' and 'using imagination del
 List of broad categories, and order:
 1) Basic navigation, imagination, description, and goal-targeted actions. This is gold-seeking in empty room. All above.
 2) Brainstorming deliberately, maybe storing plans explicitly. This is corners / internal walls. Will write later.
+   -- this may require human input and RL-ish feedback. Try several outputs, reward / punishment, then generate 'similar' situations with same answer, then store all in a batch with correct reward.
+   -- basically: super slow human-in-the-loop RL may be improved by automatically generating the correct training (like an entire batch) and then returning to it again later.
+      -- initially; this would be part of the training mechanism alone. Only later, much later, would the agent get access to this deliberate learning.
 3) More advanced navigation, map-making, maybe storing images. THis is multi-room experiments. Will write later.
 4) Explicit novelty; deliberate learning; using L2 masks between reconstruction and original; maybe setting up train loops. This is 'novel items discovered.' Comes much later.
+   -- may have happened earlier, see above
 
 Each point take several months. Each task above should be a day or so of writing and a day or so of training, once I have the tools set up (close).
 With delays, I'll probably be done with / finishing up point 2 when I quit in August.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 24th, 2025
+
+Added some terms above (the subpoints)
 
 
