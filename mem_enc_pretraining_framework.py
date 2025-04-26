@@ -50,6 +50,8 @@ text_dec = MemoryDecContext(32).to(device) # sequence length corresponding to te
 
 mem_criterion = nn.MSELoss()
 
+
+# MAKE SURE THE OPTIMIZER INCLUDES CONTExT_DEC AND TEXT_DEC!!!! OTHERWISE, THIS WILL NOT WORK AT ALL!!!!!!!!!
 def _mem_pretraining_batch(batch_size, model, optimizer=None, batch_num=0, random_order=True, model_eval=True, reset_model=True, printing=True, training=False):
     if training and model_eval:
         raise ValueError("Cannot be training and model_eval cannot both be True")
