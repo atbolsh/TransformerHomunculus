@@ -1768,6 +1768,30 @@ No progress here today, moved slow.
 System still training, number going down, so I'm letting it keep going for now, though patience is for sure wearing thin,
 
 Next time: 
- -- check progress; make training decisions
- -- knock out some more frameworks, especially any that require image-to-settings loss funcs.
+X -- check progress; make training decisions
+X -- knock out some more frameworks, especially any that require image-to-settings loss funcs.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 26th, 2025
+
+Training VERY slow. Weirdly, it's slower for the QA task.
+
+I won't train 2 ssytems together again. There will be one main one, and the others will just be there to not lose the skill. One task at a time.
+I had simply hoped for transfer learning, but that hope had been misplaced.
+
+Tmr: if the losses are not below 0.0035 for the task on trial 1, and one of the QA entropies goes below 0.3, I will terminate this and switch to the '1 at a time' version anyway 
+(and test the performance so far, qualitatively).
+
+~~~~
+
+Knocked out mem_enc pretraining framework (make it an autoencoder before anything else). Weird framework took mental effort to write, so I'm excusing that being my only achievement.
+
+Next time I'm here: 
+ -- a couple of 'image to settings' frameworks
+ -- some other random frameworks, easy ones. More prompts to memorize ("learn").
+
+
+
 

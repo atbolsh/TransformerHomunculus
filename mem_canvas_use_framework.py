@@ -141,7 +141,16 @@ def _mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
     return loss.item(), task_img_loss.item(), task_text_loss.item(), control_img_loss.item(), control_text_loss.item()
 
 
-    
+def mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
+    if compute_grad:
+        return _mem_canvas_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+    else:
+        if training:
+            raise ValueError("If training is True, compute_grad must also be True")
+        with torch.no_grad():
+            return _mem_canvas_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+
+   
 
 
 

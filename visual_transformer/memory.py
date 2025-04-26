@@ -158,3 +158,5 @@ class Memory(nn.Module):
     def forward(self, tokens):
         self.remember(tokens)
         return self.memory
+
+
