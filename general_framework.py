@@ -78,4 +78,20 @@ def get_text_loss(res, inputs):
 
 img_criterion = nn.MSELoss()
 
+########
+
+def get_settings_batch(batch_size):
+    return [G.random_bare_settings(gameSize=224, max_agent_offset=0.5) for i in range(batch_size)]
+
+########
+
+def get_images(settings_batch, device=device):
+    batch_size = len(settings_batch)
+    img = torch.zeros(batch_size, 224, 224, 3)
+    for i in range(batch_size):
+        G2 = discreteGame(settings_batch[i])
+        img[i] = torch.tensor(G2.getData())
+    img = torch.permute(img, (0, 3, 1, 2)).contiguous().to(device)
+    return img
+
 

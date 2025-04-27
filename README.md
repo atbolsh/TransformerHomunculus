@@ -1792,6 +1792,36 @@ Next time I'm here:
  -- a couple of 'image to settings' frameworks
  -- some other random frameworks, easy ones. More prompts to memorize ("learn").
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 27th, 2025
+
+I figured out why tutorialQA is not working at all: tutorialQA.py has create_context=False for all but the first image. This is not correct: that causes the input img_batch to be ignored.
+Training has been going slow for both tasks, anyway.
+ -- or is that the case? I'm actually not sure. The img batch should be the same so . . . why re-encode it more than once?
+ -- leaving it to train for now.
+
+I've decided I'm not going to kill it until I want to check on the progress. Ideally, it can keep going for 2 more weeks or until I'm satisfied with at least one set of loss outputs.
+
+In the meantime, I will keep writing new frameworks and also making the widget debugger.
+
+~~~~
+
+Progress: two more frameworks, one to use complex loss functions (extracting info from images), one to answer questions about relative (not absolute) position.
+
+I marked all framework files that haven't been tested and need finetuning as 'RAW'. grep-ing for this will easily yield some framework files to try and fix when I want to try that task.
+
+~~~~
+
+Tmr:
+No frameworks! Only widgets!
+ -- finish rough draft
+ -- put final version together, including a single game object and constantly showing game results.
+
+Iterate on the GUI for several days. Make it pretty and intuitive and capable of answering all the questions you may have later. This is important.
+A version of the GUI will later be the 'waking hours' anyway. It will create 'subtasks for training' for itself, then run that overnight (in addition with some mem maintenance scripts).
+
 
 
 

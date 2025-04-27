@@ -5,6 +5,7 @@ from general_framework import *
 # will require difficult reconstruction from memory.
 #
 # This is focused only on images for now. Text recollection may come, later.
+# RAW. Needs calibration; may or may not work. THe 'context' tensor may need better markers for what comes from which input
 
 N_lookback = 3 # just canvases for now
 min_lookback = 0

@@ -1,4 +1,5 @@
 from general_framework import *
+from generalQA_framework import *
 
 ############
 # On to the functions for the task at hand
@@ -119,18 +120,6 @@ task2_Dreplies_udagent_tensor = torch.tensor([x.ids for x in tokenizer.encode_ba
 
 ########
 
-def get_lens(prompt_tensor):
-    lens = []
-    max_len = prompt_tensor.size()[1]
-    for prompt in prompt_tensor:
-        for ending in range(max_len):
-            if prompt[ending] == 2:
-                lens.append(ending) # want to skip the final </s>
-                break
-    return lens
-
-########
-
 task2_prompts_lrgold_lens = get_lens(task2_prompts_lrgold_tensor)
 task2_prompts_udgold_lens = get_lens(task2_prompts_udgold_tensor)
 task2_prompts_lragent_lens = get_lens(task2_prompts_lragent_tensor)
@@ -145,59 +134,6 @@ is_gold_up = (lambda settings: settings.agent_x > settings.gold[0][0])
 
 is_agent_left = (lambda settings: not is_gold_left(settings))
 is_agent_up = (lambda settings: not is_gold_up(settings))
-
-########
-
-def _stitch(prompt, reply, container, length):
-    container[:prompt.size()[0]] = prompt
-    container[length] = 225 # tokenizer.encode(' ')
-    reply_len = reply.size()[0] - 1
-    container[length+1:length+reply_len+1] = reply[1:]
-    return container
-
-def text_generator(settings_batch, prompts, yes_responses, no_responses, prompt_lengths, func, device=device):
-    batchsize = len(settings_batch)
-    prompt_num, prompt_size = prompts.size()
-    reply_size = max(yes_responses.size()[1], no_responses.size()[1])# - 1 # skip initial <s> in reply
-    yes_num = yes_responses.size()[0]
-    no_num = no_responses.size()[0]
-    input_tensor = torch.zeros((batchsize, reply_size + prompt_size), device=device, dtype=prompts.dtype)
-    output_tensor = torch.zeros((batchsize, reply_size + prompt_size), device=device, dtype=prompts.dtype)
-    
-    for i in range(batchsize):
-        ind = torch.randint(0, prompt_num, (1,)).item()
-        prompt = prompts[ind]
-        length = prompt_lengths[ind]
-        if func(settings_batch[i]):
-            reply = yes_responses[torch.randint(0, yes_num, (1,)).item()]
-        else:
-            reply = no_responses[torch.randint(0, no_num, (1,)).item()]
-        input_tensor[i] = prompt
-        _stitch(prompt, reply, output_tensor[i], length)
-
-    return input_tensor.contiguous(), output_tensor.contiguous()
-
-def text_generator_simple(settings_batch, prompts, yes_responses, no_responses, prompt_lengths, func, device=device):
-    batchsize = len(settings_batch)
-    prompt_num, prompt_size = prompts.size()
-    reply_size = max(yes_responses.size()[1], no_responses.size()[1])
-    yes_num = yes_responses.size()[0]
-    no_num = no_responses.size()[0]
-    #input_tensor = torch.zeros((batchsize, reply_size + prompt_size), device=device, dtype=prompts.dtype)
-    output_tensor = torch.zeros((batchsize, reply_size + prompt_size), device=device, dtype=prompts.dtype)
-    
-    for i in range(batchsize):
-        ind = torch.randint(0, prompt_num, (1,)).item()
-        prompt = prompts[ind]
-        length = prompt_lengths[ind]
-        if func(settings_batch[i]):
-            reply = yes_responses[torch.randint(0, yes_num, (1,)).item()]
-        else:
-            reply = no_responses[torch.randint(0, no_num, (1,)).item()]
-        #input_tensor[i] = prompt
-        _stitch(prompt, reply, output_tensor[i], length)
-
-    return output_tensor.contiguous()
 
 ########
 
@@ -281,20 +217,6 @@ text_generators_simple = [task2_lrgold_generator_simple, \
                           task2_udgold_generator_simple, \
                           task2_lragent_generator_simple, \
                           task2_udagent_generator_simple]
-
-########
-
-def get_images(settings_batch, device=device):
-    batch_size = len(settings_batch)
-    img = torch.zeros(batch_size, 224, 224, 3)
-    for i in range(batch_size):
-        G2 = discreteGame(settings_batch[i])
-        img[i] = torch.tensor(G2.getData())
-    img = torch.permute(img, (0, 3, 1, 2)).contiguous().to(device)
-    return img
-
-def get_settings_batch(batch_size):
-    return [G.random_bare_settings(gameSize=224, max_agent_offset=0.5) for i in range(batch_size)]
 
 ########
 

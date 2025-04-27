@@ -2,6 +2,7 @@ from mem_canvas_use_framework import *
 
 # This framework is for pretraining mem_enc as an autoencoder in the first place.
 # given inputs and contexts, it's supposed to create an encoding which can be used to re-create context
+# RAW. This is untested, and needs calibration. May or may not work. THe 'context' object may need better placemarkers to tell the different inputs apart.
 
 # 1152 is the image context: 256 for the input, 3*256 for the canvases, and 128 for the memory from the previous timestep
 class MemoryDecContext(nn.Module):
