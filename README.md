@@ -1766,9 +1766,29 @@ This version is on widgetBranch
 
 Made a rough draft of all the functions. Moved slow.
 Next tasks:
-1) Make the buttons and test the functions
+X 1) Make the buttons and test the functions
 2) Make the buttons pretty.
-3) Try to make an importable 'widget framework'. No sweat if doesn't work.
-4) Clean version, with only one mode of operation (import from the game, and updating the game when the right move is detected).
+   -- takes too long
+? 3) Try to make an importable 'widget framework'. No sweat if doesn't work.
+     -- not necessary
+~ 4) Clean version, with only one mode of operation (import from the game, and updating the game when the right move is detected).
+     -- not necessary
 
 That is weekend / next week.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 28th, 2025
+
+Rough version complete. It has text inputs, changing game depending on the action chosen, and everything else you could want.
+
+The GUI is still ugly, not gonna lie. I could make it much prettier. I won't, not until I have models to test on this.
+
+I will push this and merge the branches back together on penguins.army
+
+Tmr:
+1) Merge branches
+2) Another framework (zooming?)
+
+One more week of training, then kill the damn thing.
