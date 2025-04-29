@@ -1822,6 +1822,35 @@ No frameworks! Only widgets!
 Iterate on the GUI for several days. Make it pretty and intuitive and capable of answering all the questions you may have later. This is important.
 A version of the GUI will later be the 'waking hours' anyway. It will create 'subtasks for training' for itself, then run that overnight (in addition with some mem maintenance scripts).
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Apr 29th, 2025
+
+I killed training. Once I have my free weekend, I will return to this difficult problem.
+
+~~~~
+
+I fixed the tokenizer today. Now, it includes the special characters, and if skip_special_tokens=False is set when tokenizer.decode is called, then the special characters are present in decoding, too.
+Took longer than it should have; read docs a lot.
+
+~~~~
+
+I want to finish a lot before retraining. I don't want to retrain off the cuff because it takes a lot of time and effort and I don't want it wasted.
+
+Small things like:
+ -- transferring the saved weights
+ -- examining the trained networks, whatever happened to them
+ -- merging all the branches.
+    -- widgets into this
+    -- this into master
+ -- knocking out ALL remaining frameworks 
+    -- start with zooming; easy enough, and takes a little creativity.
+    -- continue with things related to actually moving.
+    -- make sure everything in full_task_list is covered and then some.
+
+Works well? Run the frameworks in one-off notebooks, debug them.
+
+THis all should take 2 weeks. By then, I will be ready to dedicate a full weekend to understanding what exactly I did so wrong last time.
 
 

@@ -25,10 +25,12 @@ tokenizer = ByteLevelBPETokenizer(
 tokenizer._tokenizer.post_processor = BertProcessing(
     ("</s>", tokenizer.token_to_id("</s>")),
     ("<s>", tokenizer.token_to_id("<s>")),
-)   
+)
 tokenizer.enable_truncation(max_length=32)
 tokenizer.enable_padding()
 
+# to override default behavior: make sure you always set 'skip_special_tokens' to false when using decoder
+tokenizer.add_special_tokens(['<forward>', '<clock>', '<anticlock>'])
 
 ## Dataset
 class SampleDataset(Dataset):
@@ -39,8 +41,8 @@ class SampleDataset(Dataset):
         self.seq_length = seq_length
         if tokenizer is None:
             tokenizer = ByteLevelBPETokenizer(
-                "./text_pretraining_tokenizer/eng_sentences_tokenizer_v2-vocab.json",
-                "./text_pretraining_tokenizer/eng_sentences_tokenizer_v2-merges.txt",
+                "./text_pretraining_tokenizer/eng_sentences_tokenizer_vc10000_v2-vocab.json",
+                "./text_pretraining_tokenizer/eng_sentences_tokenizer_vc10000_v2-merges.txt",
             )   
         tokenizer._tokenizer.post_processor = BertProcessing(
             ("</s>", tokenizer.token_to_id("</s>")),
@@ -49,6 +51,7 @@ class SampleDataset(Dataset):
         tokenizer.enable_truncation(max_length=self.seq_length)
         tokenizer.enable_padding()#length=seq_length)
         # or use the RobertaTokenizer from `transformers` directly.
+        tokenizer.add_special_tokens(['<forward>', '<clock>', '<anticlock>'])
 
         self.examples = []
 
