@@ -1792,3 +1792,12 @@ Tmr:
 2) Another framework (zooming?)
 
 One more week of training, then kill the damn thing.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 29th, 2025
+
+Minor but important change to widgets: 'skip special tokens' set to False whenever tokenizer.decode is called.
+This matters; we need our '<forward>' and other tokens.
+
