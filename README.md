@@ -1874,9 +1874,9 @@ I want to finish a lot before retraining. I don't want to retrain off the cuff b
 Small things like:
  -- transferring the saved weights
  -- examining the trained networks, whatever happened to them
- -- merging all the branches.
-    -- widgets into this
-    -- this into master
+X -- merging all the branches.
+X    -- widgets into this
+X    -- this into master
  -- knocking out ALL remaining frameworks 
     -- start with zooming; easy enough, and takes a little creativity.
     -- continue with things related to actually moving.
