@@ -1872,8 +1872,8 @@ Took longer than it should have; read docs a lot.
 I want to finish a lot before retraining. I don't want to retrain off the cuff because it takes a lot of time and effort and I don't want it wasted.
 
 Small things like:
- -- transferring the saved weights
- -- examining the trained networks, whatever happened to them
+X -- transferring the saved weights
+X -- examining the trained networks, whatever happened to them
 X -- merging all the branches.
 X    -- widgets into this
 X    -- this into master
@@ -1890,4 +1890,44 @@ THis all should take 2 weeks. By then, I will be ready to dedicate a full weeken
 
 Minor but important change to widgets: 'skip special tokens' set to False whenever tokenizer.decode is called.
 This matters; we need our '<forward>' and other tokens.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apr 30th, 2025
+
+No frameworks, unfortunately, but I knocked out all the other small tasks. Weights transferred, branches merged.
+
+The 'trained' networks clearly need retraining, and with one task at a time. I think the confused joint training is what really killed them.
+
+Also, I might add visual loss to TutorialQA; the reconstruction there was just too funny (putting agent shadows in the walls made them look like they 
+were made of watermelon).
+
+Tutorial1 did not learn the arrow at all. I think I needed to retrain the 'control' task before teaching it to be modified.
+
+That's ok. I will do all of these things after / during my training weekend.
+
+~~~~
+
+Funny note: the reconstruction was much *worse* when I tested tutorialQA tasks than tutorial1 tasks. That's a strong argument for including the vision loss in that loss func.
+
+Basically, depending on the prompt, the agent chooses how much mental effort to devote to reconstruction, lazy bastard.
+I think this can be partially fixed by just training these one at a time and making sure each works.
+
+~~~~
+
+Widgets clumsy, feel more like a core dump than a simple interface. HOwever, I'll improve them over time. It's a good quick way to test something without writing custom ipynb notebooks.
+Good general view.
+
+~~~~
+
+Next days / week: lots of simple frameworks. Run nothing.
+
+Retraining in general: start with control framework. Add in the other frameworks one at a time, with one optimizer only.
+Most frameworks will run in some sort of eval mode. SOme sort of alert if loss degrades.
+Keep careful track of all losses; save them.
+
+Basically, before the next training, I will completely rewrite GeneralTraining. Though its present form is a good inspiration.
+
+
 
