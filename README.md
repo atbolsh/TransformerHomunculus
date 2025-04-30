@@ -1748,7 +1748,7 @@ All VC stuff can be left until a later date. I need my product.
 
 Tmr / next stuff:
  -- check on training. Interrupt?
- -- widget stuff
+X -- widget stuff
  -- intelligent 'device' loading (force specification before general_training import)
  -- try a task with 'settings from output image' (two losses: 'gameness' of image and correctness of result)
 
@@ -1770,6 +1770,22 @@ System still training, number going down, so I'm letting it keep going for now, 
 Next time: 
 X -- check progress; make training decisions
 X -- knock out some more frameworks, especially any that require image-to-settings loss funcs.
+
+~~~~
+
+This version is on widgetBranch
+
+Made a rough draft of all the functions. Moved slow.
+Next tasks:
+X 1) Make the buttons and test the functions
+2) Make the buttons pretty.
+   -- takes too long
+? 3) Try to make an importable 'widget framework'. No sweat if doesn't work.
+     -- not necessary
+~ 4) Clean version, with only one mode of operation (import from the game, and updating the game when the right move is detected).
+     -- not necessary
+
+That is weekend / next week.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1825,6 +1841,23 @@ A version of the GUI will later be the 'waking hours' anyway. It will create 'su
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Apr 28th, 2025
+
+Rough widget version complete. It has text inputs, changing game depending on the action chosen, and everything else you could want.
+
+The GUI is still ugly, not gonna lie. I could make it much prettier. I won't, not until I have models to test on this.
+
+I will push this and merge the branches back together on penguins.army
+
+Tmr:
+X 1) Merge branches
+2) Another framework (zooming?)
+
+One more week of training, then kill the damn thing.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Apr 29th, 2025
 
 I killed training. Once I have my free weekend, I will return to this difficult problem.
@@ -1853,4 +1886,8 @@ Works well? Run the frameworks in one-off notebooks, debug them.
 
 THis all should take 2 weeks. By then, I will be ready to dedicate a full weekend to understanding what exactly I did so wrong last time.
 
+~~~~
+
+Minor but important change to widgets: 'skip special tokens' set to False whenever tokenizer.decode is called.
+This matters; we need our '<forward>' and other tokens.
 
