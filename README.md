@@ -1929,5 +1929,15 @@ Keep careful track of all losses; save them.
 
 Basically, before the next training, I will completely rewrite GeneralTraining. Though its present form is a good inspiration.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 2nd, 2025
+
+Made full_move_framework for teaching default behavior (making the correct moves to get to the gold piece).
+Good start, but the framework is probably full of off-by-one errors and may or may not need a soft_reset between the moves; debug this before running.
+
+
+
 
 
