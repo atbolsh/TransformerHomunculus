@@ -1,18 +1,18 @@
 March 18th 2025
 
 First order: (one, max two steps)
- Are you to the left or right of the gold?
- Which way do you need to turn to face the gold?
- Is the gold in front or behind you?
- Are you facing the gold? (interpreted as 'if you go forward will you eat it'
+~ Are you to the left or right of the gold?
+~ Which way do you need to turn to face the gold?
+~ Is the gold in front or behind you?
+~ Are you facing the gold? (interpreted as 'if you go forward will you eat it'
  
- Are you facing the blue line?
+~ Are you facing the blue line?
  Do you need to turn to face the blue line? Which way?
  
- Please step forward
- Step backward
- Turn right
- Turn left
+~ Please step forward
+~ Step backward
+~ Turn right
+~ Turn left
  
  Turn towards the gold
  Turn away from the gold
@@ -23,27 +23,30 @@ First order: (one, max two steps)
  Is the gold closer to you in the first or second image?
  
 Requires visualization:
- Where were you in the last step?
+~ Where were you in the last step?
  Where were you 5 steps ago, roughly?
  Imagine this room without you.
  Imagine this room without gold.
  Imagine this room empty.
+ Please zoom in on just the agent
+ Please zoom in on the agent and the gold
+ Please zoom in on the gold
 
 Will require difficult loss funcs:
  Imagine if you were further away from the gold?
- Imagine if you were closer to the gold?
+~ Imagine if you were closer to the gold?
 
  Imagine if the gold were closer to the upper left corner of the game.
 
 These will help when I get to corners:
- Imagine a line from you to the gold.
+~ Imagine a line from you to the gold.
  Imagine what it would look like if you were facing the gold
  Imagine if you were halfway to the gold.
 
 
 Second order:
 
- Please solve this game: turn towards the gold and eat it.
+~ Please solve this game: turn towards the gold and eat it.
  Please tell me which of the gold pieces is closer
  Is this reconstruction better, or worse, than this one?
  Is this path better, or worse, than this one?
@@ -89,5 +92,12 @@ With delays, I'll probably be done with / finishing up point 2 when I quit in Au
 Apr 24th, 2025
 
 Added some terms above (the subpoints)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 5th, 2025
+
+I've started crossing things out from the list above. ~ means 'framework written but not tested or trained'. I will use 'X' to mean that the framework has been trained with, successfully.
 
 

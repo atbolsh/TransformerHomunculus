@@ -19,6 +19,14 @@ def get_lens(prompt_tensor):
 
 ########
 
+# samples batchsize prompts from tensor 'prompts', with replacement
+def simple_sample(batchsize, prompts, device=device):
+    prompt_num, _ = prompts.size()
+    inds = torch.randint(0, prompt_num, (batchsize,))
+    return prompts[inds]
+
+########
+
 def _stitch(prompt, reply, container, length):
     container[:prompt.size()[0]] = prompt
     container[length] = 225 # tokenizer.encode(' ')

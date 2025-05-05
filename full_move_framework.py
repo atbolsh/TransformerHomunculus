@@ -1,4 +1,5 @@
 from general_framework import *
+from generalQA_framework import *
 from game_logic_solver import *
 
 # This framework is similar to rel_positionQA_framework and uses much of generalQA_framework.
@@ -15,7 +16,7 @@ action_symbol_map = { 1:1, 3:3, 4:4 } # map from action indeces to text tokens
 # given a batch of settings and a length, produce the set of text tokens corresponding to the best sequence of moves up to length.
 def get_action_text_tensors(settings_batch, length):
     N = len(settings_batch)
-    text_reponse = torch.tensor((N, length), dtype=torch.long) # on CPU for now; will only transfer to device at the end, faster this way.
+    text_reponse = torch.zeros((N, length), dtype=torch.long) # on CPU for now; will only transfer to device at the end, faster this way.
     for ind in rand(N):
         setting = settings_batch[ind]
         game = discreteGame(setting)
@@ -40,7 +41,8 @@ prompts_to_action = [ \
     "What is the move here?", \
     "Move", \
     "Use default action", \
-    "Get to the gold."
+    "Get to the gold.", \
+    "Please solve this game: turn towards the gold and eat it."
 ]
 
 prompts_to_action_tensor = tensorify_list(prompts_to_action)
