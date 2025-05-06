@@ -7,15 +7,15 @@ First order: (one, max two steps)
 ~ Are you facing the gold? (interpreted as 'if you go forward will you eat it'
  
 ~ Are you facing the blue line?
- Do you need to turn to face the blue line? Which way?
+~ Do you need to turn to face the blue line? Which way?
  
 ~ Please step forward
 ~ Step backward
 ~ Turn right
 ~ Turn left
  
- Turn towards the gold
- Turn away from the gold
+~ Turn towards the gold
+~ Turn away from the gold
 
  Are you near the gold? (for some function of near; choose this).
 

@@ -1949,9 +1949,19 @@ Wrote blue_lineQA framework for the first 'using blue line as a guide' tutorial
 
 Writing the frameworks isn't too bad. Today's were easy, but harder ones are possible.
 Next frameworks, each about a day:
- -- 'please turn toward / away from the gold / blue line'. 4 subtasks, but that can all happen within a single framework. Big one though; full morning.
+X -- 'please turn toward / away from the gold / blue line'. 4 subtasks, but that can all happen within a single framework. Big one though; full morning.
  -- the dopamine framework (which picture to do you prefer?)
  -- adding image recon losses to all the QA frameworks (after getting burned at the first training, this is important)
  -- all the zooming frameworks, should be about a day
  -- all the 'imagine' frameworks ('imagine this room without you'), should be about a day.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 6th, 2025
+
+blu_line_QA amended; please_turnQA written (handles several tasks from full_task_list).
+Imagination frameworks next, all of them. Then, maybe a solid day on the dopamine and another on the zooming.
+
+
 

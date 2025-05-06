@@ -17,6 +17,21 @@ def will_intersect_forward(G):
 import math
 tau = 2*math.pi
 
+# debug this. Should work, but still
+def true_angle_difference_magnitude(alpha, beta):
+    theta1 = (alpha - beta) % tau
+    theta2 = (beta - alpha) % tau
+    return min(theta1, theta2)
+
+# I pulled out the meat of the computation below so that 'should turn anticlockwise' can be used in arbitrary situations, 
+# not just for gold.
+def _should_turn_anticlockwise_forward_ENGINE(current_theta, target_theta):
+    cw_theta = (current_theta - target_theta) % tau
+    #print(cw_theta)
+    acw_theta = (target_theta - current_theta) % tau
+    #print(acw_theta)
+    return acw_theta < cw_theta
+
 # True if the shortest path is turning clockwise (for a forward trajectory)
 # False if you should turn counterclockwise instead
 # turning anticlockwise increases 'direction' value
@@ -26,11 +41,7 @@ def should_turn_anticlockwise_forward(G):
     ax, ay = G.settings.agent_x, G.settings.agent_y
     theta = G.settings.direction
     theta_to_gold = G.direction_angle(ax, ay, gx, gy)
-    cw_theta = (theta - theta_to_gold) % tau
-    #print(cw_theta)
-    acw_theta = (theta_to_gold - theta) % tau
-    #print(acw_theta)
-    return acw_theta < cw_theta
+    return _should_turn_anticlockwise_forward_ENGINE(theta, theta_to_gold
 
 # best move right now, bare settings
 # can use this, with game, to create track to gold (moving only forward)

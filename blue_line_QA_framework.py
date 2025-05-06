@@ -35,13 +35,30 @@ Nreplies_blueLineDirection_tensor = tensorify_list(Nreplies_blueLineDirection)
 
 prompts_blueLineDirection_lens = get_lens(prompts_blueLineDirection_tensor)
 
+def get_arrow_near_agent_direction(agent_direction):
+    return G.mod2pi((np.random.random()*math.pi/3) + agent_direction - (math.pi / 6)) # cone of arc from theta - pi / 6 to theta + pi / 6
+
+def get_arrow_far_agent_direction(setting):
+    return G.mod2pi(agent_directon + math.pi / 6 + ((5 * math.pi / 3)*np.random.random())) # sector from theta + pi / 6 to theta - pi / 6
+
+def get_random_directions(settings_batch):
+    batchsize = len(settings_batch)
+    deciders = (np.random.random((batchsize,)) < 0.5) # True if supposed to benear real direction, False otherwise
+    directions = []
+    for i in range(batchsize):
+        if deciders[i]:
+            directions.append(get_arrow_near_agent_direction(settings_batch[i].direction))
+        else:
+            directions.append(get_arrow_far_agent_direction(settings_batch[i].direction))
+    return directions
+
 def get_blue_line_direction_data(batch_size):
     S = get_settings_batch(batch_size) 
-    directions = 2*math.pi*np.random.random()
+    directions = get_random_directions(S)
     deciderDict = {}
     for i in range(batch_size):
-        theta = G.mod2pi(math.abs(S[i].direction - directions[i]))
-        same_direction = (theta < math.pi / 3) # very generous, 'rough' direction
+        theta = true_angle_difference_magnitude(directions[i], S[i].dirction)
+        same_direction = (theta < math.pi / 12) # very generous, 'rough' direction. 30 degree cone of arc
         deciderDict[S[i]] = same_direction
 
     # this hacks the text generator function from generalQA; this is better than copying that code, as strange as it is
@@ -123,13 +140,13 @@ def _blue_line_direction_batch(batch_size, model, optimizer=None, batch_num=0, r
 
     return (loss.item(), all_losses[0].item(), all_losses[1].item())
 
-def direction_names_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
+def blue_line_direction_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
     if compute_grad:
-        return _direction_names_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+        return _blue_line_direction_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
     else:
         if training:
             raise ValueError("If training is True, compute_grad must also be True")
         with torch.no_grad():
-            return _direction_names_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+            return _blue_line_direction_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
 
 
