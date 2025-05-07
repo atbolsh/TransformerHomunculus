@@ -1963,5 +1963,12 @@ May 6th, 2025
 blu_line_QA amended; please_turnQA written (handles several tasks from full_task_list).
 Imagination frameworks next, all of them. Then, maybe a solid day on the dopamine and another on the zooming.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 7th, 2025
+
+Wrote several nearly identical frameworks for imagining the room without an agent, or gold, or walls, or gold and agent.
+
 
 

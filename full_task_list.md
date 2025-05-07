@@ -25,9 +25,10 @@ First order: (one, max two steps)
 Requires visualization:
 ~ Where were you in the last step?
  Where were you 5 steps ago, roughly?
- Imagine this room without you.
- Imagine this room without gold.
- Imagine this room empty.
+~ Imagine this room without you.
+~ Imagine this room without gold.
+~ Imagine this room empty.
+~ Imagine room without walls.
  Please zoom in on just the agent
  Please zoom in on the agent and the gold
  Please zoom in on the gold

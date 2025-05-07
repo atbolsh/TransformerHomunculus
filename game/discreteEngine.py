@@ -247,13 +247,16 @@ class discreteGame:
             newX, newY = self.top_corner_adjustment(tp[0], tp[1], tp[2], tp[3], tp[4])
             self.windowSurface.blit(clientSurface, (newX, newY)) 
     
-    def draw(self):
-      self.windowSurface.fill(self.WHITE)
-      self.draw_agent()
-      self.draw_walls()
-      self.draw_gold()
-      if not self.envMode:
-          pygame.display.update()
+    def draw(self, ignore_agent=False, ignore_gold=False, ignore_walls=False):
+        self.windowSurface.fill(self.WHITE)
+        if not ignore_agent:
+            self.draw_agent()
+        if not ignore_walls:
+            self.draw_walls()
+        if not ignore_gold:
+            self.draw_gold()
+        if not self.envMode:
+            pygame.display.update()
     
     ####### Overlap detection / updating function
     def mod2pi(self, theta):

@@ -89,11 +89,14 @@ def get_settings_batch(batch_size):
 
 ########
 
-def get_images(settings_batch, device=device):
+def get_images(settings_batch, device=device, ignore_agent=False, ignore_gold=False, ignore_walls=False)):
     batch_size = len(settings_batch)
     img = torch.zeros(batch_size, 224, 224, 3)
+    should_draw = (ignore_agent or ignore_gold or ignore_wals)
     for i in range(batch_size):
         G2 = discreteGame(settings_batch[i])
+        if should_draw:
+            G2.draw(ignore_agent=ignore_agent, ignore_gold=ignore_gold, ignore_wals=ignore_walls)
         img[i] = torch.tensor(G2.getData())
     img = torch.permute(img, (0, 3, 1, 2)).contiguous().to(device)
     return img
