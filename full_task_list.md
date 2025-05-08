@@ -17,32 +17,37 @@ First order: (one, max two steps)
 ~ Turn towards the gold
 ~ Turn away from the gold
 
- Are you near the gold? (for some function of near; choose this).
+~ Are you near the gold? (for some function of near; choose this).
+    -- I chose near = 0.15
 
  Do you want to be in the second or first image? Which is preferable? (other versions of this; uses dopamine and language).
  Is the gold closer to you in the first or second image?
  
 Requires visualization:
 ~ Where were you in the last step?
- Where were you 5 steps ago, roughly?
+~ Where were you 5 steps ago, roughly?
+   -- will use mem_canvas_use for this one, even past 3 episodes
+   -- I think that can be done. Custom losses can be constructed on a copy of it if early training fails
+   -- custom losses: extract settings; compare agent and gold radius and center; check against internal gameiness
 ~ Imagine this room without you.
 ~ Imagine this room without gold.
 ~ Imagine this room empty.
 ~ Imagine room without walls.
- Please zoom in on just the agent
- Please zoom in on the agent and the gold
- Please zoom in on the gold
+~ Imagine this room after X move.
+~ Please zoom in on just the agent
+~ Please zoom in on the agent and the gold
+~ Please zoom in on the gold
 
 Will require difficult loss funcs:
- Imagine if you were further away from the gold?
+~ Imagine if you were further away from the gold?
 ~ Imagine if you were closer to the gold?
 
- Imagine if the gold were closer to the upper left corner of the game.
+~ Imagine if the gold were closer to the upper left corner of the game.
 
 These will help when I get to corners:
 ~ Imagine a line from you to the gold.
- Imagine what it would look like if you were facing the gold
- Imagine if you were halfway to the gold.
+~ Imagine what it would look like if you were facing the gold
+~ Imagine if you were halfway to the gold.
 
 
 Second order:
@@ -101,4 +106,10 @@ May 5th, 2025
 
 I've started crossing things out from the list above. ~ means 'framework written but not tested or trained'. I will use 'X' to mean that the framework has been trained with, successfully.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 8th, 2025
+
+Bookkeeping: maybe I should list the framework name under every question above? May make things easier to look up / make increase my sanity later.
 

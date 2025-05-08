@@ -1951,9 +1951,11 @@ Writing the frameworks isn't too bad. Today's were easy, but harder ones are pos
 Next frameworks, each about a day:
 X -- 'please turn toward / away from the gold / blue line'. 4 subtasks, but that can all happen within a single framework. Big one though; full morning.
  -- the dopamine framework (which picture to do you prefer?)
- -- adding image recon losses to all the QA frameworks (after getting burned at the first training, this is important)
- -- all the zooming frameworks, should be about a day
- -- all the 'imagine' frameworks ('imagine this room without you'), should be about a day.
+~ -- adding image recon losses to all the QA frameworks (after getting burned at the first training, this is important)
+     -- skipping this for now; will add in only if problems persist once I fix the training issues and use correct optimizers
+X -- all the zooming frameworks, should be about a day
+X -- all the 'imagine' frameworks ('imagine this room without you'), should be about a day.
+X -- 'imagine this room after X moves'
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1970,5 +1972,21 @@ May 7th, 2025
 
 Wrote several nearly identical frameworks for imagining the room without an agent, or gold, or walls, or gold and agent.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+May 8th, 2025
+
+Many many fun frameworks.
+Only the comparison / dopamine frameworks are left. I will have to actually think tomorrow, decide if I want to use the dopamine module, 
+rewrite forward, how to set up that task, etc.
+
+Almost at the end for first order frameworks.
+
+Tmr: dopamine frameworks, all
+Saturday: rewrite training; train control framework.
+
+The next several weeks will be adding framework after framework. I will need to think about how to use the different optimizers intelligently, but I'll get there.
+
+I've written a short list of tasks to do in case the training takes too long in side_quests.md
 

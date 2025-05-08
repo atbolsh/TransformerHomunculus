@@ -4,6 +4,11 @@
 
 from game import *
 
+def gold_direction_angle(G):
+    gx, gy = G.settings.gold[0]
+    ax, ay = G.settings.agent_x, G.settings.agent_y
+    return G.direction_angle(ax, ay, gx, gy)
+
 # checks if you will intersect the gold by moving forward only
 # does not check walls or anything
 def will_intersect_forward(G):

@@ -2,7 +2,7 @@ from general_framework import *
 
 # see tutorialQA_framework to see how to use these
 
-def tensorify_list(text_list):
+def tensorify_list(text_list, device=device):
     return torch.tensor([x.ids for x in tokenizer.encode_batch(text_list)]).contiguous().to(device)
 
 ########
