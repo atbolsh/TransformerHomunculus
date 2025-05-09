@@ -2,6 +2,8 @@ May 8th, 2025
 
 Competes with training:
  -- debug why big server crashes with 2 training notebooks
+ -- move all docs into new doc folder
+ -- move all frameworks into new frameworks folder and make them work.
 
 Independent of training:
  -- move everything important into new clearn git repo
@@ -14,3 +16,9 @@ Independent of training:
  -- look up lego robots and AI for lego robots (or other small robot platforms). Start building an env / machine? Play with simulators.
     -- focus on systems with prebuilt simulators / pretraining mechanisms
  -- business plans (see business_plans.md)
+
+~~~~~~~~
+
+May 9th 2025
+
+Updated list above

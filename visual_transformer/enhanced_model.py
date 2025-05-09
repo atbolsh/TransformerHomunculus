@@ -3,13 +3,37 @@ from .memory import *
 from .vision_canvas import *
 
 ##################
+# THis is a wrapper around IntermediateTransformerScorer from model.py
+# It spreads the value over a bunch of values, making a 'standard token' out of it
+# THis standard token (single value repeated) will be easy to human-interpret, easy to use, 
+# and also easily fits into the standardized architecture I've been using so far
+class Dopaminewrapper(nn.Module):
+    # I made it have fewer heads and layers for compactness; check later if this is enough
+    def __init__(self, sequence_length=32, embed_dim=768, pad_idx=0, num_heads=3, num_layers=4, dropout=0.1, norm_first=False):
+        super().__init__()
+        self.embed_dim = embed_dim
+        self.dopamine = IntermediateTransformerScorer(sequence_length, embed_dim, pad_idx. num_heads, num_layers, dropout, norm_first
+
+    def get_device(self):
+        return self.dopamine.get_device() # this function should be part of nn.Module, honestly
+    
+    def forward(self, x, context=None):
+        if context is None:
+            context = x
+        # batchsize x 1
+        x = self.dopamine(x, context) / self.embed_dim # removes the 'generate super small values' problem from before
+        # batchsize x 1 x embed_dim
+        x = x.repeat(1, 1, self.embed_dim)
+        return x
+
 # The below is copied over from model.py
 
 # Additions to the brain (or new brain class):
 # 1) fixed slots for the vision canvases, possibly with their own 'signatures' to tell them apart
 # 2) Memory processing on every input
 # 3) Standardized 'forward' call that uses the memory and the canvases and the text
-# 4) Everything else more or less carried over
+# 4) Dopamine called as part of 'context'; stored in a special variable (768 copies of the same value)
+# 5) Everything else more or less carried over
 
 # The new Brain type
 # Code copied over from model.py before modification
@@ -21,10 +45,10 @@ class EnhancedAgentBrain(nn.Module):
         self.img_dec = ImageTransformerDecoder()
         self.text_enc = SentenceTransformerEncoder(num_embed=vocab_size)
         self.text_dec = SentenceTransformerDecoder(num_embed=vocab_size)
-        self.dopamine = IntermediateTransformerScorer() # for RL; not yet tested, use later
+        self.dopamine = DopamineWrapper() # for RL; not yet tested, use later
 
         # 6 inputs; 3 img canvases, 1 img input, text input, memory input
-        self.context_tagging = nn.Parameter(torch.empty((6, 1, 768)))
+        self.context_tagging = nn.Parameter(torch.empty((7, 1, 768)))
         nn.init.uniform_(self.context_tagging, -1.0/math.sqrt(768), 1.0/math.sqrt(768)) 
 
         # Memory processing
@@ -75,11 +99,13 @@ class EnhancedAgentBrain(nn.Module):
 
     # Unlike the below, whether or not ret_imgs is marked, img_dec will be called and the reconstruction saved.
     # can be called with create_context=False to just produce the next token, in an otherwise static scene
-    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True, create_context=True):
+    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True, create_context=True, ret_dopamine=False):
         if (img_batch is None) and create_context:
             raise ValueError("Must provide img_batch to create new context")
         if ret_imgs and (not create_context):
             raise ValueError("to generatre new images, create_context must be true")
+        if ret_dopamine and (not ret_imgs):
+            raise ValueError("ret_dopamine is just an extension of ret_imgs; please set that flag, too")
 
         b = text_batch.size()[0]
         src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
@@ -102,10 +128,17 @@ class EnhancedAgentBrain(nn.Module):
                 context.append(torch.zeros(b, 128, 768, device=text_batch.device))
             else:
                 context.append(self.memory.memory)
-    
+   
             for i in range(len(context)):
                 context[i] += self.context_tagging[i]
             tensor_context = torch.cat(context, dim=1)
+
+            # appends a vector of only one 768-dimension token, all repeating the same value
+            # this adds cycles I don't want to add, but I think it'll be worth it
+            # as written, the reaction does not see the text, but this can be changed (at the cost of making the text not see the dopamine)
+            reaction = self.dopamine(real_img_context, tensor_context) 
+            context.append(reaction + self.context_tagging[-2]) # -1 will be for the text input
+            tensor_context = torch.cat(tensor_context, context[-1])
     
             self.context = tensor_context
     
@@ -122,7 +155,10 @@ class EnhancedAgentBrain(nn.Module):
             self.canvases.store(img_recon)
        
         if ret_imgs:
-            return text_probs, img_recon
+            if ret_dopamine:
+                return text_probs, img_recon, reaction[:, 0, 0] # humans only need one value, not 768 copies of the value
+            else:
+                return text_probs, img_recon
         else:
             return text_probs
     

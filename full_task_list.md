@@ -20,8 +20,8 @@ First order: (one, max two steps)
 ~ Are you near the gold? (for some function of near; choose this).
     -- I chose near = 0.15
 
- Do you want to be in the second or first image? Which is preferable? (other versions of this; uses dopamine and language).
- Is the gold closer to you in the first or second image?
+~ Do you want to be in the second or first image? Which is preferable? (other versions of this; uses dopamine and language).
+~ Is the gold closer to you in the first or second image?
  
 Requires visualization:
 ~ Where were you in the last step?

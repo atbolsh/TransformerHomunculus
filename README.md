@@ -1950,7 +1950,7 @@ Wrote blue_lineQA framework for the first 'using blue line as a guide' tutorial
 Writing the frameworks isn't too bad. Today's were easy, but harder ones are possible.
 Next frameworks, each about a day:
 X -- 'please turn toward / away from the gold / blue line'. 4 subtasks, but that can all happen within a single framework. Big one though; full morning.
- -- the dopamine framework (which picture to do you prefer?)
+X -- the dopamine framework (which picture to do you prefer?)
 ~ -- adding image recon losses to all the QA frameworks (after getting burned at the first training, this is important)
      -- skipping this for now; will add in only if problems persist once I fix the training issues and use correct optimizers
 X -- all the zooming frameworks, should be about a day
@@ -1989,4 +1989,23 @@ Saturday: rewrite training; train control framework.
 The next several weeks will be adding framework after framework. I will need to think about how to use the different optimizers intelligently, but I'll get there.
 
 I've written a short list of tasks to do in case the training takes too long in side_quests.md
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 9th, 2025
+
+I changed the model again and added the dopamine layer to execution. It'll be a pain loading saved weights, but what can you do.
+I finished the first order frameworks, at least more than enough to get started.
+ -- I wrote dopamine_pretraining
+ -- I wrote a framework to compare 2 images and pick the more desirable one.
+
+Tmr / week Plan:
+ -- load the updates onto big server
+ -- transfer weights onto changed model architecture. Time it?
+ -- think about how to train in the future. Remember to always use (almost) the same optimizer for all models
+ -- get started on a 'control' training session
+ -- if that works, try the other 'initialization' stuff, like dopamine and the other simple tasks.
+ -- works? move on to other QA and imagination tasks.
+
 
