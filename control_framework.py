@@ -37,7 +37,7 @@ def _control_batch(batch_size, model, optimizer=None, batch_num=0, random_order=
 
     control_probs, control_recon = model(control_texts, img_tensor, ret_imgs=True)
 
-    img_loss = img_criterion(conrol_recon, img_tensor)
+    img_loss = img_criterion(control_recon, img_tensor)
     text_loss = get_text_loss(control_probs, control_texts)
 
     loss = img_loss + (text_loss / 1000)
@@ -49,7 +49,7 @@ def _control_batch(batch_size, model, optimizer=None, batch_num=0, random_order=
         if type(model) is EnhancedAgentBrain:
             model.soft_reset()
 
-     if printing:
+    if printing:
         print(f"Total recon loss: {loss.item()}; that's {text_loss.item()} text and {img_loss.item()} img\n\n")
 
     if reset_model and (type(model) is EnhancedAgentBrain):

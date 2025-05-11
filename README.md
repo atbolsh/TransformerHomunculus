@@ -2001,11 +2001,32 @@ I finished the first order frameworks, at least more than enough to get started.
  -- I wrote a framework to compare 2 images and pick the more desirable one.
 
 Tmr / week Plan:
- -- load the updates onto big server
- -- transfer weights onto changed model architecture. Time it?
- -- think about how to train in the future. Remember to always use (almost) the same optimizer for all models
- -- get started on a 'control' training session
+X -- load the updates onto big server
+X -- transfer weights onto changed model architecture. Time it?
+X -- think about how to train in the future. Remember to always use (almost) the same optimizer for all models
+X -- get started on a 'control' training session
  -- if that works, try the other 'initialization' stuff, like dopamine and the other simple tasks.
  -- works? move on to other QA and imagination tasks.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 11th, 2025
+
+Debugged new enhanced_model and control_framework code
+Running General_training, but this training will probably be interrupted: I'm also running a pseudo-training using TutorialQA.
+THis is because, when training happens both on the P40 and the 2080, an error is sometimes triggered; I want to trigger then debug this error.
+
+Plan for week:
+ -- spend 2 days trying to debug that error. No dice? Move on
+ -- full control training
+ -- full tutorial1 and then tutorialQA training (since I know those tasks can be done).
+ -- then, with those as part of the buffer of tasks available, run the other pretraining stuff (memory, dopamine, canvases, etc)
+ -- move on to other frameworks; 
+    -- think before each training. 
+    -- Change up which optimizers you use. See how fast this is. 
+    -- Try other training options (cloud, etc)?
+
+We're in hardcore training mode now. While that happens, if I'm ever bored, it'll be sidequest time.
 
 

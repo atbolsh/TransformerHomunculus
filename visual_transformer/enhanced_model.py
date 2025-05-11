@@ -7,12 +7,12 @@ from .vision_canvas import *
 # It spreads the value over a bunch of values, making a 'standard token' out of it
 # THis standard token (single value repeated) will be easy to human-interpret, easy to use, 
 # and also easily fits into the standardized architecture I've been using so far
-class Dopaminewrapper(nn.Module):
+class DopamineWrapper(nn.Module):
     # I made it have fewer heads and layers for compactness; check later if this is enough
     def __init__(self, sequence_length=32, embed_dim=768, pad_idx=0, num_heads=3, num_layers=4, dropout=0.1, norm_first=False):
         super().__init__()
         self.embed_dim = embed_dim
-        self.dopamine = IntermediateTransformerScorer(sequence_length, embed_dim, pad_idx. num_heads, num_layers, dropout, norm_first
+        self.dopamine = IntermediateTransformerScorer(sequence_length, embed_dim, pad_idx, num_heads, num_layers, dropout, norm_first)
 
     def get_device(self):
         return self.dopamine.get_device() # this function should be part of nn.Module, honestly
@@ -22,6 +22,7 @@ class Dopaminewrapper(nn.Module):
             context = x
         # batchsize x 1
         x = self.dopamine(x, context) / self.embed_dim # removes the 'generate super small values' problem from before
+        x = x.unsqueeze(1)
         # batchsize x 1 x embed_dim
         x = x.repeat(1, 1, self.embed_dim)
         return x
@@ -138,7 +139,7 @@ class EnhancedAgentBrain(nn.Module):
             # as written, the reaction does not see the text, but this can be changed (at the cost of making the text not see the dopamine)
             reaction = self.dopamine(real_img_context, tensor_context) 
             context.append(reaction + self.context_tagging[-2]) # -1 will be for the text input
-            tensor_context = torch.cat(tensor_context, context[-1])
+            tensor_context = torch.cat((tensor_context, context[-1]), dim=1)
     
             self.context = tensor_context
     
