@@ -2029,4 +2029,19 @@ Plan for week:
 
 We're in hardcore training mode now. While that happens, if I'm ever bored, it'll be sidequest time.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+May 12th, 2025
+
+Control framework training is ok. The image score will get there in a day or two. If the text score doesn't, I'll kill the system and restart with a new text-only framework.
+
+~~~~~~~~
+
+On the 2080, I did generate the issue I had wanted to. I found no good logs or anything else. I tried debugging using online resources; no luck.
+
+I have posted my problem on the forums. I will wait.
+
+The best suggestion is that this may be a hardware connection issue.
+I doubt that very much, but before the next training, I will try a different connection and try to generate the same error.
+We will see.
