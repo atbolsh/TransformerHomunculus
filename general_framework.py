@@ -7,8 +7,6 @@ import random
 #device = torch.device('cuda:0') # CHANGE THIS EVERY TIME
 device = torch.device('cuda:1') # CHANGE THIS EVERY TIME
 
-# from viusual_transformer.enhanced_model import *
-
 from game import *
 
 game_settings = BIG_tool_use_advanced_2_5

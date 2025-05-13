@@ -2018,7 +2018,7 @@ Running General_training, but this training will probably be interrupted: I'm al
 THis is because, when training happens both on the P40 and the 2080, an error is sometimes triggered; I want to trigger then debug this error.
 
 Plan for week:
- -- spend 2 days trying to debug that error. No dice? Move on
+X -- spend 2 days trying to debug that error. No dice? Move on
  -- full control training
  -- full tutorial1 and then tutorialQA training (since I know those tasks can be done).
  -- then, with those as part of the buffer of tasks available, run the other pretraining stuff (memory, dopamine, canvases, etc)
@@ -2043,5 +2043,31 @@ On the 2080, I did generate the issue I had wanted to. I found no good logs or a
 I have posted my problem on the forums. I will wait.
 
 The best suggestion is that this may be a hardware connection issue.
-I doubt that very much, but before the next training, I will try a different connection and try to generate the same error.
+X I doubt that very much, but before the next training, I will try a different connection and try to generate the same error.
 We will see.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 13th, 2025
+
+Restarting control training with v2.
+
+I tried opening up the server, but no luck with it.
+THe only other connections available are all inconvenient to reach for the large GPU.
+
+I'll build a cheap new server around the 2080, I think. And *then* I will buy / rent more training equipment.
+
+I'm leaving this task for now. I will only follow it on the NVIDIA developer forums, where I posted my issue.
+
+~~~~~~~
+
+Next days:
+check training
+restart stuff?
+READ PAPERS.
+reorganize the directory
+
+
+
+
