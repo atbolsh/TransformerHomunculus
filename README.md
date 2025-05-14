@@ -2068,6 +2068,17 @@ restart stuff?
 READ PAPERS.
 reorganize the directory
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 14th, 2025
+
+Training continues ok. The img loss is almost where I want it. THe text loss is slow. I'll give it till the end of the week.
+
+I restarted triggering the GPU0 shutdown. ONline commenters suggested this is a temperature issue, so I'm running this with a temperature logger.
+
+Look at folder temp_recorder on this machine, tmr, to see the results.
+
 
 
 
