@@ -2063,8 +2063,8 @@ I'm leaving this task for now. I will only follow it on the NVIDIA developer for
 ~~~~~~~
 
 Next days:
-check training
-restart stuff?
+X check training
+X restart stuff?
 READ PAPERS.
 reorganize the directory
 
@@ -2079,6 +2079,36 @@ I restarted triggering the GPU0 shutdown. ONline commenters suggested this is a 
 
 Look at folder temp_recorder on this machine, tmr, to see the results.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 15th, 2025
+
+Based on the losses, it looks like the training did complete its job.
+
+Unfortunately, it looks like I killed the entire setup in the remote office.
+THe wifi extension is dead
+I can't boot up the server, either.
+This also means I cannot access the remote disk.
+
+~~~~~~~~
+
+On the small machine, I added temp_recorder to *this* repo, and added a monitor_stage function which will cool the device if it ever gets too hot.
+Once I get the server working again, I will add this to all the training notebook headers:
+    import temp_recorder as tr
+I'll also add this to all the train loops:
+    tr.monitor_temp(device)
+
+If that works, I will simply include it in all future loops, and forget about it.
+
+Tmr plan: fix the remote wifi. Small goals.
+Weekend plan: 
+fix the entire server, or at least save the snapshots from training.
+Server fixed?
+ -- evaluate training
+ -- evalute the temp curve and whether that was the issue
+ -- save all the snapshots
+ -- next stage of training launched, with temp monitoring.
 
 
 
