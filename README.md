@@ -2106,9 +2106,32 @@ Weekend plan:
 fix the entire server, or at least save the snapshots from training.
 Server fixed?
  -- evaluate training
- -- evalute the temp curve and whether that was the issue
+X -- evalute the temp curve and whether that was the issue
+     -- maybe? cutoff should be more like 75, it seems
  -- save all the snapshots
  -- next stage of training launched, with temp monitoring.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 16th, 2025
+
+Nothing today.
+
+The wifi extender fixed itself, all good.
+
+Tmr, I will fix the big server and then continue with various training tasks (see above).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 17th, 2025
+
+Big server turns on fine, it turns out. Need to make sure to use the HDMI connection only, not the others.
+
+It refuses to connect to the internet on the extender. I thought I had it fixed.
+
+Tmr: make that work. Check internet with the behemoth dragged back into the living room. THen check network card (open carapace).
 
 
 

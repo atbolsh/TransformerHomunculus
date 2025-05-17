@@ -22,7 +22,7 @@ def get_device_temp(device):
 # delays until the temperature gets knocked down to min_temp.
 # temp is in degrees C
 # device is a torch.device object
-def monitor_stage(device, min_temp=60, max_temp=80):
+def monitor_stage(device, min_temp=60, max_temp=75):
     T = get_device_temp(device)
     secs_to_cool = 0
     if T > max_temp:
