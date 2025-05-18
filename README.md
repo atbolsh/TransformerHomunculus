@@ -2019,7 +2019,7 @@ THis is because, when training happens both on the P40 and the 2080, an error is
 
 Plan for week:
 X -- spend 2 days trying to debug that error. No dice? Move on
- -- full control training
+X -- full control training
  -- full tutorial1 and then tutorialQA training (since I know those tasks can be done).
  -- then, with those as part of the buffer of tasks available, run the other pretraining stuff (memory, dopamine, canvases, etc)
  -- move on to other frameworks; 
@@ -2105,11 +2105,11 @@ Tmr plan: fix the remote wifi. Small goals.
 Weekend plan: 
 fix the entire server, or at least save the snapshots from training.
 Server fixed?
- -- evaluate training
+X -- evaluate training
 X -- evalute the temp curve and whether that was the issue
      -- maybe? cutoff should be more like 75, it seems
- -- save all the snapshots
- -- next stage of training launched, with temp monitoring.
+X -- save all the snapshots
+X -- next stage of training launched, with temp monitoring.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2142,10 +2142,28 @@ Big machine turns on fine and connects fine in the living room.
 
 And connects fine in the server room, too.
 
+And can be ssh'd into (with new IP).
+
 Damn, 40 minutes wasted on what turned out to be just a transient error. Should have reproduced before debugging.
 
 Oh well. Back to normal business.
 
 ~~~~~~~~
+
+Official model after control training will be enhanced_brain_control_training_v2_batch55900.pth
+ -- basically, looks good enough in vision when I try it with the Widget Interface
+
+I'm keeping a couple others around. That one will be on the USB.
+
+Relaunching with tutorial1 training. Hopefully won't be more than a day or two.
+Also launching on small device, as per usual. Hoping the temp controller fixed the issues
+
+~~~~~~~~
+
+Training has started.
+THis week:
+ -- continue training according to curriculum (check above for details)
+ -- pick some papers and read them.
+ -- Maybe pick a list of models / 3d envs / robot systems / other sidequests to try and explore
 
 
