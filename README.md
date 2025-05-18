@@ -2133,5 +2133,19 @@ It refuses to connect to the internet on the extender. I thought I had it fixed.
 
 Tmr: make that work. Check internet with the behemoth dragged back into the living room. THen check network card (open carapace).
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 18th, 2025
+
+Big machine turns on fine and connects fine in the living room.
+
+And connects fine in the server room, too.
+
+Damn, 40 minutes wasted on what turned out to be just a transient error. Should have reproduced before debugging.
+
+Oh well. Back to normal business.
+
+~~~~~~~~
 
 
