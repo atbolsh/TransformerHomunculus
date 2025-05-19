@@ -2166,4 +2166,14 @@ THis week:
  -- pick some papers and read them.
  -- Maybe pick a list of models / 3d envs / robot systems / other sidequests to try and explore
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 19th, 2025
+
+Temperature was not it. Shelving that debugging.
+Restarted arrow task training with v2.
+
+Tmr: maybe launch new training, but more importantly, start a side quest, probably some papers and blogs and maybe X posts.
+
 

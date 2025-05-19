@@ -7,7 +7,7 @@ import re
 default_fname = 'temp_report'
 
 def get_all_temps():
-    res_obj = subprocess.run('nvidia-smi', capture_output=True)
+    res_obj = subprocess.run('nvidia-smi', capture_output=True, timeout=5)
     res_str = str(res_obj.stdout)
     raw_temps = re.findall('..[0-9][0-9]C', res_str)
     temps = [int(s[:-1].strip()) for s in raw_temps]
