@@ -2176,4 +2176,17 @@ Restarted arrow task training with v2.
 
 Tmr: maybe launch new training, but more importantly, start a side quest, probably some papers and blogs and maybe X posts.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 20th, 2025
+
+It draws the path, but can't use the language cues to tell when it *should* draw the path.
+
+Loss is still about 3 times too high (in task recon) than if the firstTutorial notebook.
+
+Training another day or two, with 3 times as many arrow_task runs as control runs (to maximize drilling in this lesson).
+
+If this doesn't work in another day or two, I'll try to remedy the situation with some text-only drilling (new framework).
+
 
