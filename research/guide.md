@@ -49,7 +49,11 @@ NeurIPS links, scroll relevant: https://neurips2024.vizhub.ai/
 
 CVPR preprints, scroll relevant: https://arxiv.org/list/cs.CV/recent
 
-Other conferences; scroll relevant: https://arxiv.org/list/cs.CV/recent
+Other conferences; scroll relevant: https://aideadlin.es/?sub=ML,CV,CG,NLP,RO,SP,DM,AP,KR,HCI
+
+Apply here and watch videos: https://altera.ai/
+
+Give these arrogant guys a shot: https://deepagent.abacus.ai/mbh
 
 ~~~~~~~~
 
@@ -58,5 +62,30 @@ I will spend the upcoming trip, in the mornings, reading these papers, and writi
 Maybe in this document.
 
 Once I'm back, THAT'S IT! Switch out of the academic sources. Focus on industry and on non-AI stuff (practical steps to set up a robot env with lego or other platform).
+
+~~~~~~~~
+
+Broader plan:
+1) 1 or 2 papers a day for now.
+2) Next week: Phi 4 and / or Florence, locally. Find ways to extend them. Find ways to finetune.
+3) Industry sidequest
+4) Look deep into 3d envs and / or robot interfaces. Make a purchase decision for Lego.
+
+~~~~~~~~
+
+Broader view: 
+I want to do this for two reasons: 
+a) understand the current market
+q) borrow ideas
+
+For the first all of these demos / papers are good
+
+FOr the second, barring flashes of insight, I'll need to probe very very carefully. Or run tech demos on my own.
+Here are some things, out of order, that I can do for this:
+ -- make sure I can locally run Phi 4 and modify its architecture.
+ -- run little tests, like trying a branch of the EnhancedBrain with a 512 character context.
+ -- Deliberately look up papers with memory (old, new), including from my own library.
+ -- Look up the GPT / Deepseek / other architectures again and see how they handle this issue.
+
 
 
