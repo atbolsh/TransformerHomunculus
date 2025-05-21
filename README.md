@@ -2189,4 +2189,20 @@ Training another day or two, with 3 times as many arrow_task runs as control run
 
 If this doesn't work in another day or two, I'll try to remedy the situation with some text-only drilling (new framework).
 
+~~~~~~~~
+
+Also made directory 'research' and phrased some organizing questions.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 21st, 2025
+
+Loss going down again, properly.
+
+I think I'll let it run through my vacation before re-evaluating it.
+
+When I'm back: definitely run a 'text only' training framework for a bit, to improve that absurd number.
+From there, I move on to the tutorialQA stuff, then a lot of the pretrainings (memory, canvases, dopamine, etc).
+
 
