@@ -2205,4 +2205,24 @@ I think I'll let it run through my vacation before re-evaluating it.
 When I'm back: definitely run a 'text only' training framework for a bit, to improve that absurd number.
 From there, I move on to the tutorialQA stuff, then a lot of the pretrainings (memory, canvases, dopamine, etc).
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+May 21st, 2025
+
+Training for tutorial 1 done.
+Loss size promising.
+
+Tmr: test it, if works launch next thing (probably memory and / or Tutorial QA, though there are options; consider).
+
+~~~~~~~~
+
+Quick fact: I found the size of my model. This is the pytorch snippet that gets that for you:
+sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+Using this result on my current network yields 244 M parameters.
+THis is probably too little for intelligence, but all the other networks are known to be too large, so maybe I'm not wrong after all.
+
+~~~~~~~~
+
+Finished paper-reading and pure research. Will try to download / modify Florence 2 in a new repo, hoping for transfer learning.
