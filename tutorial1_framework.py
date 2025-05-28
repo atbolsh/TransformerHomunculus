@@ -30,7 +30,14 @@ def task1_img_sample(num_sample=40):
     num_texts = task1_text_tensor.size()[0]
     text_inds = torch.randint(0, num_texts, size=(num_sample,), device=device)
     texts = task1_text_tensor[text_inds]
-    return img_in, img_out, texts
+    # updated, fixed part
+    if random.randint(0, 1):
+        text_length = texts.size()[1]
+        target = torch.zeros(num_sample, 32, dtype=texts.dtype, device=texts.device)
+        target[:, :text_length] += texts
+        return img_in, img_out, target
+    else:
+        return img_in, img_out, texts
 
 ########
 
@@ -54,6 +61,11 @@ def _arrow_task_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
     if ind + batch_size > num_controls:
         ind = num_controls - batch_size
     control_texts = sdt[ind:ind + batch_size].to(device)
+
+    # added to fix a small bug
+    ct_length = control_texts.size()[1]
+    new_length = np.random.randint(6, ct_length)
+    control_texts = control_texts[:, :new_length]
 
     flip = 0
     if random_order:

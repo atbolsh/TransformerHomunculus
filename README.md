@@ -2208,12 +2208,13 @@ From there, I move on to the tutorialQA stuff, then a lot of the pretrainings (m
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-May 21st, 2025
+May 27th, 2025
 
 Training for tutorial 1 done.
 Loss size promising.
 
-Tmr: test it, if works launch next thing (probably memory and / or Tutorial QA, though there are options; consider).
+Tmr: Xtest it, 
+if works launch next thing (probably memory and / or Tutorial QA, though there are options; consider).
 
 ~~~~~~~~
 
@@ -2226,3 +2227,21 @@ THis is probably too little for intelligence, but all the other networks are kno
 ~~~~~~~~
 
 Finished paper-reading and pure research. Will try to download / modify Florence 2 in a new repo, hoping for transfer learning.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 28th, 2025
+
+Today was actually pretty fun. It *did* learn how to draw the line on command. However, it used the wrong text trigger: sentence length, not content.
+
+Luckily, this was easy to fix with a few short training sessions. They clicked very quickly, too, which was lucky.
+
+The best version of the brain is now enhanced_brain_arrow_task_v5_batch133
+
+I don't want to spend more time orchestrating a train sequence today.
+
+Tmr:
+Launch a text-based or pretraining-based (memory, canvases) session tomorrow.
+Feeling good? new repo on penguins.farm; learn to torchify / extend / finetune Florence 2 and other hf models.
+
