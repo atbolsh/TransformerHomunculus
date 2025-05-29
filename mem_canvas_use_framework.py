@@ -27,7 +27,7 @@ prev_image_prompts = [\
 
 def get_image_prompts(ind):
     return [\
-        f"Hey, could you recall the image {ind} ago, again?". \
+        f"Hey, could you recall the image {ind} ago, again?", \
         f"Focus on the view {ind} ago, please.", \
         f"Hey, recall the game {ind} ago for me, will you?", \
         f"Woah! What was that {ind} images ago, again??", \
@@ -54,21 +54,23 @@ def mem_task_img_sample(num_sample=40):
 
 # newest to oldest, possible targets
 def get_prompts(img_tensor_list):
-    batch_num = img_tensor_list[0].size()[0]
-    lookback_vals = np.random.randint(0, N_lookback - min_lookback, (batch_num,))
+    batch_size = img_tensor_list[0].size()[0]
+    lookback_vals = np.random.randint(0, N_lookback - min_lookback, (batch_size,))
 
     target = torch.zeros_like(img_tensor_list[0])
     prompts = []
 
-    for ind in range(batch_num):
+    for ind in range(batch_size):
         lookback = lookback_vals[ind]
         target[ind] = img_tensor_list[lookback][ind].detach() 
-        prompts.append(random.choice(lookback_prompts[lookback]))
+        prompts.append(random.choice(lookback_prompts[lookback + min_lookback]))
 
     target = target.contiguous()
 
     prompt_tensor = torch.tensor([x.ids for x in tokenizer.encode_batch(prompts)]).contiguous().to(device)
-    return prompt_tensor, target
+    padded_prompt_tensor = torch.zeros((batch_size, 32), dtype=prompt_tensor.dtype, device=prompt_tensor.device)
+    padded_prompt_tensor[:, :prompt_tensor.size()[1]] += prompt_tensor
+    return padded_prompt_tensor, target
 
 def _mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, random_order=True, model_eval=True, reset_model=True, printing=True, training=False):
     if training and model_eval:
@@ -83,10 +85,9 @@ def _mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
     if training and (optimizer is None):
         raise ValueError("Must provide an optimizer if training")
 
-    if N_look_back - min_lookback < 2:
+    if N_lookback - min_lookback < 2:
         raise ValueError("Go back and adjust min_lookback and N_lookback; must be at least 2 apart")
 
-    inp, out, task_texts = task1_img_sample(batch_size)
     ind = (batch_num * batch_size) % num_controls
     if ind + batch_size > num_controls:
         ind = num_controls - batch_size
@@ -96,7 +97,7 @@ def _mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
     prompt_tensor_list = []
 
     for step in range(N_lookback):
-        imgs = mem_task_img_sample(batch_num)
+        imgs = mem_task_img_sample(batch_size)
         img_tensor_list.append(imgs)
         if step == N_lookback - 1:
             L = img_tensor_list[min_lookback:]
@@ -109,14 +110,14 @@ def _mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
     # now, with all things prepared, let's run the model
     for step in range(N_lookback):
         if step < N_lookback - 2:
-            _, _ = model(prompt_tensor_list[step], img_tensor_list[step])
+            _ = model(prompt_tensor_list[step], img_tensor_list[step], ret_imgs=False)
         elif step == N_lookback - 2:
-            control_probs, control_recon = model(prompt_tensor_list[step], img_tensor_list[step])
+            control_probs, control_recon = model(prompt_tensor_list[step], img_tensor_list[step], ret_imgs=True)
         else: # if step == N_lookback - 1
             text_probs, recon = model(prompt_tensor_list[step], img_tensor_list[step], ret_imgs=True)
     
     task_img_loss = img_criterion(recon, target)
-    task_text_loss = get_text_loss(text_probs, prompts)
+    task_text_loss = get_text_loss(text_probs, prompt_tensor_list[N_lookback - 1])
     
     control_img_loss = img_criterion(control_recon, img_tensor_list[-2])
     control_text_loss = get_text_loss(control_probs, control_texts)
@@ -133,7 +134,7 @@ def _mem_canvas_batch(batch_size, model, optimizer=None, batch_num=0, random_ord
         if type(model) is EnhancedAgentBrain:
             model.soft_reset()
 
-     if printing:
+    if printing:
         print(f"Total loss: {loss.item()}; that's {task_img_loss.item()} for recalled reconstructions, {control_img_loss.item()} for normal images, and {text_loss.item()} total text\n\n")
 
     if reset_model and (type(model) is EnhancedAgentBrain):

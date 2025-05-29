@@ -2242,6 +2242,30 @@ The best version of the brain is now enhanced_brain_arrow_task_v5_batch133
 I don't want to spend more time orchestrating a train sequence today.
 
 Tmr:
-Launch a text-based or pretraining-based (memory, canvases) session tomorrow.
+X Launch a text-based or pretraining-based (memory, canvases) session tomorrow.
 Feeling good? new repo on penguins.farm; learn to torchify / extend / finetune Florence 2 and other hf models.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 29th, 2025
+
+Lots of delays
+
+Finally launched next training: mem_canvas_use_framework.
+
+Will do the other memory thing next, then a week straight of only text stuff.
+
+~~~~~~~~
+
+For the huggingface model, use this:
+
+https://huggingface.co/docs/transformers/en/custom_models
+
+Steps for it:
+1) NB with loaded Florence model
+2) Check 'forward' results (when passed text and imgs). Find way to get text embeddings and img embeddings
+3) Inheritor class that uses those embeddings
+4) Develop from there.
+
 

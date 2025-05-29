@@ -69,7 +69,6 @@ def _mem_pretraining_batch(batch_size, model, optimizer=None, batch_num=0, rando
     if N_look_back - min_lookback < 2:
         raise ValueError("Go back and adjust min_lookback and N_lookback; must be at least 2 apart")
 
-    inp, out, task_texts = task1_img_sample(batch_size)
     ind = (batch_num * batch_size) % num_controls
     if ind + batch_size > num_controls:
         ind = num_controls - batch_size
