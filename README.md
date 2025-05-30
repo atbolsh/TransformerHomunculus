@@ -2268,4 +2268,17 @@ Steps for it:
 3) Inheritor class that uses those embeddings
 4) Develop from there.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 30th, 2025
+
+It needs several more days, needs another order of magnitude.
+
+Hopefully the text-based ones go faster.
+
+Restarted.
+
+Day continues on penguins.farm
+
 
