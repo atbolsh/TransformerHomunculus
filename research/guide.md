@@ -207,6 +207,14 @@ Next steps:
 1) In new repo, find way to download, *modify*, and then retrain / finetune Florence 2 and maybe Flamingo (if it fits)
    -- remember, you're constrained probably below 500M parameters with the current setup.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 30th, 2025
+
+Good paper: https://arxiv.org/pdf/2404.05726
+
+I will base the memory unit on (elements of) this paper.
 
 
 

@@ -2281,6 +2281,22 @@ Restarted.
 
 Day continues on penguins.farm
 
+~~~~~~~~
+
+I tried to steal Florence 2, but it's just so boring and such a pain.
+Small repo called Florence_Proper created, but I'm not doing anything with it.
+Project abandanoned.
+
+~~~~~~~~
+
+I think I found a good paper on how to use memory, longer memory: https://arxiv.org/pdf/2404.05726
+
+Most of the stuff they describe is actually doable. I will do, about, 20 % of it, and hopefully end up with a usable memory system.
+
+I don't want to redesign / retrain the brain again, at least not yet. Luckily for me, most of this stuff can wait until around phase 2.
+
+Making memory_phase2.md to discuss these ideas (this README gets swamped).
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2298,7 +2314,4 @@ Added proper image reconstructions for the mem_enc module. That will be useful f
 
 Before launching it (hopefully tmr), run it through a custom ipynb, check for loss scales (maybe comment some losses out), etc.
 Don't use general optimizer on it; optimize only the mem_enc part (or else it'll overfit by destroying the rest of itself).
-
-
-
 
