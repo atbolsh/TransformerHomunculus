@@ -2281,4 +2281,24 @@ Restarted.
 
 Day continues on penguins.farm
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+May 31st, 2025
+
+Still more training necessary.
+
+It definitely isn't picking up on the 'use the other canvas' idea at all.
+
+Not sure how to change that.
+
+~~~~~~~~
+
+Added proper image reconstructions for the mem_enc module. That will be useful for debugging (can see exact recon quality).
+
+Before launching it (hopefully tmr), run it through a custom ipynb, check for loss scales (maybe comment some losses out), etc.
+Don't use general optimizer on it; optimize only the mem_enc part (or else it'll overfit by destroying the rest of itself).
+
+
+
 

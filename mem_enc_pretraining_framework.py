@@ -52,6 +52,8 @@ text_dec = MemoryDecContext(32).to(device) # sequence length corresponding to te
 mem_criterion = nn.MSELoss()
 
 
+N_lookback = 4
+
 # MAKE SURE THE OPTIMIZER INCLUDES CONTExT_DEC AND TEXT_DEC!!!! OTHERWISE, THIS WILL NOT WORK AT ALL!!!!!!!!!
 def _mem_pretraining_batch(batch_size, model, optimizer=None, batch_num=0, random_order=True, model_eval=True, reset_model=True, printing=True, training=False):
     if training and model_eval:
@@ -65,9 +67,6 @@ def _mem_pretraining_batch(batch_size, model, optimizer=None, batch_num=0, rando
 
     if training and (optimizer is None):
         raise ValueError("Must provide an optimizer if training")
-
-    if N_look_back - min_lookback < 2:
-        raise ValueError("Go back and adjust min_lookback and N_lookback; must be at least 2 apart")
 
     ind = (batch_num * batch_size) % num_controls
     if ind + batch_size > num_controls:
@@ -99,12 +98,24 @@ def _mem_pretraining_batch(batch_size, model, optimizer=None, batch_num=0, rando
     mem_encoding = model.mem_enc(text_encoding, model.context) # single point only for now.
 
     text_recon = text_dec(torch.zeros_like(text_encoding), mem_encoding)
-    context_recon = context_dec(torch.zeros_like(context_encoding), mem_encoding)
+    context_recon = context_dec(torch.zeros_like(model.context), mem_encoding)
+
+    full_context = torch.cat((model.context, text_encoding), dim=1) # context including text (not 'remembered', not reconstructed)
+
+    img_recon_real = model.img_dec(context_recon[:, :256, :], full_context)
+    img_recon_canvas_0 = model.img_dec(context_recon[:, 256:512, :], full_context)
+    img_recon_canvas_1 = model.img_dec(context_recon[:, 512:768, :], full_context)
+    img_recon_canvas_2 = model.img_dec(context_recon[:, 768:1024, :], full_context)
 
     text_loss = mem_criterion(text_recon, text_encoding)
-    context_loss = mem_criterion(context_recon, context_encoding)
+    context_loss = mem_criterion(context_recon, model.context)
 
-    loss = text_loss + (context_loss / 32)
+    img_loss = img_criterion(img_tensor_list[-1], img_recon_real) + \
+               img_criterion(img_tensor_list[-2], img_recon_canvas_2) + \
+               img_criterion(img_tensor_list[-3], img_recon_canvas_1) + \
+               img_criterion(img_tensor_list[-4], img_recon_canvas_0)
+
+    loss = text_loss + (context_loss / 32) + img_loss
 
     if training:
         
