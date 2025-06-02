@@ -2315,3 +2315,37 @@ Added proper image reconstructions for the mem_enc module. That will be useful f
 Before launching it (hopefully tmr), run it through a custom ipynb, check for loss scales (maybe comment some losses out), etc.
 Don't use general optimizer on it; optimize only the mem_enc part (or else it'll overfit by destroying the rest of itself).
 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 1st, 2025
+
+Bad day.
+
+No progress in training.
+
+If that continues, this week will be debugging this training module.
+Steps:
+X 1) nb duplicate of the canvas_use framework. Make sure the task is set correctly at all.
+2) Debug, like I did back when I started on vision. Do it on new branch, possibly with new class name
+   -- new architecture with only 4 inputs and varying output.
+   -- try to teach it from scratch or from other inputs
+   -- DO NOT change lr; too low as it is
+   -- try different ways of signaling which input is which (that is, position encoding).
+   -- don't start with it, but try different decoder architectures: start with the 'real image' features? Somehow choose / mix among the inputs with a dynamic vector? Start with zeros?
+      -- the 'dynamic mixing weight' idea is probably best, but it will require the strongest restructuring for the main task.
+   -- while I am here, I *may* also pretrain some memory. Will see.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 2nd, 2025
+
+No glaring errors in mem_canvas_use_dupe
+
+Switched to new git branch. Will run the harder experiments here.
+
+To start, I'm restarting General_training, but I'm doing it de novo, no control task, even; I am only interested in the results from this new task.
+
+If that doesn't work in a day or two, I will start changing the architecture, as described above.
