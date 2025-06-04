@@ -27,6 +27,28 @@ class DopamineWrapper(nn.Module):
         x = x.repeat(1, 1, self.embed_dim)
         return x
 
+# This is a small decoder. It's meant only to make a weighted sum of the values
+class VisionWeightedSum(nn.Module):
+    def __init__(self, sequence_length=4, embed_dim=768, pad_idx = 0, num_layers=2, num_heads=2, droupout=0.1, norm_first=False):
+        super().__init__()
+        self.sequence_length = sequence_length
+        self.embed_dim = embed_dim
+        decoder_layer = nn.TransformerDecoderLayer(
+            d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
+        )
+        self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
+        self.linear_layer = nn.Sequential(
+            nn.Dropout(p=0.1),
+            nn.Linear(embed_dim, 1)
+        )
+        self.softmax = nn.Softmax(dim=1)
+
+    # The entire point is the context; I won't let this one run without context
+    def forward(self, context):
+        b = context.size()[0]
+        inp = torch.zeros((b, self.sequence_length, self.embed_dim), dtype=context.dtype, device=context.device)
+        return self.softmax(self.linear_layer(self.decoder(inp, context)))
+
 # The below is copied over from model.py
 
 # Additions to the brain (or new brain class):
@@ -44,8 +66,11 @@ class EnhancedAgentBrain(nn.Module):
         super().__init__()
         self.img_enc = ImageTransformerEncoder()
         self.img_dec = ImageTransformerDecoder()
+        self.img_weight = VisionWeightedSum()
+
         self.text_enc = SentenceTransformerEncoder(num_embed=vocab_size)
         self.text_dec = SentenceTransformerDecoder(num_embed=vocab_size)
+
         self.dopamine = DopamineWrapper() # for RL; not yet tested, use later
 
         # 6 inputs; 3 img canvases, 1 img input, text input, memory input
@@ -151,8 +176,16 @@ class EnhancedAgentBrain(nn.Module):
             # For images and memory, the text_encoding can be added to context (in fact, *must* be)
             context.append(text_encoding + self.context_tagging[-1])
             full_context = torch.cat((tensor_context, context[-1]), dim=1) # 
+
+            # the input to img_dec is going to be a weighted sum of all the image features, passed through a softmax
+            # without this feature, it was difficult for the model to learn to use the canvases at all.
+        
+            num_imgs = self.canvases.num_canvases + 1
+            img_weights = self.img_weight(full_context) # should be b x 4 and add to 1
+            all_img_features = torch.cat([t.unsqueeze(1) for t in context[:num_imgs]], dim=1) # should be b x 4 x 256 x 768
+            input_img_features = (all_img_features * img_weights.view(b, num_imgs, 1, 1)).sum(dim=1) # should be b x 256 x 768
     
-            img_recon = self.img_dec(real_img_context, full_context)
+            img_recon = self.img_dec(input_img_features, full_context)
             self.canvases.store(img_recon)
        
         if ret_imgs:

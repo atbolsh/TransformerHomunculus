@@ -2348,4 +2348,35 @@ Switched to new git branch. Will run the harder experiments here.
 
 To start, I'm restarting General_training, but I'm doing it de novo, no control task, even; I am only interested in the results from this new task.
 
-If that doesn't work in a day or two, I will start changing the architecture, as described above.
+If that doesn't work in a day or two, I will start changing the architecture, as described above (especiall changing how img_dec is called)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 3rd, 2025
+
+No luck training de novo.
+I'll let it run tonight, then kill it.
+Morning did not leave any time to change anything.
+Other things to do:
+ -- next training, whenever it comes, will place even less weight on the text (something like dividing by 10k or 20k)
+ -- next approach to this needs to try the other architectures discussed.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 4th, 2025
+
+Draft of new code written. I don't feel like testing a ton of things. The retraining really *should* be fast this time.
+
+Tmr: test. If ready, transfer weights. Train on control and the line (no context use yet). If it works well, switch to using the context.
+
+~~~~~~~~
+
+If that experiment fails (early next week), try teaching it the context at the same time as the control (and maybe even waiting on tutorial1 stuff).
+
+This is an annoying distraction, but I expect the QA stuff really will be fast, so . . .
+
+
+
+
