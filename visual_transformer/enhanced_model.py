@@ -29,7 +29,7 @@ class DopamineWrapper(nn.Module):
 
 # This is a small decoder. It's meant only to make a weighted sum of the values
 class VisionWeightedSum(nn.Module):
-    def __init__(self, sequence_length=4, embed_dim=768, pad_idx = 0, num_layers=2, num_heads=2, droupout=0.1, norm_first=False):
+    def __init__(self, sequence_length=4, embed_dim=768, pad_idx = 0, num_layers=2, num_heads=2, dropout=0.1, norm_first=False):
         super().__init__()
         self.sequence_length = sequence_length
         self.embed_dim = embed_dim

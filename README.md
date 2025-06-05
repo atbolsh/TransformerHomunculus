@@ -2377,6 +2377,16 @@ If that experiment fails (early next week), try teaching it the context at the s
 
 This is an annoying distraction, but I expect the QA stuff really will be fast, so . . .
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 5th, 2025
+
+Good start. New model seems to have the correct format.
+
+Will start control / line drawing training right away.
+
+Will check on it tmr.
 
 
 
