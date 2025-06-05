@@ -2402,5 +2402,11 @@ If the canvases don't work again, I will try to train these in a different order
 
 I'll figure this out. The QA tasks are next.
 
+~~~~~~~~
+
+UPDATE: this change forces me to go from a default 16 to a default 8 images per batch. This is a limitiation.
+
+After making sure that this current system works with the canvases, I may go back and try a more lightweight vision attention module, to help with training down the road.
+
 
 
