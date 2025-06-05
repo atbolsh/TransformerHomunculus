@@ -2384,9 +2384,23 @@ Jun 5th, 2025
 
 Good start. New model seems to have the correct format.
 
-Will start control / line drawing training right away.
+X Will start control / line drawing training right away.
 
 Will check on it tmr.
+
+~~~~~~~~
+
+Transferred weights from enhanced_brain_arrow_task_v5_batch133.pth
+ -- NOTE: the version on the penguins.army server is now CORRUPTED! Next time KINGSINGTON is plugged in, replace with the backup
+
+Using the name 'super_brain' in the save files. NOt my favorite. Will think of another one.
+
+Retraining control and arrow_task for a day.
+Works? Great, move on to the canvases again.
+
+If the canvases don't work again, I will try to train these in a different order, maybe control and canvases together.
+
+I'll figure this out. The QA tasks are next.
 
 
 
