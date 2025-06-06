@@ -2416,5 +2416,7 @@ Jun 6th, 2025
 Dumb mistake cost me a day. Stray comment made it so taht I didn't load the saved weights into the new brain.
 Redoing control / arrow training. Canvas training in the morning.
 
+If that doesn't do it: train only the img_weight layer to produce 1, 0, 0, 0 by default (for an hour?), before then testing inference for old tasks and then switching to canvases.
+
 
 
