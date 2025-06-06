@@ -2408,5 +2408,13 @@ UPDATE: this change forces me to go from a default 16 to a default 8 images per 
 
 After making sure that this current system works with the canvases, I may go back and try a more lightweight vision attention module, to help with training down the road.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 6th, 2025
+
+Dumb mistake cost me a day. Stray comment made it so taht I didn't load the saved weights into the new brain.
+Redoing control / arrow training. Canvas training in the morning.
+
 
 
