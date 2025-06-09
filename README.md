@@ -2418,5 +2418,40 @@ Redoing control / arrow training. Canvas training in the morning.
 
 If that doesn't do it: train only the img_weight layer to produce 1, 0, 0, 0 by default (for an hour?), before then testing inference for old tasks and then switching to canvases.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 7th, 2025
+
+I think it's getting there. For some reason, it needs a little more time to learn this.
+
+If it's not done tmr - or even if it is - I may experiment with this a little more.
+For example, could I work off of the original (transferred_weights) example and train up a img_weight separately? Combining them together after only an hour of work?
+
+Will try tmr or during the week. Unfortunately, I now have to go.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 8th, 2025
+
+Lost another day, damn. It hadn't loaded.
+
+I'm letting it train over night. No dice? Easy training in the morning (img_weight alone), followed by canvas training Tuesday.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 9th, 2025
+
+No luck. Checking weights by hand, they always produce results around 0.25
+
+I realize that I'm doing something wrong: the input tokens need location markers. The input cannot be 0s.
+
+I'm trying the 'just train' approach once more, but only over night. In my understanding, the system *should* be able to learn this.
+
+If that fails, I'll do the quick hand-training in the morning, and check inference performance after.
+
+
 
 

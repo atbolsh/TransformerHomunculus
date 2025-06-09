@@ -46,7 +46,9 @@ class VisionWeightedSum(nn.Module):
     # The entire point is the context; I won't let this one run without context
     def forward(self, context):
         b = context.size()[0]
-        inp = torch.zeros((b, self.sequence_length, self.embed_dim), dtype=context.dtype, device=context.device)
+        # input cannot be zeros - the inputs have to be distinct - so they'll just be incremented from 0 to 1.
+        seed = torch.arange(start=0, end=1, step=1.0/self.sequence_length).unsqueeze(0).unsqueeze(2)
+        inp = seed.repeat(b, 1, self.embed_dim)
         return self.softmax(self.linear_layer(self.decoder(inp, context)))
 
 # The below is copied over from model.py
