@@ -2452,6 +2452,26 @@ I'm trying the 'just train' approach once more, but only over night. In my under
 
 If that fails, I'll do the quick hand-training in the morning, and check inference performance after.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 10th, 2025
+
+Very strange day
+
+I saw that the new system had failed to retrain fully, but img_weights were turning out correct. This was very strange.
+
+I tried frankensteining the new img_weight layer onto old systems, and the img_dec outputs were complete garbage.
+
+I could just let it keep training, but this is an interesting puzzle that goes against my intuition.
+
+tmr, I will recreate the fwd loop in a new notebook and make sure that everything is correct
+(and that the 'frankenstein' brain really has trained weights - though I transferred several times from different old brains)
+
+In short, will investigate. If it really was all correct - unexpectedly - then I will have to let it keep training. Maybe training in a different order 
+(control first, then tutorial1, etc).
+
+
 
 
 
