@@ -33,6 +33,7 @@ class VisionWeightedSum(nn.Module):
         super().__init__()
         self.sequence_length = sequence_length
         self.embed_dim = embed_dim
+        self.pe = PositionalEncoding(embed_dim, sequence_length)
         decoder_layer = nn.TransformerDecoderLayer(
             d_model=embed_dim, nhead=num_heads, dropout=dropout, batch_first=True, norm_first=norm_first,
         )
@@ -43,13 +44,17 @@ class VisionWeightedSum(nn.Module):
         )
         self.softmax = nn.Softmax(dim=1)
 
+    def get_device(self):
+        return self._modules['decoder']._modules['layers'][0].linear1.weight.device # this function should be part of nn.Module, honestly
+
     # The entire point is the context; I won't let this one run without context
     def forward(self, context):
         b = context.size()[0]
         # input cannot be zeros - the inputs have to be distinct - so they'll just be incremented from 0 to 1.
-        seed = torch.arange(start=0, end=1, step=1.0/self.sequence_length).unsqueeze(0).unsqueeze(2)
-        inp = seed.repeat(b, 1, self.embed_dim)
-        return self.softmax(self.linear_layer(self.decoder(inp, context)))
+        #seed = torch.arange(start=0, end=1, step=1.0/self.sequence_length, device=context.device).unsqueeze(0).unsqueeze(2)
+        #inp = seed.repeat(b, 1, self.embed_dim)
+        inp = torch.zeros(b, self.sequence_length, self.embed_dim, device=context.device)
+        return self.softmax(self.linear_layer(self.decoder(self.pe(inp), context)))
 
 # The below is copied over from model.py
 

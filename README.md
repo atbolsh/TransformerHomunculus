@@ -2472,6 +2472,25 @@ In short, will investigate. If it really was all correct - unexpectedly - then I
 (control first, then tutorial1, etc).
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 11th, 2025
+
+Jackpot. The 'transfer weights' nb was not transferring weights. I added safeguards to make sure this doesn't happen again.
+
+'frankenstein_transferred' is now correct, as is the old enhanced_brain_arrow_task_v5 (transferred over from storage).
+
+Issue fixed.
+
+Tmr:
+1) Cleanup
+   -- backup frankenstein_transferred. That's the best version of the new brain architecture that is available.
+   -- delete unnecessary nb's. Consider the 'DELETE_ME' notebook and maybe the 'recreate forward func' (though that one may be useful
+   -- all the saved brains. Probably delete every 'super_brain' except for the 'frankenstein'.
+2) Launch training
+   -- probably canvases? This can wait if there are any problems / delays.
+
 
 
 
