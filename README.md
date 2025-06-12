@@ -2485,9 +2485,9 @@ Issue fixed.
 
 Tmr:
 1) Cleanup
-   -- backup frankenstein_transferred. That's the best version of the new brain architecture that is available.
-   -- delete unnecessary nb's. Consider the 'DELETE_ME' notebook and maybe the 'recreate forward func' (though that one may be useful
-   -- all the saved brains. Probably delete every 'super_brain' except for the 'frankenstein'.
+X   -- backup frankenstein_transferred. That's the best version of the new brain architecture that is available.
+X   -- delete unnecessary nb's. Consider the 'DELETE_ME' notebook and maybe the 'recreate forward func' (though that one may be useful
+X   -- all the saved brains. Probably delete every 'super_brain' except for the 'frankenstein'.
 2) Launch training
    -- probably canvases? This can wait if there are any problems / delays.
 
