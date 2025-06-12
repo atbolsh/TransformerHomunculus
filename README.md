@@ -2484,13 +2484,20 @@ Jackpot. The 'transfer weights' nb was not transferring weights. I added safegua
 Issue fixed.
 
 Tmr:
-1) Cleanup
-X   -- backup frankenstein_transferred. That's the best version of the new brain architecture that is available.
-X   -- delete unnecessary nb's. Consider the 'DELETE_ME' notebook and maybe the 'recreate forward func' (though that one may be useful
-X   -- all the saved brains. Probably delete every 'super_brain' except for the 'frankenstein'.
-2) Launch training
-   -- probably canvases? This can wait if there are any problems / delays.
+X 1) Cleanup
+X    -- backup frankenstein_transferred. That's the best version of the new brain architecture that is available.
+X    -- delete unnecessary nb's. Consider the 'DELETE_ME' notebook and maybe the 'recreate forward func' (though that one may be useful
+X    -- all the saved brains. Probably delete every 'super_brain' except for the 'frankenstein'.
 
+X 2) Launch training
+X    -- probably canvases? This can wait if there are any problems / delays.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jun 12th, 2025
+
+Cleanup done, canvases laucnhed. Fits on alligator GPU.
+
+Next: check results tmr, take next steps.
 
