@@ -2501,3 +2501,20 @@ Cleanup done, canvases laucnhed. Fits on alligator GPU.
 
 Next: check results tmr, take next steps.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 13th, 2025
+
+It (almost) worked!!
+
+It learned to use the canvases a little. However, I think it's using the wrong indeces.
+Callbacks of '0' and '1' seem identical (which is not good), while, callbacks of '2' go back '1'.
+
+Tmr: recreate (recheckout?) the mem_canvas_use_dupe, and debug it. Make sure the target is what you want it to be.
+Maybe rerun, with max_lookback of 4 instead of 3 (so all the canvases are in play).
+
+I should have done this today. Today was wasted.
+
+Still, it's very encouraging to see progress at all.
+
