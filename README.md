@@ -2518,3 +2518,39 @@ I should have done this today. Today was wasted.
 
 Still, it's very encouraging to see progress at all.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 14th, 2025
+
+Very odd in general.
+
+I think mem_canvas_use was correct as a rule.
+However, the thing hadn't actually learned quite the correct patterns.
+
+Looking at the weights themselves, it seems that it's still learning the correct patter for '2 ago', but already knows the pattern for '1 ago.'
+
+Will launch for another day. No luck? I will change the loss function to directly channel the weights to be correct.
+
+I'm also increasing N_lookback by 1 because it needs to go up.
+
+~~~~~~~~
+
+Next things:
+1) maybe change the loss function to train img_weight directly.
+2) quick small new framework, to zoom in on the agent and to use the 'recall' function to draw lines on older canvases.
+   -- that is, correctly use recall even when the canvas is some arbitrary material.
+3) MOVE ON. TutorialQA is really begging to be run.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 15th, 2025
+
+THe training had crashed. ANother day stupidly wasted.
+
+I dropped the batches for the new task down to 6, and added some code that lets most tasks use higher batch sizes. 
+
+I may try to increase the default batch size to 12 (16 is too high for arrow task).
+
+I'll also try high batch sizes on the QA tasks, later (because they can handle it: the loss goes only through text.

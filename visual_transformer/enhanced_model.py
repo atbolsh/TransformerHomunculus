@@ -189,6 +189,8 @@ class EnhancedAgentBrain(nn.Module):
         
             num_imgs = self.canvases.num_canvases + 1
             img_weights = self.img_weight(full_context) # should be b x 4 and add to 1
+            #print("img_weights:\n")
+            #print(img_weights)
             all_img_features = torch.cat([t.unsqueeze(1) for t in context[:num_imgs]], dim=1) # should be b x 4 x 256 x 768
             input_img_features = (all_img_features * img_weights.view(b, num_imgs, 1, 1)).sum(dim=1) # should be b x 256 x 768
     
