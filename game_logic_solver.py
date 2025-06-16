@@ -46,7 +46,7 @@ def should_turn_anticlockwise_forward(G):
     ax, ay = G.settings.agent_x, G.settings.agent_y
     theta = G.settings.direction
     theta_to_gold = G.direction_angle(ax, ay, gx, gy)
-    return _should_turn_anticlockwise_forward_ENGINE(theta, theta_to_gold
+    return _should_turn_anticlockwise_forward_ENGINE(theta, theta_to_gold)
 
 # best move right now, bare settings
 # can use this, with game, to create track to gold (moving only forward)

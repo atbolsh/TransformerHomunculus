@@ -36,22 +36,22 @@ prompts_zoomHalfway_tensor = tensorify_list(prompts_zoomHalfway)
 ########
 
 def get_zoomAgent_numpy(s):
-    G2 = discrteGame(s)
+    G2 = discreteGame(s)
     center = (s.agent_x, s.agent_y)
-    factor = 2
-    return G2.zoom([center], [factor])[0] # 0 index to make the 'batch' coordinate go away.
+    factor = 6#2
+    return G2.zoom([center], factor)[0] # 0 index to make the 'batch' coordinate go away.
 
 def get_zoomGold_numpy(s):
-    G2 = discrteGame(s)
+    G2 = discreteGame(s)
     center = (s.gold[0][0], s.gold[0][1])
-    factor = 3
-    return G2.zoom([center], [factor])[0] # 0 index to make the 'batch' coordinate go away.
+    factor = 8#3
+    return G2.zoom([center], factor)[0] # 0 index to make the 'batch' coordinate go away.
 
 def get_zoomHalfway_numpy(s):
-    G2 = discrteGame(s)
+    G2 = discreteGame(s)
     center = (0.5*(s.agent_x + s.gold[0][0]), 0.5*(s.agent_y + s.gold[0][1]))
     factor = 2
-    return G2.zoom([center], [factor])[0] # 0 index to make the 'batch' coordinate go away.
+    return G2.zoom([center], factor)[0] # 0 index to make the 'batch' coordinate go away.
 
 # 0 for agent, 1 for gold, 2 for halfwar
 def zoom_data(batch_size, task_ind=0):
@@ -59,7 +59,7 @@ def zoom_data(batch_size, task_ind=0):
     imgs_in = get_images(S)
     funcDict = {0:get_zoomAgent_numpy, 1:get_zoomGold_numpy, 2:get_zoomHalfway_numpy}
     func = funcDict[task_ind]
-    imgs_out = torch.zeros(num_sample, 224, 224, 3)
+    imgs_out = torch.zeros(batch_size, 224, 224, 3)
     for i in range(batch_size):
         imgs_out[i] = torch.tensor(func(S[i]))
     imgs_out = torch.permute(imgs_out, (0, 3, 1, 2)).contiguous().to(device)
@@ -124,13 +124,13 @@ def _zoom_task_batch(batch_size, model, optimizer=None, batch_num=0, random_orde
     return loss.item(), l1.item(), l2.item(), tl1.item(), tl2.item()
 
 def _zoomAgent_task_batch(batch_size, model, optimizer=None, batch_num=0, random_order=True, model_eval=True, reset_model=True, printing=True, training=False):
-    return _zoom_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training, 0):
+    return _zoom_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training, 0)
 
 def _zoomGold_task_batch(batch_size, model, optimizer=None, batch_num=0, random_order=True, model_eval=True, reset_model=True, printing=True, training=False):
-    return _zoom_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training, 1):
+    return _zoom_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training, 1)
 
 def _zoomHalfway_task_batch(batch_size, model, optimizer=None, batch_num=0, random_order=True, model_eval=True, reset_model=True, printing=True, training=False):
-    return _zoom_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training, 2):
+    return _zoom_task_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training, 2)
 
 
 def zoom_task_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order=True, model_eval=True, reset_model=True, printing=True, training=False, task_ind=0):

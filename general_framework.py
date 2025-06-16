@@ -90,7 +90,7 @@ def get_settings_batch(batch_size):
 def get_images(settings_batch, device=device, ignore_agent=False, ignore_gold=False, ignore_walls=False):
     batch_size = len(settings_batch)
     img = torch.zeros(batch_size, 224, 224, 3)
-    should_draw = (ignore_agent or ignore_gold or ignore_wals)
+    should_draw = (ignore_agent or ignore_gold or ignore_walls)
     for i in range(batch_size):
         G2 = discreteGame(settings_batch[i])
         if should_draw:

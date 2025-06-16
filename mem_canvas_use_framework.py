@@ -45,9 +45,12 @@ lookback_prompts = lookback_prompts[min_lookback:N_lookback]
 
 def mem_task_img_sample(num_sample=40):
     img_in = torch.zeros(num_sample, 224, 224, 3)
+    #arrow_drawers = np.random.randint(0, 2, size=num_sample)
     for i in range(num_sample):
         bare_settings = G.random_bare_settings(gameSize=224, max_agent_offset=0.5)
         G2 = discreteGame(bare_settings)
+        #if arrow_drawers[i]:
+        #    G2.G2.bare_draw_arrow_at_gold()
         img_in[i] = torch.tensor(G2.getData())
     img_in = torch.permute(img_in, (0, 3, 1, 2)).contiguous().to(device)
     return img_in

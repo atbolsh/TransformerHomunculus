@@ -2538,8 +2538,8 @@ I'm also increasing N_lookback by 1 because it needs to go up.
 
 Next things:
 1) maybe change the loss function to train img_weight directly.
-2) quick small new framework, to zoom in on the agent and to use the 'recall' function to draw lines on older canvases.
-   -- that is, correctly use recall even when the canvas is some arbitrary material.
+X 2) quick small new framework, to zoom in on the agent and to use the 'recall' function to draw lines on older canvases.
+X    -- that is, correctly use recall even when the canvas is some arbitrary material.
 3) MOVE ON. TutorialQA is really begging to be run.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2554,3 +2554,20 @@ I dropped the batches for the new task down to 6, and added some code that lets 
 I may try to increase the default batch size to 12 (16 is too high for arrow task).
 
 I'll also try high batch sizes on the QA tasks, later (because they can handle it: the loss goes only through text.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 16th, 2025
+
+Training weird. Goes up and down.
+
+I'll let it run for another day before finally hacking it to return canvas weights and train on them directly.
+
+Today, I edite zoom_framework (now actually runs, and zooms in much more), and added a (commented out) option on mem_canvas_use_framework to recall canvases with lines drawn on them.
+
+THis is still going very slowly and much too slowly for my taste :(
+
+
+
+
