@@ -132,13 +132,15 @@ class EnhancedAgentBrain(nn.Module):
 
     # Unlike the below, whether or not ret_imgs is marked, img_dec will be called and the reconstruction saved.
     # can be called with create_context=False to just produce the next token, in an otherwise static scene
-    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True, create_context=True, ret_dopamine=False):
+    def forward(self, text_batch, img_batch=None, ret_imgs=False, return_full=True, use_masks=True, create_context=True, ret_dopamine=False, ret_img_weight=False):
         if (img_batch is None) and create_context:
             raise ValueError("Must provide img_batch to create new context")
         if ret_imgs and (not create_context):
             raise ValueError("to generatre new images, create_context must be true")
         if ret_dopamine and (not ret_imgs):
             raise ValueError("ret_dopamine is just an extension of ret_imgs; please set that flag, too")
+        if ret_dopamine and ret_img_weight:
+            raise NotImplementedError("Haven't made this fix; may need a dict-style return class instead")
 
         b = text_batch.size()[0]
         src_attention_mask, src_key_padding_mask = self.get_masks(text_batch, use_masks)
@@ -200,6 +202,8 @@ class EnhancedAgentBrain(nn.Module):
         if ret_imgs:
             if ret_dopamine:
                 return text_probs, img_recon, reaction[:, 0, 0] # humans only need one value, not 768 copies of the value
+            elif ret_img_weight:
+                return text_probs, img_recon, img_weights
             else:
                 return text_probs, img_recon
         else:

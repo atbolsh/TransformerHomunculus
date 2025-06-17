@@ -2568,6 +2568,13 @@ Today, I edite zoom_framework (now actually runs, and zooms in much more), and a
 
 THis is still going very slowly and much too slowly for my taste :(
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 17th, 2025
+
+It wasn't working, so I wrote a new framework. We will see.
+
 
 
 
