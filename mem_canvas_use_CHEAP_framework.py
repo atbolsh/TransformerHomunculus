@@ -123,7 +123,7 @@ def _mem_canvas_CHEAP_batch(batch_size, model, optimizer=None, batch_num=0, rand
             model.soft_reset()
 
     if printing:
-        print(f"Total loss: {loss.item()}; {text_loss.item()} total text, {task_main_loss.item()} for the weights\n\n")
+        print(f"Total loss: {loss.item()}; {task_text_loss.item()} total text, {task_main_loss.item()} for the weights\n\n")
 
     if reset_model and (type(model) is EnhancedAgentBrain):
         model.reset()

@@ -2575,6 +2575,25 @@ Jun 17th, 2025
 
 It wasn't working, so I wrote a new framework. We will see.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jun 18th, 2025
 
+Dumb typo cost me a day. Restarting. 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 19th, 2025
+
+Canvases finished training. GOod results. Too certain of itself and tripped by small text mistakes, but I can tolerate this for now (not later).
+
+If the hard-coded weights signal is too stubborn, I'll write 'CHEAP' versions for other frameworks.
+
+Launched tutorialQA training in a naive way (using larger lr). Will see if it destroys all other performance.
+
+~~~~~~~~
+
+The more I work, the more I want to use transfer learning from systems that already have rudimentary vision / text comprehension. 
+During trips, I will look at that. See the research doc for more info. 
