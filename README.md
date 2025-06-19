@@ -2598,4 +2598,11 @@ Launched tutorialQA training in a naive way (using larger lr). Will see if it de
 The more I work, the more I want to use transfer learning from systems that already have rudimentary vision / text comprehension. 
 During trips, I will look at that. See the research doc for more info. 
 
+~~~~~~~~
+
+I killed the training early.
+
+QA may have been learned, but the other tasks are showing strong signs of deterioration.
+
+I will look into the qualitative behavior tmr. I will likely retry with some improvements (fewer text runs? Only train the decoder? Dunno).
 
