@@ -216,5 +216,25 @@ Good paper: https://arxiv.org/pdf/2404.05726
 
 I will base the memory unit on (elements of) this paper.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 20th, 2025
+
+ -- look up the video stuff from the video LLM presentation at work. Try to find something you can replicate or steal
+ -- look up the "reasoning" stuff; what it means, how it's done. Consider how to use that
+ -- I loved the "tag" which meant "go look at this caption". It was very useful. Use that (later, when instructions arise)
+
+Those two are important. I should figure out the current SOTA.
+
+This can be done on trips / planes.
+
+Reread the May 30th paper, again, too.
+
+~~~~~~~
+
+Maybe I'll end up taking a standard video QA network and modify it for my purposes. THis will not happen until after I quit my current job.
+
+
 
 

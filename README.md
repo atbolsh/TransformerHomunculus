@@ -2597,3 +2597,5 @@ Launched tutorialQA training in a naive way (using larger lr). Will see if it de
 
 The more I work, the more I want to use transfer learning from systems that already have rudimentary vision / text comprehension. 
 During trips, I will look at that. See the research doc for more info. 
+
+
