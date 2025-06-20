@@ -2606,3 +2606,26 @@ QA may have been learned, but the other tasks are showing strong signs of deteri
 
 I will look into the qualitative behavior tmr. I will likely retry with some improvements (fewer text runs? Only train the decoder? Dunno).
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 20th, 2025
+
+First training was a failure. Even control reconstructions suffered, while the essence of the arrow and the canvas task were forgotten completely.
+
+I will consider retraining once I'm back from Miami. I will focus on reading and plotting while I'm gone, because I'm just a little sick of frameworks.
+
+~~~~~~~~
+
+Next:
+1) Retry TutorialQA in 3 more ways until I find something that works. Keep the 'CHEAP' training for the canvases online.
+   -- first way: small lr for the text encoder, large lr for the text decoder.
+2) Once I find a way, knock out all the QA frameworks. The 'complex loss function stuff' can wait; I want a large fraction of the frameworks under my belt.
+
+~~~~~~~~
+
+This shows me something: I want the 'fundamental' skills not to vanish once I start trying to teach it basics. I don't want to always keep that part of the training data running.
+
+I will use some version of LoRA once I get to phase 2 or beyond.
+
+
