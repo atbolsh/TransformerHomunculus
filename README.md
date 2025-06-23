@@ -2628,4 +2628,14 @@ This shows me something: I want the 'fundamental' skills not to vanish once I st
 
 I will use some version of LoRA once I get to phase 2 or beyond.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 23rd, 2025
+
+I looked up 'reasoning' and commented on it in the research folder.
+
+Bad day; slow start. Do better.
+
+Training tomorrow.
 

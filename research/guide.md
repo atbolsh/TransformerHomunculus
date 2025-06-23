@@ -222,7 +222,11 @@ I will base the memory unit on (elements of) this paper.
 Jun 20th, 2025
 
  -- look up the video stuff from the video LLM presentation at work. Try to find something you can replicate or steal
- -- look up the "reasoning" stuff; what it means, how it's done. Consider how to use that
+X -- look up the "reasoning" stuff; what it means, how it's done. Consider how to use that
+     -- basically, this means any LLMs that was finetuned deliberately for reasoning.
+     -- no single method (eg CoT or anything like that)
+     -- corporate first; academics were trying to recreate o1 more than anything else
+     -- grab-bag of methods, from special datasets to finetuning to RL, etc.
  -- I loved the "tag" which meant "go look at this caption". It was very useful. Use that (later, when instructions arise)
 
 Those two are important. I should figure out the current SOTA.
@@ -235,6 +239,14 @@ Reread the May 30th paper, again, too.
 
 Maybe I'll end up taking a standard video QA network and modify it for my purposes. THis will not happen until after I quit my current job.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jun 23rd, 2025
 
+I looked up 'reasoning LLMs' on wiki and on some of their linked sources.
+
+Not a lot to go on. Unless I end up fine-tuning on general reasoning tasks (unlikely; system too small) this will not be useful.
+
+Other notes are above.
 
