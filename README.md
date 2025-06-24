@@ -2639,3 +2639,21 @@ Bad day; slow start. Do better.
 
 Training tomorrow.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 24th, 2025
+
+Launched TutorialQA idea one more time
+
+I chenged the higher-lr text_optimizer to only optimize the text decoder, and added som general_optimizer passes for the tutorialQA_framework.
+
+Hopefully this is enough (most of the other tasks do not heavily rely on the text_decoder; if control is ruined, I might go back and run a few more passes with that feature turned off).
+
+Hopefully this is enough. We shall see tmr.
+
+
+
+
+
+
