@@ -2652,8 +2652,28 @@ Hopefully this is enough (most of the other tasks do not heavily rely on the tex
 
 Hopefully this is enough. We shall see tmr.
 
+~~~~~~~~
 
+Tmr: actually take some time to review the videoLLM stuff I've mentioned one too many times already.
 
+And maybe work on the toy, too.
+Or make the company, legally.
 
+After the GeneralTraining tasks
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 25th, 2025
+
+Bad day, only training.
+
+I can tell from the losses that the other skills still deteriorated somewhat. HOwever, it looks like the skill was probably learned fully.
+Relaunching with the 'text optimizer' part turned off. Maybe a day of normal running can restore the other skills.
+
+Tmr, I will try to actually look at all the performances again, then make a choice about how to proceed.
+
+~~~~~~~~
+
+Tmr: what I had planned for today: toy, videoLLM, maybe register the business
 
