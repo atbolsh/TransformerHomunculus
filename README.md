@@ -2677,3 +2677,24 @@ Tmr, I will try to actually look at all the performances again, then make a choi
 
 Tmr: what I had planned for today: toy, videoLLM, maybe register the business
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 26th, 2025
+
+Bad day. Need a good day. Do the other stuff on the good day: toy, videoLLM, maybe register the businesss.
+
+Training did not work; the task seems to have been learned, but lost skills were not restored, and halfway through there was a bizarre regression (later epochs not usable at all).
+
+Restarting from the last part that worked (canvases_v3), using only gen_optimizer. Will see if this works within good time frames.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 27th, 2025
+
+Restarting again, fewer QA runs out of the batch. Looking at the learning curve, I had a catastrophic failure of task 1 again, and that will not be tolerated.
+
+No work on the weekend, hopefully the weekend will be enough. I need better days next week. Here's to hoping.
+
+
