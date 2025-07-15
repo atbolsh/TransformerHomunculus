@@ -2697,4 +2697,99 @@ Restarting again, fewer QA runs out of the batch. Looking at the learning curve,
 
 No work on the weekend, hopefully the weekend will be enough. I need better days next week. Here's to hoping.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jun 30th, 2025
+
+The weekend trainig failed. Tasks decomposed again.
+
+Rerunning with more focus on the arrow task.
+
+I think this is an issue of not using the image loss in tutorialQA. Not sure how to fix that.
+
+~~~~~~~~
+
+I'm letting it run once more in this setup. If it doesn't show catastrophic forgetting, I'll use this time to:
+0) read the visionLLM papers,
+1) get / start a visionLLM prototype,
+2) try to find another LLM I can hack together for transfer learning,
+3) open the container for the toy.
+
+~~~~~~~~
+
+The next steps after this? 
+1) rewriting all the QA tasks so that they don't shirk on their vision reconstruction capabilities.
+2) reading about catastrophic forgetting.
+
+These frameworks do have me feeling like I'm spinning my wheels. I will have a good think about it in 2 weeks.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 1st, 2025
+
+Mostly successful.
+
+arrow task loss collapsed halfway through training, but it was ok by the end.
+
+I'm not loving this sensitive thing. I'm relaunching for a couple days to get the lr down. If I actually wake up on time at least once, I'll look into more long-term solutions.
+
+I may also need to just graduate to multi-GPU cloud training and stop being a baby.
+
+Current best version: frankenstein_tutorialQA_v6_batch10993.pth
+
+~~~~~~~~
+
+Tmr:
+
+look at progress
+cleanup disk
+side tasks (especially research and robot car)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 2nd, 2025
+
+Typo yesterday cost me a day. Restarting training.
+
+Disease and boredom are severely impacting my progress. In 2 weeks I'll have a chance to do some more research and rethink my approach.
+Until then, this stuff is secondary and I'll only launch occasional framework trainings.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+? Jul 11th, 2025 (exact date unknown)
+
+Weird behavior during trainig - lost connection but it still was training.
+
+Killed it a couple days ago but couldn't restore connection.
+
+Restored now (IP address changed).
+
+Tmr: check behavior, save to the thumb drive, make next plans and start next training.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 15th, 2025
+
+v7 did not perform super well.
+
+performance on the other tasks still craters eventually.
+
+I fixed a bug in the tutorialQA task, and I am restarting it.
+
+I'll keep the lo_lr optimizer for now - maybe it will be useful later? - but I think the next task will be trained using general optimizer.
+
+~~~~~~~~
+
+This feels like make-work. I'm not at all certain I can do a QA framework a day.
+I need to think about architectures / transfer learning, and also work on the robot.
+
+Hopefully I'll have some proper mornings soon, finally.
+
+
+
 

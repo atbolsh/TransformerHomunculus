@@ -80,12 +80,10 @@ task2_Rreplies_lragent = [ \
 ]
 
 task2_prompts_udagent = [ \
-    "Are you to the left or right of the gold?", \
-    "Which side is the gold on?", \
-    "Is the agent to the left or right of the gold?", \
-    "Please tell me whether you are right or left of the gold.", \
-    "Please tell me which side you are relative to the gold.", \
-    "On which side of the gold are you?"
+    "Are you below or above the gold?", \
+    "Is the agent above or below the gold?", \
+    "Please tell me whether you are up or down from the gold.", \
+    "Please tell me whether you are above or below the gold."
 ]
 
 task2_Ureplies_udagent = [ \
