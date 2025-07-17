@@ -2790,6 +2790,30 @@ I need to think about architectures / transfer learning, and also work on the ro
 
 Hopefully I'll have some proper mornings soon, finally.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jul 16th, 2025
 
+v8 did ok. The canvas task sometimes fails, but that's it.
 
+I'm keeping an instance of v6 and the final version of v8. Everything else goes.
+
+Launching blue_line_QA today. If technical difficulties, will fix in morning and relaunch.
+
+QA frameworks for several days; I'll find a way that works. If this one doesn't, it'll be lo_lr from here on out, forever.
+
+~~~~~~~~
+
+General thought: one framework at a time with endless backtracking probably isn't the way. The way is probably random batches, especially mixed tasks, all at once, on a big loop.
+
+SOme budget for AI training and just many loops, single big loss, watch multiple little lines go down. Maybe some corrective function which triggers 'more of this framework' if one framework falls behind.
+
+Will look into multi-objective training sometime.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 17th, 2025
+
+blue_line_QA had a bug; fixed and relaunched

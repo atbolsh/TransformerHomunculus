@@ -2,6 +2,8 @@
 # THis is not for generating blue lines; that's tutorial1. More of that sort will come, later
 
 from general_framework import *
+from generalQA_framework import *
+
 from game_logic_solver import *
 
 prompts_blueLineDirection = [ \
@@ -38,8 +40,8 @@ prompts_blueLineDirection_lens = get_lens(prompts_blueLineDirection_tensor)
 def get_arrow_near_agent_direction(agent_direction):
     return G.mod2pi((np.random.random()*math.pi/3) + agent_direction - (math.pi / 6)) # cone of arc from theta - pi / 6 to theta + pi / 6
 
-def get_arrow_far_agent_direction(setting):
-    return G.mod2pi(agent_directon + math.pi / 6 + ((5 * math.pi / 3)*np.random.random())) # sector from theta + pi / 6 to theta - pi / 6
+def get_arrow_far_agent_direction(agent_direction):
+    return G.mod2pi(agent_direction + math.pi / 6 + ((5 * math.pi / 3)*np.random.random())) # sector from theta + pi / 6 to theta - pi / 6
 
 def get_random_directions(settings_batch):
     batchsize = len(settings_batch)
