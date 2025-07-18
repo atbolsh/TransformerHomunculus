@@ -59,7 +59,7 @@ def get_blue_line_direction_data(batch_size):
     directions = get_random_directions(S)
     deciderDict = {}
     for i in range(batch_size):
-        theta = true_angle_difference_magnitude(directions[i], S[i].dirction)
+        theta = true_angle_difference_magnitude(directions[i], S[i].direction)
         same_direction = (theta < math.pi / 12) # very generous, 'rough' direction. 30 degree cone of arc
         deciderDict[S[i]] = same_direction
 
@@ -75,7 +75,7 @@ def get_blue_line_direction_data(batch_size):
                                   device \
                                  )
 
-    imgs = torch.zeros(num_sample, 224, 224, 3)
+    imgs = torch.zeros(batch_size, 224, 224, 3)
     for i in range(batch_size):
         G2 = discreteGame(S[i])
         G2.draw_arrow(extension = 1.0 + 3.0 * np.random.random(), direction = directions[i])

@@ -2817,3 +2817,14 @@ Will look into multi-objective training sometime.
 Jul 17th, 2025
 
 blue_line_QA had a bug; fixed and relaunched
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 17th, 2025
+
+More blue_line_QA fixes. If it still vexes me tomorrow, I will go through line by line.
+
+This make work is not enough. Tomorrow will need more serious work, like paper reading, large plans, tests of other systems, Grok tests, and so on.
+
+
