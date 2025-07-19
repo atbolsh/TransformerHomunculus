@@ -2821,10 +2821,29 @@ blue_line_QA had a bug; fixed and relaunched
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Jul 17th, 2025
+Jul 18th, 2025
 
 More blue_line_QA fixes. If it still vexes me tomorrow, I will go through line by line.
 
 This make work is not enough. Tomorrow will need more serious work, like paper reading, large plans, tests of other systems, Grok tests, and so on.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 19th, 2025
+
+Conclusion:
+1) the tutorialQA tasks mostly work
+2) the memcanvas tasks mostly work (it can't remember what happened exactly one image ago, on canvas2. It's an issue).
+3) the blue_line_QA stuff is a mile away from completion (often gets the wrong answer).
+
+Rerunning, with lo_lr_optimizer, overnight. Adding on some cycles for blue_line_QA and for the mem_canvas tasks.
+
+Tmr:
+ -- rerun the tests
+ -- triple check that mem_canvas_use is testing the correct thing
+ -- launch another training sequence
+ -- do the other things (make the bot work, etc).
+
+No going outside tmr. Tmr is just work.
 
