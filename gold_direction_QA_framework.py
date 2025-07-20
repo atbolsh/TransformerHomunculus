@@ -1,7 +1,7 @@
 # Given a picture with a blue line, answer whether you are facing it or not.
 # THis is not for generating blue lines; that's tutorial1. More of that sort will come, later
 
-from general_framework import *
+from generalQA_framework import *
 from game_logic_solver import *
 
 prompts_goldDirection = [ \
@@ -37,7 +37,7 @@ prompts_goldDirection_lens = get_lens(prompts_goldDirection_tensor)
 
 def get_gold_direction_data(batch_size):
     S = get_settings_batch(batch_size) 
-    deciderFunc = lambda s: will_intersect_forward(discreteEngine(s)) # usually not, but often enough
+    deciderFunc = lambda s: will_intersect_forward(discreteGame(s)) # usually not, but often enough
 
     texts = text_generator_simple(S, \
                                   prompts_goldDirection_tensor, \

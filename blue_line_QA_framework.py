@@ -60,7 +60,7 @@ def get_blue_line_direction_data(batch_size):
     deciderDict = {}
     for i in range(batch_size):
         theta = true_angle_difference_magnitude(directions[i], S[i].direction)
-        same_direction = (theta < math.pi / 12) # very generous, 'rough' direction. 30 degree cone of arc
+        same_direction = (theta < math.pi / 6) # very generous, 'rough' direction. 60 degree cone of arc
         deciderDict[S[i]] = same_direction
 
     # this hacks the text generator function from generalQA; this is better than copying that code, as strange as it is

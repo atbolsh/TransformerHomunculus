@@ -30,7 +30,7 @@ def true_angle_difference_magnitude(alpha, beta):
 
 # I pulled out the meat of the computation below so that 'should turn anticlockwise' can be used in arbitrary situations, 
 # not just for gold.
-def _should_turn_anticlockwise_forward_ENGINE(current_theta, target_theta):
+def should_turn_anticlockwise_forward_ENGINE(current_theta, target_theta):
     cw_theta = (current_theta - target_theta) % tau
     #print(cw_theta)
     acw_theta = (target_theta - current_theta) % tau
@@ -46,7 +46,7 @@ def should_turn_anticlockwise_forward(G):
     ax, ay = G.settings.agent_x, G.settings.agent_y
     theta = G.settings.direction
     theta_to_gold = G.direction_angle(ax, ay, gx, gy)
-    return _should_turn_anticlockwise_forward_ENGINE(theta, theta_to_gold)
+    return should_turn_anticlockwise_forward_ENGINE(theta, theta_to_gold)
 
 # best move right now, bare settings
 # can use this, with game, to create track to gold (moving only forward)
@@ -61,7 +61,7 @@ def best_move_forward(G):
 
 from copy import deepcopy
 
-def _trace_forward(settings, maxlen=1024, zeroPad=False, ret_rewards = False):
+def trace_forward(settings, maxlen=1024, zeroPad=False, ret_rewards = False):
     G = discreteGame(deepcopy(settings))
     reward = 0
     steps = 0
@@ -124,7 +124,7 @@ def best_move(G):
     else:
         return 4
 
-def _trace_any(settings, maxlen=1024, zeroPad=False, ret_rewards = False):
+def trace_any(settings, maxlen=1024, zeroPad=False, ret_rewards = False):
     G = discreteGame(deepcopy(settings))
     reward = 0
     steps = 0
@@ -153,9 +153,9 @@ def _trace_any(settings, maxlen=1024, zeroPad=False, ret_rewards = False):
 # Got tired of writing two versions of consumer functions, so here's this wrapper
 def get_trace(settings, maxlen=1024, zeroPad=False, ret_rewards = False, forward_only = True):
     if forward_only:
-        return _trace_forward(settings, maxlen, zeroPad, ret_rewards)
+        return trace_forward(settings, maxlen, zeroPad, ret_rewards)
     else:
-        return _trace_any(settings, maxlen, zeroPad, ret_rewards)
+        return trace_any(settings, maxlen, zeroPad, ret_rewards)
 
 
 

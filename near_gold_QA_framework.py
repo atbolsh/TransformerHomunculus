@@ -1,7 +1,7 @@
 # Given a picture with a blue line, answer whether you are facing it or not.
 # THis is not for generating blue lines; that's tutorial1. More of that sort will come, later
 
-from general_framework import *
+from generalQA_framework import *
 from game_logic_solver import *
 
 prompts_goldProximity = [ \

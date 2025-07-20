@@ -1,6 +1,6 @@
 # Turns towards either the gold or the blue line. Same pictures.
  
-from general_framework import *
+from generalQA_framework import *
 from game_logic_solver import *
 
 prompts_pleaseTurnGold = [ \
@@ -45,12 +45,12 @@ prompts_pleaseTurnBlueLineAWAY_tensor = tensorify_list(prompts_pleaseTurnBlueLin
 prompts_pleaseTurnBlueLineAWAY_lens = get_lens(prompts_pleaseTurnBlueLineAWAY_tensor)
 
 replies_clockwise_tensor = tensorify_list(replies_clockwise)
-replise_counterclockwise_tensor = tensorify_list(replies_counterclockwise)
+replies_counterclockwise_tensor = tensorify_list(replies_counterclockwise)
 
 ########
 
 # True fro CW, False for CCW
-best_turn_cw = (lambda setings: not should_turn_anticlockwise_forward(discreteEngine(deepcopy(settings))))
+best_turn_cw = (lambda settings: not should_turn_anticlockwise_forward(discreteGame(deepcopy(settings))))
 
 # The best direction for the blue line will have to be handled more carefully, a la blue_line_QA_framework,
 # because the arrow direction is not encoded in the Settings object.
@@ -83,7 +83,7 @@ def get_please_turn_data(batch_size):
     arrow_directions = 2*math.pi*np.random.random((batch_size,)) # no need to be close to the agent direction, in this case
     deciderDict_CWarrow = {} # used as a helper for the lambda for text_generator_simple
     for i in range(batch_size):
-        deciderDict_CWarrow[S[i]] = (not _should_turn_anticlockwise_forward_ENGINE(S[i].direction, arrow_directions[i])
+        deciderDict_CWarrow[S[i]] = (not should_turn_anticlockwise_forward_ENGINE(S[i].direction, arrow_directions[i]))
 
     # this hacks the text generator function from generalQA; this is better than copying that code, as strange as it is
     deciderFunc_CWarrow = lambda s: deciderDict_CWarrow[s]
@@ -107,10 +107,10 @@ def get_please_turn_data(batch_size):
                                                         )
     texts_pleaseTurnGoldAWAY = pleaseTurnGoldAWAY_generator_simple(S)
 
-    imgs = torch.zeros(num_sample, 224, 224, 3)
+    imgs = torch.zeros(batch_size, 224, 224, 3)
     for i in range(batch_size):
         G2 = discreteGame(S[i])
-        G2.draw_arrow(extension = 1.0 + 3.0 * np.random.random(), direction = directions[i])
+        G2.draw_arrow(extension = 1.0 + 3.0 * np.random.random(), direction = arrow_directions[i])
         imgs[i] = torch.tensor(G2.getData())
     imgs = torch.permute(imgs, (0, 3, 1, 2)).contiguous().to(device)
     return imgs, texts_pleaseTurnBlueLine, texts_pleaseTurnGold, texts_pleaseTurnBlueLineAWAY, texts_pleaseTurnGoldAWAY

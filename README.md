@@ -2840,10 +2840,58 @@ Conclusion:
 Rerunning, with lo_lr_optimizer, overnight. Adding on some cycles for blue_line_QA and for the mem_canvas tasks.
 
 Tmr:
- -- rerun the tests
- -- triple check that mem_canvas_use is testing the correct thing
- -- launch another training sequence
+X -- rerun the tests
+X -- triple check that mem_canvas_use is testing the correct thing
+X -- launch another training sequence
  -- do the other things (make the bot work, etc).
 
 No going outside tmr. Tmr is just work.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 20th, 2025
+
+blue_line_QA was *better*, but not much better.
+
+the arrow task endures MUCH better with the lo lr.
+
+The last (new) tutorialQA task needs sometimes fails, as does the tough mem-canvas-use case, and the new QA stuff.
+
+I think this will greatly benefit from a week-long run. More recent frameworks do worse than older ones.
+
+I wonder if I can get away with adding all the QA tasks together and running for a week. Any problems can also be debugged all together on the weekend, and 
+I can do more fun things during the week. This also removes some of the 'different age' problems (I want the frameworks to be roughly the same quality).
+
+
+Started that run, will come back after lunch.
+
+Plan today:
+X -- debug any QA failures; watch it actually start the run
+ -- robot
+ -- read papers? Read up / test Grok?
+
+~~~~~~~~
+
+Finally runs without failures
+
+Will not check on it this week.
+
+Tasks for week:
+ -- robot
+ -- research (papers, Grok testing, other)
+ -- look into a network for transfer
+ -- look up cloud testing. Do the math. If it's below 1k for decent RL, do it.
+
+Remember the alternative RL system: learn navigation first, rudimentary words only later. Can be trained not with RL but with 'hacks'
+
+~~~~~~~~
+
+Overall, great progress. Now, I'll wait a week before returning to boring framework work.
+
+I also have a better feel for what is learned (arrow on low lr) what is not (arrow on high lr) and what suffers (vaguer questions, more recent questions). 
+I no longer feel 'eternally falling behind'; I understand where I am.
+
+This week will be a good one.
+
 

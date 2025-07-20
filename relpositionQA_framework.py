@@ -1,4 +1,4 @@
-from general_framework import *
+from generalQA_framework import *
 from game_logic_solver import *
 
 # This framewok is very much like tutorialQA_framework, but instead of absolute position, it focuses on relative position
@@ -97,14 +97,14 @@ prompts_whatNextMove_lens = get_lens(prompts_whatNextMove_tensor)
 ########
 
 # True for Y, False for N
-will_intersect_forward = (lambda settings: willIntersectForward(discreteEngine(deepcopy(settings))))
+willIntersectForward = (lambda settings: will_intersect_forward(discreteGame(deepcopy(settings))))
 
 # True fro CW, False for CCW
-best_turn_cw = (lambda setings: not should_turn_anticlockwise_forward(discreteEngine(deepcopy(settings))))
+best_turn_cw = (lambda settings: not should_turn_anticlockwise_forward(discreteGame(deepcopy(settings))))
 
 # 0 for forward, 1 for CW, 2 for CCW
 throwaway_index_helper = {1:0, 3:1, 4:2}
-best_move = (lambda settings: throwaway_index_helper[best_move_forward(discreteEngine(deepcopy(settings)))])
+best_move = (lambda settings: throwaway_index_helper[best_move_forward(discreteGame(deepcopy(settings)))])
 
 ########
 
@@ -113,7 +113,7 @@ willIntersectForward_generator_simple = (lambda settings_batch: text_generator_s
                                                                                       Yreplies_willIntersectForward_tensor, \
                                                                                       Nreplies_willIntersectForward_tensor, \
                                                                                       prompts_willIntersectForward_lens, \
-                                                                                      will_intersect_forward, \
+                                                                                      willIntersectForward, \
                                                                                       device \
                                                                                      ))
 
@@ -121,6 +121,7 @@ whichWayTurn_generator_simple = (lambda settings_batch: text_generator_simple(se
                                                                               prompts_whichWayTurn_tensor, \
                                                                               CWreplies_whichWayTurn_tensor, \
                                                                               CCWreplies_whichWayTurn_tensor, \
+                                                                              prompts_whichWayTurn_lens, \
                                                                               best_turn_cw, \
                                                                               device \
                                                                              ))
@@ -128,6 +129,7 @@ whichWayTurn_generator_simple = (lambda settings_batch: text_generator_simple(se
 whatNextMove_generator_simple = (lambda settings_batch: text_generator_simple_GENERAL(settings_batch, \
                                                                                       prompts_whatNextMove_tensor, \
                                                                                       [Freplies_whatNextMove_tensor, CWreplies_whatNextMove_tensor, CCWreplies_whatNextMove_tensor], \
+                                                                                      prompts_whatNextMove_lens, \
                                                                                       best_move, \
                                                                                       device \
                                                                                      ))
@@ -136,7 +138,7 @@ text_generators_simple = [willIntersectForward_generator_simple, whichWayTurn_ge
 
 ########
 
-def _relposion_qa_batch(batch_size, model, optimizer=None, batch_num=0, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
+def _relposition_qa_batch(batch_size, model, optimizer=None, batch_num=0, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
     if training and model_eval:
         raise ValueError("Cannot be training and model_eval cannot both be True")
     
@@ -200,13 +202,13 @@ def _relposion_qa_batch(batch_size, model, optimizer=None, batch_num=0, random_o
 
     return (loss.item(), all_losses[0].item(), all_losses[1].item(), all_losses[2].item(), all_losses[3].item())
 
-def relposion_qa_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
+def relposition_qa_batch(batch_size, model, optimizer=None, batch_num=0, compute_grad=False, random_order = True, model_eval=True, reset_model=True, printing=True, training=False):
     if compute_grad:
-        return _relposion_qa_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+        return _relposition_qa_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
     else:
         if training:
             raise ValueError("If training is True, compute_grad must also be True")
         with torch.no_grad():
-            return _relposion_qa_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
+            return _relposition_qa_batch(batch_size, model, optimizer, batch_num, random_order, model_eval, reset_model, printing, training)
 
 
