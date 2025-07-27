@@ -2899,4 +2899,38 @@ This week will be a good one.
 
 Jul 27th, 2025
 
+Good week on robot and cameras.
+
+Disappointing training results.
+The blue line was drawn well, but not much else.
+The other QA frameworks need to get added visual losses (especially blue line).
+
+There's a very good chance that I'll need to 'abandon and start over' soon. Real cracks that are difficult to overcome are beginning to emerge.
+Several things may fix this:
+ -- retraining with different relatie weights may work
+ -- I could find another way to train this (cloud)
+
+Otherwise, I really need to start thinking about ways to fix my approach, and especially how to take existing networks and use them
+
+I'm also not a huge fan of the reconstruction quality. These are very simple images. Why are they difficult for the network? What better architectures can I use?
+
+~~~~~~~~
+
+Plans for the trip and for August:
+1) Research
+2) Robot hacked, fully
+3) RL version of my agent trained
+4) "Special loss functions" use attempted. Can be in parallel, on the other machine.
+   -- no dice? I can give up on it and switch to using frozen versions of my agent adversarially. This would be useful later on, too.
+
+I *could* go back and make everything work for a much smaller resolution, but I do not think that I will do that.
+Human-level intelligence is (probably) full-resolution.
+ -- put some more thought into this.
+
+
+
+
+
+
+
 
