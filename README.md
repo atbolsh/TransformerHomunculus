@@ -2920,14 +2920,30 @@ Plans for the trip and for August:
 1) Research
 2) Robot hacked, fully
 3) RL version of my agent trained
-4) "Special loss functions" use attempted. Can be in parallel, on the other machine.
+X 4) "Special loss functions" use attempted. Can be in parallel, on the other machine.
    -- no dice? I can give up on it and switch to using frozen versions of my agent adversarially. This would be useful later on, too.
 
 I *could* go back and make everything work for a much smaller resolution, but I do not think that I will do that.
 Human-level intelligence is (probably) full-resolution.
  -- put some more thought into this.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Jul 28th, 2025
+
+On penguins.farm
+
+I'm trying I fixed complex_loss_func_v1_framework, and am launching an experimental training run on the small machine.
+
+I'm expecting to lose a lot of skills in the other areas. I will not transfer this training run.
+
+What I want to check is this: does this complex loss work at all? Or should I focus on using the system to backpropagate feedback signals, later?
+
+Tmr:
+ -- check all training progress
+ -- ROBOT. ALL
+ -- prep for the trip, if time
 
 
 

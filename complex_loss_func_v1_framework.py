@@ -51,20 +51,23 @@ def gamify_output(inp_settings_batch, agent_centers, directions, agent_radii, go
 # TODO: add wall hack penalty; add penalty for changing how agent is facing too much; add penalty for veering off old-agent / old-gold line
 def complex_loss_func(inp_settings_batch, agent_centers, directions, agent_radii, gold_centers, gold_radii):
     N = len(inp_settings_batch)
-    loss = torch.tensor(0).to(device)
+    loss = torch.tensor(0.0).to(device)
     for i in range(N):
         s = inp_settings_batch[i]
         G2 = discreteGame(s)
         # skipping the wall-overlap loss; haven't thought of how to write it, yet
         loss += 100.0 * (agent_radii[i] - s.agent_r)**2 # balance the weights later, based on experience
-        loss += 10000.0 * (gold_radii[i] - s.gold_r)**2
+        #print(loss)
+        loss += 100.0 * (gold_radii[i] - s.gold_r)**2
+        #print(loss)
 
-        gold_x, gold_y = *s.gold[0] # only one gold element is assumed
+        gold_x, gold_y = s.gold[0] # only one gold element is assumed
         loss += (gold_centers[i, 0] - gold_x)**2 + (gold_centers[i, 1] - gold_y)**2
 
-        old_distance_squared = (gold_x - s.agent_X)**2 + (gold_y - s.agent_y)**2 # scalar
+        old_distance_squared = (gold_x - s.agent_x)**2 + (gold_y - s.agent_y)**2 # scalar
         new_distance_squared = (gold_x - agent_centers[i, 0])**2 + (gold_y - agent_centers[i, 0])**2 # tensor
         loss += torch.relu((4 * new_distance_squared) - old_distance_squared) # becomes positive if agent is too far away; 0 within a certain circle
+        #print(loss)
 
     return loss # game-like-ness not computed as part of complex loss
 
@@ -83,7 +86,7 @@ def _complex_loss_batch(batch_size, model, optimizer=None, batch_num=0, random_o
         raise ValueError("Must provide an optimizer if training")
         
     inp_S = get_settings_batch(batch_size)
-    inp_imgs = get_images(S)
+    inp_imgs = get_images(inp_S)
 
     texts = complex_loss_text_sample(batch_size)
 
@@ -104,7 +107,7 @@ def _complex_loss_batch(batch_size, model, optimizer=None, batch_num=0, random_o
 
     CL = complex_loss_func(inp_S, agent_centers, directions, agent_radii, gold_centers, gold_radii) 
 
-    loss = CL + gameiness_loss + (text_loss / 5000) # TODO: the weights of CL and gameiness_loss need to be balanced 
+    loss = (CL / 500) + gameiness_loss + (text_loss / 5000) # TODO: the weights of CL and gameiness_loss need to be balanced 
 
     if training:
         loss.backward()#retain_graph=True)
