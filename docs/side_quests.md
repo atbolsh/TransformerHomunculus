@@ -2,7 +2,7 @@ May 8th, 2025
 
 Competes with training:
  -- debug why big server crashes with 2 training notebooks
- -- move all docs into new doc folder
+X -- move all docs into new doc folder
  -- move all frameworks into new frameworks folder and make them work.
 
 Independent of training:

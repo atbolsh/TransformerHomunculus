@@ -2945,8 +2945,13 @@ Tmr:
  -- ROBOT. ALL
  -- prep for the trip, if time
 
+~~~~~~~~
 
+new_global_plans.md file created in the docs folder.
 
+~~~~~~~~
+
+UPDATE: training loop nan'ed; will debug tmr
 
 
 
