@@ -32,7 +32,8 @@ def _get_color_masks_diff(img_batch, c_tuple, epsilon=0.04): # needs larger epsi
     c_vector = torch.tensor(c_tuple, device=img_batch.device)
     diff = img_batch - (c_vector / 255).unsqueeze(1).unsqueeze(1).unsqueeze(0)
     mag = (diff*diff).sum(1) / 3 # divide by 3 to get max val of 1 and min val of 0
-    return F.sigmoid((1.0 + epsilon - mag) ** 100)*2 - 1.0 # other activation functions possible. So is an undifferentiable mask mult by the input, and other tricks
+    #return (F.sigmoid((1.0 + epsilon - mag) ** 100)*2 - 1.0) / 0.46393354428682376 # other activation functions possible. So is an undifferentiable mask mult by the input, and other tricks
+    return F.sigmoid((1.0 + 0.05 - mag) ** 50)*2 - 1.0 # choosing to ignore epsilon because that val is the only thing that works and that's not epsilon-scale
 
 def _get_color_masks_diff_alt2(img_batch, c_tuple, epsilon=3.0/(255*255)): # needs larger epsilon later; test!
     with torch.no_grad():
@@ -62,6 +63,9 @@ def get_color_masks(img_batch, c_tuple, epsilon=3.0/(255*255), differentiable=Tr
 
 # this is differentiable with respect to the color mask batch
 def get_mask_centers(color_mask_batch, return_radii=False):
+    #print(color_mask_batch[0])
+    #print(torch.sum(color_mask_batch[0]))
+    #print(torch.max(color_mask_batch[0]))
     scale = torch.arange(224, device=color_mask_batch.device) / 224
     y_scale = scale.unsqueeze(0)
     x_scale = scale.unsqueeze(1).unsqueeze(0) # remember, the way it's displayed is a little backwards, unfortunately
@@ -72,11 +76,17 @@ def get_mask_centers(color_mask_batch, return_radii=False):
     y = torch.sum(color_mask_batch * y_scale, dim=(1, 2)) / elems
     centers = torch.stack((x, y)).T.contiguous()
 
+    # need to filter out bad masks, where the color was not detected
+    with torch.no_grad():
+        filters = (torch.max(torch.max(color_mask_batch, dim=2).values, dim=1).values > 0.9)
+    
+    centers = centers * filters
+
     if return_radii:
-        radii = torch.sqrt(elems / (224 * 224 * torch.pi))
-        return centers, radii
+        radii = torch.sqrt(elems / (224 * 224 * torch.pi))*filters
+        return centers, radii, filters
     else:
-        return centers
+        return centers, filters
 
 """
 # Copy from game
@@ -106,8 +116,8 @@ def direction_angle(self, xo, yo, xt, yt):
 
 # These are all batches
 # See above, commented, for the logic here
-def direction_angle(xo, yo, xt, yt):
-    xt += (xo == yt) * 1e-3 # This is to avoid degenerate cases, see below
+def direction_angle(xo, yo, xt, yt, filters):
+    xt += (torch.abs(xo - xt) < 1e-3) * 1e-3 # This is to avoid degenerate cases, see below
     candidate = torch.atan((yt - yo) / (xt - xo)) # derivatives come from here
 
     candidate += torch.logical_and((yt >= yo), (xt <= xo)) * math.pi # quadrant 2
@@ -115,6 +125,7 @@ def direction_angle(xo, yo, xt, yt):
     lower_half = (yt < yo)
     candidate += lower_half * math.pi #Q3, Q4
     candidate += torch.logical_and(lower_half, (xt > xo)) * math.pi # Q4
+    candidate *= filters
     return candidate
 
 #################
@@ -126,20 +137,22 @@ def get_agent_info(img_batch, epsilon=3.0/(255*255), differentiable=True):
     green_masks = get_color_masks(img_batch, GREEN, epsilon, differentiable)
 
     agent_masks = red_masks + green_masks
-    agent_centers, agent_radii = get_mask_centers(agent_masks, True)
+    agent_centers, agent_radii, agent_filters = get_mask_centers(agent_masks, True)
 
-    red_centers = get_mask_centers(red_masks, False)
-    green_centers = get_mask_centers(green_masks, False) # could use agent_centers, but this is further so more accurate
+    red_centers, red_filters = get_mask_centers(red_masks, False)
+    green_centers, green_filters = get_mask_centers(green_masks, False) # could use agent_centers, but this is further so more accurate
 
-    directions = direction_angle(green_centers[:, 0], green_centers[:, 1], red_centers[:, 0], red_centers[:, 1])
+    filters = torch.logical_and(torch.logical_and(red_filters, green_filters), agent_filters)
 
-    return agent_centers, directions, agent_radii
+    directions = direction_angle(green_centers[:, 0], green_centers[:, 1], red_centers[:, 0], red_centers[:, 1], filters)
+
+    return agent_centers, directions, agent_radii, filters
 
 # This one assumes there is only one gold
 # THis only works on bare games, and good reconstructions
 def get_SINGLE_gold_info(img_batch, epsilon=3.0/(255 * 255), differentiable=True, return_radii=False):
     masks = get_color_masks(img_batch, GOLD, epsilon, differentiable)
-    return get_mask_centers(masks, return_radii)
+    return get_mask_centers(masks, return_radii) # this will include filters
 
 # NOT DIFFERENTIABLE
 # Hacky, incomplete way to retrieve all gold from a SINGLE mask

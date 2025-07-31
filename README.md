@@ -2953,5 +2953,42 @@ new_global_plans.md file created in the docs folder.
 
 UPDATE: training loop nan'ed; will debug tmr
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 29th, 2025
+
+I think I've found the issue:
+1) in image_to_settings, if the color map is not full, weird things happen (gold may be missing, remember)
+2) also, the 'max' in image_to_settings does not seem to be correct, which is annoying me.
+
+using the gold radii may be a problem in general - high gradients on few elements - but I do not think that is enough for nan's
+
+Solution:
+Tmr, detailed debug of image_to_settings and the complex_loss_func file:
+X -- filter not to use masks that are incomplete (with torch.no_grad)
+X -- figure out why the max is close to 0.45 instead of 1 like it should be
+X -- use matplotlib.pyplot to see the masks and the max's
+X -- try this with other 'backend' mask generators (remember you have 3 differentiable options)
+
+Once I do that, I will rerun training, using LOW LR. 
+No luck with that? Different backends.
+
+No luck? Dropping it. The complex loss func will be fully debugged or abandoned before the Chile trip.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Jul 31st, 2025
+
+Fixed the masks. No more nan's or other mistakes.
+
+Ran the code yesterday. The task was not learned. THe agent just became 'fuzzier'. Not sure what to do about this.
+
+Most likely, complex losses are just a write-up. When I return, I will focus on the robot, and maybe afterwards on the new system (which I will write over several weekends), plus remote-training RL.
+
+On the next notebook, I'll save the complex loss stuff for the very end.
+
+Off to vacation! THis code will not be touched for a while. Lots of reading will be done, and maybe experimenting with open-source NNs.
 
 

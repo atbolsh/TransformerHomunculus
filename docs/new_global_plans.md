@@ -19,8 +19,12 @@ Important lessons:
 1) The plan is basically sound, the architecture *can* do all the tasks I want, but it takes a lot of massaging, and possibly not all at once in its current state.
 2) RL is hard and not great
 3) Jury is still out on the complex loss func (test me)
+   -- probably does not work. Leave these 'level 1' tasks for the very end, after all the other stuff is done completely.
 4) Current memory setup is inadequate (test something)
-5) Others, I'm sure: EXPAND THIS LIST
+   -- smaller input vision will be helpful; I can train a proper autoencoder around that.
+5) Use more static question / response format. Get more fluidity later. I think the multiplicity of input questions and output answers is too complex at this stage
+   -- allow it to be more ambiguous later
+
 
 ~~~~~~~~
 
