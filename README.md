@@ -2991,4 +2991,27 @@ On the next notebook, I'll save the complex loss stuff for the very end.
 
 Off to vacation! THis code will not be touched for a while. Lots of reading will be done, and maybe experimenting with open-source NNs.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 11th, 2025
+
+Back from vacation. Killed both training loops.
+
+The 'complex loss func' still eventually went to nan's, but I have no idea whether it trained anything semi-intelligible in the meantime.
+
+Killed the other server, too.
+
+Tmr:
+1) Investigate performances on both tasks
+2) Decide which versions to keep
+3) Sync representations (git branches, files on the disks)
+4) Done? Do one of the other tasks:
+   -- look up the list of other tasks as reminder; step back into it.
+      -- add the 'examine with design concepts' item onto that list
+   -- just drive the robot around; all next steps for it
+   -- lawn care robot
+   -- GPU, server costs
+   -- start looking up other models you can use, especially Chinese models.
+
 
