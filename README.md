@@ -2949,8 +2949,6 @@ Tmr:
 
 new_global_plans.md file created in the docs folder.
 
-~~~~~~~~
-
 UPDATE: training loop nan'ed; will debug tmr
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3035,5 +3033,14 @@ However, the latter may be good pretraining for the 'imagine nearer / further' t
 I am otherwise very disappointed with my performance. Very late start. Sick.
 
 Will merge the branches and freeze the code in the morning, then move on to the exploratory / analysis tasks (analysis based on the software book)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 12th, 2025
+
+The answer is that nothing was learned at all over vacation.
+
+I am abandoning training for a bit, I need to regroup (ways described above).
 
 
