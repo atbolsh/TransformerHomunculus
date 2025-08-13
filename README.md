@@ -3039,8 +3039,22 @@ Will merge the branches and freeze the code in the morning, then move on to the 
 
 Aug 12th, 2025
 
-The answer is that nothing was learned at all over vacation.
+The answer from Widget analysis is that nothing was learned at all over vacation.
 
 I am abandoning training for a bit, I need to regroup (ways described above).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 13th, 2025
+
+Another bad, sick day.
+
+I merged the branches and cleaned up the models (saving a few), though.
+
+Tmr, optimistically:
+ -- glance at the list of tasks. Organize. Get specific idea for priorities and next tasks
+ -- robot
+ -- lawn robot? remote camera? pick.
 
 
