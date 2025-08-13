@@ -2927,7 +2927,14 @@ I *could* go back and make everything work for a much smaller resolution, but I 
 Human-level intelligence is (probably) full-resolution.
  -- put some more thought into this.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Aug 12th, 2025
+
+The answer is that nothing was learned at all over vacation.
+
+I am abandoning training for a bit, I need to regroup (ways described above).
 
 
 
