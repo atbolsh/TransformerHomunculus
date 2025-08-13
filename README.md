@@ -3003,8 +3003,9 @@ The 'complex loss func' still eventually went to nan's, but I have no idea wheth
 Killed the other server, too.
 
 Tmr:
-1) Investigate performances on both tasks
-2) Decide which versions to keep
+X 1) Investigate performances on both tasks
+X 2) Decide which versions to keep
+     -- only last version of the 'complex func' training on the smaller server
 3) Sync representations (git branches, files on the disks)
 4) Done? Do one of the other tasks:
    -- look up the list of other tasks as reminder; step back into it.
@@ -3013,5 +3014,26 @@ Tmr:
    -- lawn care robot
    -- GPU, server costs
    -- start looking up other models you can use, especially Chinese models.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 11th, 2025
+
+Conclusion: neither task learned at all.
+
+The QA version on the alligator GPU just failed in the same way as before.
+
+The complex loss func failed in a more interesting way: the parts further from the gold became less intense.
+The color center of gravity did shift, but the object did not move.
+
+I am *mostly* in favor of removing the complex loss funcs in favor of pretraining on "what is the consequence of moves XYZ".
+However, the latter may be good pretraining for the 'imagine nearer / further' tasks. I am willing to try the complex loss func one more time, later.
+
+~~~~~~~~
+
+I am otherwise very disappointed with my performance. Very late start. Sick.
+
+Will merge the branches and freeze the code in the morning, then move on to the exploratory / analysis tasks (analysis based on the software book)
 
 
