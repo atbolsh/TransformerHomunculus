@@ -3004,7 +3004,7 @@ Tmr:
 X 1) Investigate performances on both tasks
 X 2) Decide which versions to keep
      -- only last version of the 'complex func' training on the smaller server
-3) Sync representations (git branches, files on the disks)
+X 3) Sync representations (git branches, files on the disks)
 4) Done? Do one of the other tasks:
    -- look up the list of other tasks as reminder; step back into it.
       -- add the 'examine with design concepts' item onto that list
@@ -3056,5 +3056,52 @@ Tmr, optimistically:
  -- glance at the list of tasks. Organize. Get specific idea for priorities and next tasks
  -- robot
  -- lawn robot? remote camera? pick.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 14th, 2025
+
+###########
+Full August list
+###########
+
+GPU server cost research / experimentation (both rental and ready-made)
+Financial plans
+ -- check the stock stuff
+Robot
+ -- lawn
+ -- small one, defaults
+ -- small one, hacking for remote control
+Examine current code with the design principles book
+Papers
+ -- ** video tokenization first and foremost; other stuff can come later
+ -- browse some things; learn SOTA
+ -- you should not just look for good ideas, but also make absolutely certain you're not just reinventing the wheel
+Glance at other models
+ -- how to break Grok
+ -- the Chinese models
+ -- can I use any small one?
+Refactor the code into a new repo
+ -- cleaner structure
+ -- frameworks in separate folder!!!
+ -- no legacy RL code
+ -- emphasis on 64x64
+
+~~~~~~~~
+
+Plan for tomorrow, specifically:
+ -- robot defaults
+ -- dentist
+ -- webcam
+ -- robot for lawn
+ -- other comm stuff from emails
+ -- maybe some more organizing of tasks and lessons. 
+
+
+
+
+
+
 
 
