@@ -250,3 +250,55 @@ Not a lot to go on. Unless I end up fine-tuning on general reasoning tasks (unli
 
 Other notes are above.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 26th, 2025
+
+"Cognitive COre of Foundation Models"
+
+Go to that presenation at work, but it's really about just two papers:
+R3Mem: https://arxiv.org/html/2502.15957v1
+System 1.5 Reasoning: https://arxiv.org/pdf/2505.18962
+
+~~~~~~~~
+
+R3Mem is pretty cool. It's a heirarchical memory framework, and a way to train it.
+
+It doesn't really (yet) apply to my system, but in some ways it's similar to the way I have 2 layers.
+
+"Folding summary tokens into the memory, too" is a cool concept; I can get there, later.
+
+~~~~
+
+In short: keep this in mind, maybe revisit it after the level 1 frameworks in the new system are done (and I am stringing together the 'episodic' tasks).
+
+~~~~~~~~
+
+1.5 System Reasoning.
+
+Very very difficult to apply directly.
+
+CoT reasoning already exists for complex computational steps. (intermediate text steps which are discarded)
+
+Dynamicall adding 'reasoning' tokens is apparently a shortcut technique for speed (latent layers go through transformer again).
+
+This system combines both. That's all.
+
+~~~~
+
+Maybe I'll use the 'dynamic reasoning token' idea in some way.
+"Control your own thoughts" (what goes into which documents, when) is very much something I'll use at phase 2, so maybe I'll revisit this paper then, thoguh I doubt it.
+
+~~~~~~~~~
+
+In both systems, I kinda like the recursive property (memory compresses already compressed tokens; system 1.5 reasons about reasoning).
+However, the system 1.5 stuff if REALLy a stretch.
+
+I will use similar approaches, but later.
+
+~~~~~~~~
+
+
+
+
