@@ -3066,16 +3066,16 @@ Aug 14th, 2025
 Full August list
 ###########
 
-XFinancial plans
-X -- check the stock stuff
+X Financial plans
+X  -- check the stock stuff
 Robot
  -- lawn
-X -- small one, defaults
-X -- small one, hacking for remote control
+X  -- small one, defaults
+X  -- small one, hacking for remote control
 X    -- full 'Arduino learning' sidequest
-Examine current code with the design principles book
- -- look at the code itself
- -- look at the way I'm building this / teaching myself skills, based on the 'deliberate practice' book (see email)
+X Examine current code with the design principles book
+X  -- look at the code itself
+X  -- look at the way I'm building this / teaching myself skills, based on the 'deliberate practice' book (see email)
 Experimental Training in Cloud / Online
  -- check prices
  -- check performance experimentally
@@ -3143,6 +3143,8 @@ Here are the next steps:
 4) Start the training on that.
    -- most initial frameworks together, then add the next few (non-complex loss), also together.
    -- complex loss can wait.
+
+These are just technical steps. Making the LLC can be a different weekend.
 
 
 
