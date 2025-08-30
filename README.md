@@ -3127,6 +3127,23 @@ It may be good to take the time for each of the main projects above. ON the othe
 
 We will see.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 30th, 2025
+
+Quality analysis (partial) stored in the 'docs' folder.
+
+Here are the next steps:
+1) Try training this on standard frameworks but non-standard HW (clouds I can rent).
+2) Move to a new repo (or branch?) with minimal changes; just switch to 64x64 images.
+   -- try training that, on all available HW, to look at the speed
+   -- try different batch sizes
+3) Take a full weekend (3rd or 4th in September). Rewrite the whole thing. Start the new repo knowing what you want.
+4) Start the training on that.
+   -- most initial frameworks together, then add the next few (non-complex loss), also together.
+   -- complex loss can wait.
+
 
 
 

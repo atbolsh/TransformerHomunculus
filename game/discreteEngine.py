@@ -502,6 +502,8 @@ class discreteGame:
         y = random.uniform(offset, maxVal)
         return (x, y)
 
+    # THe below 2 should really be rolled into one
+    # full_image_batch is generated for training the NNs; small image batch is for other, specialized purposes
     def random_full_image_batch(self):
         """Batch of ML training images. Full picture, and zooms to some random / important places, at different magnifications"""
         num_factors = 2 # Total number of zoom factors to be used.
