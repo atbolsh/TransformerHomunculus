@@ -3066,14 +3066,20 @@ Aug 14th, 2025
 Full August list
 ###########
 
-GPU server cost research / experimentation (both rental and ready-made)
-Financial plans
- -- check the stock stuff
+XFinancial plans
+X -- check the stock stuff
 Robot
  -- lawn
- -- small one, defaults
- -- small one, hacking for remote control
+X -- small one, defaults
+X -- small one, hacking for remote control
+X    -- full 'Arduino learning' sidequest
 Examine current code with the design principles book
+ -- look at the code itself
+ -- look at the way I'm building this / teaching myself skills, based on the 'deliberate practice' book (see email)
+Experimental Training in Cloud / Online
+ -- check prices
+ -- check performance experimentally
+ -- see any hacks (fp16 for the rewrite?)
 Papers
  -- ** video tokenization first and foremost; other stuff can come later
  -- browse some things; learn SOTA
@@ -3091,16 +3097,35 @@ Refactor the code into a new repo
 ~~~~~~~~
 
 Plan for tomorrow, specifically:
- -- robot defaults
- -- dentist
- -- webcam
+X -- robot defaults
+X -- dentist
+X -- webcam
  -- robot for lawn
- -- other comm stuff from emails
+X -- other comm stuff from emails
  -- maybe some more organizing of tasks and lessons. 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Aug 15th, 2025
 
+See the 'Robot' directory in the home folder.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aug 19th, 2025
+
+THe above list may be better for fall. Don't start the new homunculus until quitting. LLC made before leaving. Everything starts in November.
+
+Deciding factors:
+ -- finances
+ -- do I start an interesting work project? Check in 2 weeks if you are interested
+X -- progress of the Arduino project
+
+It may be good to take the time for each of the main projects above. ON the other hand, I do not want to get behind the big guys.
+
+We will see.
 
 
 
