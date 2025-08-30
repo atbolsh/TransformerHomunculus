@@ -3143,6 +3143,7 @@ Here are the next steps:
 4) Start the training on that.
    -- most initial frameworks together, then add the next few (non-complex loss), also together.
    -- complex loss can wait.
+5) While that's going, try some memory experiments (see docs/deliberate\_practice.md
 
 These are just technical steps. Making the LLC can be a different weekend.
 
