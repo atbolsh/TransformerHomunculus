@@ -3135,6 +3135,7 @@ Aug 30th, 2025
 Quality analysis (partial) stored in the 'docs' folder.
 
 Here are the next steps:
+0) Learn vibe-coding; make LLC and print business cards
 1) Try training this on standard frameworks but non-standard HW (clouds I can rent).
 2) Move to a new repo (or branch?) with minimal changes; just switch to 64x64 images.
    -- try training that, on all available HW, to look at the speed
@@ -3147,6 +3148,47 @@ Here are the next steps:
 
 These are just technical steps. Making the LLC can be a different weekend.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Sep 1st, 2025
+
+Priorities changed.
+
+Step 0 is all the business-side stuff: make the LLC, make the website, print the busienss cards, even make a slide deck
+Start pinging investors (consider) after September 30th technology meeting
+ -- go to it no matter what.
+
+~~~~~~~~
+
+More important: I have seen that advanced vibe coding tools (especially cursor) use context, files, modify context, etc.
+This is a lot like what I will want to do in step 2.
+
+Alternative scheme of project: vibe-coding project where the 'code' is just instructions to the robot, and more composite functions with text / thoughts / context loading are written over time
+
+This has the drawback of using Claude as the backend.
+
+A possible advantage is writing (or vibe coding) many small networks to help with specific decisions / types of decisions, and even vibe coding their training loops.
+Over time, this layer could be trained to replace the Claude invocations.
+
+~~~~~~~~
+
+Major tension between these side projects: learning vibe coding and learning remote training (and learning memory).
+
+I might do both at once, though I very much doubt it.
+
+New directories created:
+1) 'central' for coordinating the entire hobby (that does not belong in this repo)
+2) 'vibe' for vibe coding (website first, AI tools second)
+3) 'memory' for memory games (but not yet).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sep 21st, 2025
+
+Idea: major 'player' refactoring: use DSLs for the game and for the frameworks.
+
+Wait a long time to do this. Do not start here.
 
 
