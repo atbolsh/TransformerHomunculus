@@ -3196,10 +3196,40 @@ Wait a long time to do this. Do not start here.
 
 Oct 5th, 2025
 
-1:30 started local training, batchsize 13, penguinsarmy
+13:30 started local training, batchsize 13, penguinsarmy
 
 Also added the sprites to the git repository, for easier downloading
 
 ~~~~~~~~
 
+15:13, started vast.ai training, batch size 110. H200 GPU, 140G VRAM, and a good CPU. 
+
+To reconnect, go here: ssh -p 40612 root@93.91.156.87
+
+NOTES:
+1) git pull works well
+2) install transformers, einops, pygame to run
+3) Don't forget to push over text_pretraining_data, not just the brain checkpoint base
+
+Those 3 things and I will take much less setup next time (took an hour, but a lazy hour, this time).
+
+And I had to fix a small bug!
+
+*Kill this within 48 hours*
+ -- probably Tuesday morning? Wanna give it at least its 24
+
+This is $1000 / month. It would take several continuous months of training to justify buying the device.
+Do not run continuously; do not buy device. At least not until much later.
+
+~~~~~~~~
+
+Will not do lambda.ai today; I doubt it's much different. There is not much vendor lock-in, here. vast.ai it is.
+
+*Fun project*
+
+Retry the 'custom loss func' stuff, but do it in parallel with 'is the agent to the left or right' (consumes 2 images)
+
+The second task may bleed into the first and actually allow it to move the damn agent instead of just fuzzing it out, selectively.
+FUn weekend if I have spare cycles.
+ -- see how I feel in Miami
 
