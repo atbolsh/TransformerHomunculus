@@ -10,4 +10,4 @@ pseudoGRPO_agent/brain_checkpoints
 *.swp
 text_pretraining_data
 brain_checkpoints
-game_images_and_modifications
+game_images_and_modifications/TextToBrain.ipynb

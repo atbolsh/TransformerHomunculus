@@ -3191,4 +3191,13 @@ Idea: major 'player' refactoring: use DSLs for the game and for the frameworks.
 
 Wait a long time to do this. Do not start here.
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Oct 5th, 2025
+
+1:21 started local training, batchsize 8, penguinsarmy
+
+Also added the sprites to the git repository, for easier downloading
+
 
