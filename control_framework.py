@@ -23,7 +23,7 @@ def _control_batch(batch_size, model, optimizer=None, batch_num=0, random_order=
 
     if batch_size > np_b_size:
         while img_set.shape[0] < batch_size:
-            img_set = numpy.concatenate((img_set, G.random_full_image_set(restrict_angles=True)))
+            img_set = np.concatenate((img_set, G.random_full_image_set(restrict_angles=True)))
         if img_set.shape[0] > batch_size:
             inds = random.sample(list(range(img_set.shape[0])), batch_size)
             img_set = img_set[inds]
