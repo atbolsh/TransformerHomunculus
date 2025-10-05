@@ -3235,3 +3235,10 @@ The second task may bleed into the first and actually allow it to move the damn 
 FUn weekend if I have spare cycles.
  -- see how I feel in Miami
 
+~~~~~~~~
+
+Next things to try:
+1) B200s whenever they're available
+2) The GH200, which combines a CPU and GPU together. I like thier datasheet: https://resources.nvidia.com/en-us-grace-cpu/grace-hopper-superchip
+
+
