@@ -3202,7 +3202,9 @@ Also added the sprites to the git repository, for easier downloading
 
 ~~~~~~~~
 
-15:13, started vast.ai training, batch size 110. H200 GPU, 140G VRAM, and a good CPU. 
+X 15:13, started vast.ai training, batch size 110. H200 GPU, 140G VRAM, and a good CPU. 
+That failed
+Restarted 17:58, batchsize 100, H200 GPU, 140G VRAM, good CPU
 
 To reconnect, go here: ssh -p 40612 root@93.91.156.87
 
