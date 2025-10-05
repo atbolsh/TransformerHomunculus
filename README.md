@@ -3196,8 +3196,10 @@ Wait a long time to do this. Do not start here.
 
 Oct 5th, 2025
 
-1:21 started local training, batchsize 8, penguinsarmy
+1:30 started local training, batchsize 13, penguinsarmy
 
 Also added the sprites to the git repository, for easier downloading
+
+~~~~~~~~
 
 

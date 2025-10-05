@@ -107,7 +107,7 @@ from relpositionQA_framework import *
 # make sure the batch size matches
 # add further functions in the firs list, and add their repetition number to the second list
 #batch_size = 16
-global_batch_size = 8#2#1
+global_batch_size = 13#8#2#1
 default_optimizer =  lo_lr_optimizer #gen_optimizer
 #repetitions = [8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8]
 #repetitions = [8, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 8]
