@@ -3241,4 +3241,15 @@ Next things to try:
 1) B200s whenever they're available
 2) The GH200, which combines a CPU and GPU together. I like thier datasheet: https://resources.nvidia.com/en-us-grace-cpu/grace-hopper-superchip
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Oct 6th, 2025
+
+Killed penguins.army, October 6th, 8:51 AM
+ -- results saved on machine
+
+Killed vast.ai training, October 6th, 8:58 AM
+ -- results saved on KINGSTON, folder H200-training-results-Oct6
+
+Will examine everything tomorrow
