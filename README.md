@@ -3253,3 +3253,25 @@ Killed vast.ai training, October 6th, 8:58 AM
  -- results saved on KINGSTON, folder H200-training-results-Oct6
 
 Will examine everything tomorrow
+
+~~~~~~~~
+
+Can estimate batches / minute from this printout. Will do that tommorrw, in detail:
+
+root@C.26476567:~/Player/brain_checkpoints$ ls -l
+total 13456004
+-rwxrwxrwx 1 root root 1080878062 Oct  6 11:49 EXPERIMENTAL_arrow_task_retraining_TAIL.pth
+-rwxrwxrwx 1 root root 1080880652 Oct  5 22:55 EXPERIMENTAL_arrow_task_retraining_batch1199.pth
+-rwxrwxrwx 1 root root 1041952268 Oct  5 22:55 EXPERIMENTAL_arrow_task_retraining_batch1200.pth
+-rwxrwxrwx 1 root root 1041952268 Oct  5 23:04 EXPERIMENTAL_arrow_task_retraining_batch1398.pth
+-rwxrwxrwx 1 root root 1041952268 Oct  5 23:05 EXPERIMENTAL_arrow_task_retraining_batch1401.pth
+-rwxrwxrwx 1 root root 1080880134 Oct  5 22:07 EXPERIMENTAL_arrow_task_retraining_batch197.pth
+-rwxrwxrwx 1 root root 1080880134 Oct  5 22:07 EXPERIMENTAL_arrow_task_retraining_batch202.pth
+-rwxrwxrwx 1 root root 1041951750 Oct  5 22:17 EXPERIMENTAL_arrow_task_retraining_batch399.pth
+-rwxrwxrwx 1 root root 1080880134 Oct  5 22:17 EXPERIMENTAL_arrow_task_retraining_batch400.pth
+-rwxrwxrwx 1 root root 1041951750 Oct  5 22:26 EXPERIMENTAL_arrow_task_retraining_batch597.pth
+-rwxrwxrwx 1 root root 1080880134 Oct  5 22:27 EXPERIMENTAL_arrow_task_retraining_batch602.pth
+-rwxrwxrwx 1 root root 1041951750 Oct  5 22:45 EXPERIMENTAL_arrow_task_retraining_batch999.pth
+-rwxrwxrwx 1 root root 1041941908 Oct  5 18:36 frankenstein_transferred.pth
+
+
