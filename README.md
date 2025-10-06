@@ -3246,10 +3246,10 @@ Next things to try:
 
 Oct 6th, 2025
 
-Killed penguins.army, October 6th, 8:51 AM
+Killed penguins.army, October 6th, 11:51 AM
  -- results saved on machine
 
-Killed vast.ai training, October 6th, 8:58 AM
+Killed vast.ai training, October 6th, 11:58 AM
  -- results saved on KINGSTON, folder H200-training-results-Oct6
 
 Will examine everything tomorrow
