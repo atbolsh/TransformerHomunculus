@@ -3274,4 +3274,37 @@ total 13456004
 -rwxrwxrwx 1 root root 1041951750 Oct  5 22:45 EXPERIMENTAL_arrow_task_retraining_batch999.pth
 -rwxrwxrwx 1 root root 1041941908 Oct  5 18:36 frankenstein_transferred.pth
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Oct 8th, 2025
+
+Above, on the H200: from batch1200 to batch 1401 is 10 minutes.
+
+So: 200 batches / 10 minutes; 1200 batches / hour
+
+'TAIL' was saved at 11:49 AM
+That is +11h44minutes from 1401, or +11.75 hours, or 120000 + 1200 + 900 = 12000 + 2100 = 14100 batch.
+
+Conclusion: 'TAIL' is roughly batch 14100
+penguins.army reached batch 11802. Honestly about the same number of batches (remember, not every batch is saved, only best ones).
+ -- however, the local batchsize is 13, while the remote batchsize is 100
+ -- I should have adjusted the lr on the remote machine. WIll do that next time
+
+~~~~~~~~
+
+Honestly, there was little difference in performance, but that's because both did so well.
+
+The 'control' for the H200 at epoch 400 was clean, unlike penguins.army, but otherwise, both networks produced very clean results very early.
+
+Still, the 10x throughput of the H200 is considerable. I will definitely use this when I want to speed up training.
+
+~~~~~~~~
+
+Next time:
+1) Train 'closer or further' on both system (use the H200 tutorial1 network as the base for both)
+2) Pick best one, try the custom loss func on both chips.
+   -- I think I can get the custom loss func to work once, even if it's not the best technique long-term.
+
+Next time may be a while. I will be doing MCP work with standard agents for now, maybe even finishing the Phoenix website
 
